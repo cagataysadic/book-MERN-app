@@ -1,0 +1,103 @@
+* {
+    background-color: #1d1313;
+    color: #9c4444;
+    padding: 20px;
+}
+
+.home-heading {
+    font-family: 'Roboto', sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    margin-left: 5%;
+    margin-top: -100px;
+}
+  
+.home-subheading {
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+}
+  
+.home-book-title {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #221313;
+}
+  
+.home-book-description {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    background-color: #221313;
+}
+  
+.home-book-creator {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-style: italic;
+    background-color: #221313;
+}
+
+.home-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.home-list-item {
+    width: 20%;
+    margin-bottom: 20px;
+    background-color: #2c1a1a;
+}
+
+.search-container {
+    margin-left: 55%;
+    position: relative;
+    z-index: 1;
+}
+
+.search-container input {
+    border: 2px solid #351717;
+    background-color: #573838;
+}
+
+.search-container input:focus {
+    border-color: #421d1d;
+    outline: none;  
+}
+
+@media (max-width: 768px) {
+    * {
+        padding: 10px;
+        font-size: 16px;
+    }
+    
+    .home-heading {
+        font-size: 24px;
+        margin-top: -50px;
+    }
+    
+        .home-subheading {
+        font-size: 18px;
+    }
+    
+        .home-book-title {
+        font-size: 14px;
+    }
+    
+        .home-book-description {
+        font-size: 12px;
+    }
+    
+        .home-book-creator {
+        font-size: 10px;
+    }
+    
+        .home-list-item {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+        .search-container {
+        margin-left: 0;
+    }
+}

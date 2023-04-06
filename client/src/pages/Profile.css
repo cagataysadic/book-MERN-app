@@ -1,0 +1,110 @@
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+}
+  
+.profile-label {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    width: 100%;
+    max-width: 500px;
+}
+  
+.profile-label-input,
+.profile-label-input-textarea {
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 5px;
+    border: 2px solid #351717;
+    background-color: #573838;
+}
+
+.profile-label-input,
+.profile-label-input-textarea:focus {
+  border-color: #421d1d;
+  outline: none;
+}
+  
+.profile-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 16px;
+}
+  
+.profile-button:hover {
+    background-color: #3e8e41;
+}
+
+.profile-ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+  
+.profile-li {
+    background-color: #3a16167c;
+    padding: 20px;
+    border-radius: 5px;
+    margin: 10px;
+    width: calc(33.33% - 20px);
+    box-sizing: border-box;
+    position: relative;
+}
+  
+.profile-li h3 {
+    margin-top: 0;
+    background-color: #221313;
+    font-family: 'Open Sans', sans-serif;
+}
+  
+.profile-li p {
+    margin: 10px 0 20px 0;
+    background-color: #221313;
+    font-family: 'Open Sans', sans-serif;
+}
+  
+.prev-book-delete-button {
+    position: absolute;
+    bottom: 7px;
+    right: 10px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 80px;
+}
+  
+.prev-book-delete-button:hover {
+    background-color: #c62828;
+}
+
+@media (max-width: 768px) {
+    .profile-form {
+      max-width: 80%;
+    }
+    
+    .profile-li {
+      width: 100%;
+    }
+    
+    .prev-book-delete-button {
+      font-size: 12px;
+      width: 60px;
+    }
+}

@@ -1,0 +1,54 @@
+.dashboard-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #111d0e;
+    z-index: 1000;
+}
+
+.dashboard-container div {
+    margin-right: 10px;
+}
+
+.dashboard-container a {
+    color: #9b2626;
+    text-decoration: none;
+    padding: 5px;
+    margin-left: 10px;
+    float: right;
+}
+
+.dashboard-container a:hover {
+    background-color: #550d0d;
+    color: #c57070;
+    border-radius: 4px;
+}
+
+.content {
+    margin-top: 50px;
+}
+
+@media only screen and (max-width: 600px) {
+    .dashboard-container {
+      justify-content: space-between;
+      padding: 10px 20px;
+    }
+    
+    .dashboard-container div {
+      margin-right: 0;
+    }
+  
+    .dashboard-container a {
+      margin: 0;
+      float: none;
+    }
+  
+    .content {
+      margin-top: 100px;
+    }
+}
