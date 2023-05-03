@@ -1,36 +1,116 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import Masonry from 'masonry-layout';
+import imagesLoaded from "imagesloaded";
 
 import "./Home.css"
 
 const Home = () => {
     const [books, setBooks] = useState([]);
-    const [search, setSearch] = useState("")
+    const [search, setSearch] = useState("");
+    const [genres, setGenres] = useState([]);
+    const [selectedGenre, setSelectedGenre] = useState(null);
 
     useEffect(() => {
         const fetchBooks = async () => {
-            const response = await axios.get('/api/books/every');
-            setBooks(response.data)
+            const response = await axios.get('/api/book/every');
+            setBooks(response.data);
+            const uniqueGenres = [...new Set(response.data.map(book => book.genre))];
+            setGenres(uniqueGenres);
         };
         fetchBooks();
     }, []);
 
+    const handleGenreClick = (genre) => {
+        if ( selectedGenre === genre) {
+            setSelectedGenre(null);
+        } else {
+            setSelectedGenre(genre);
+        }
+    };
+
+    const filteredBooks = books.filter((book) => {
+        return (
+            (!selectedGenre || book.genre === selectedGenre) && 
+            (book.title.toLowerCase().includes(search.toLocaleLowerCase()) ||
+            book.author.toLowerCase().includes(search.toLocaleLowerCase()))
+            );
+    });
+
+    useEffect(() => {
+        const initMasonry = () => {
+            const grid = document.querySelector('.home-list-masonry');
+            imagesLoaded(grid, function () {
+                new Masonry(grid, {
+                    itemSelector: '.home-list-item-wrapper',
+                    columnWidth: '.home-list-item-wrapper',
+                    gutter: 20,
+                    percentPosition: true,
+                });
+            });
+        };
+
+        if (books.length > 0) {
+            initMasonry();
+        }
+
+        const observer = new MutationObserver(initMasonry);
+        observer.observe(document.querySelector('.home-list-masonry'), {
+            childList: true,
+            subtree: true,
+        });
+
+        return () => {
+            observer.disconnect();
+        };
+    }, [books]);
+
+    const formatDate = (date) => {
+        return new Date(date).toLocaleString();
+    };
+
     return (
         <div className="home-container">
             <div className="search-container">
-                <input type="text" placeholder="looking for a spesific user..." onChange={(e) => setSearch(e.target.value)} />
+                    <input type="text" onChange={(e) => setSearch(e.target.value)} />
             </div>
-            <h1 className="home-heading">Welcome to the Valley of Books</h1>
-            <h2 className="home-subheading">Discover new books:</h2>
-            <ul className="home-list">
-                {books && books.filter((book) => book.userName.toLowerCase().includes(search.toLocaleLowerCase())).map((book) => (
-                    <li key={book._id} className="home-list-item">
-                        <h3 className="home-book-title">{book.title} by {book.author}</h3>
-                        <p className="home-book-description">{book.description}</p>
-                        <p className="home-book-creator">Created by: {book.userName}</p>
-                    </li>
-                ))}
-            </ul>
+            <div className="content-container">
+                <div className="left-container">
+                    <div className="genre-list-container">
+                        <ul className="genre-list">
+                        {genres.map((genre, index) => (
+                            <li
+                                key={index}
+                                className={`genre-item${selectedGenre === genre ? ' selected' : ''}`}
+                                onClick={() => handleGenreClick(genre)}
+                            >
+                                {genre}
+                            </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+                <div className="right-container">
+                    
+                    <h1 className="home-heading">Welcome</h1>
+                    <h2 className="home-subheading">Our Books:</h2>
+                    <ul className="home-list-masonry">
+                        {filteredBooks.map((book) => (
+                            <div key={book._id} className="home-list-item-wrapper">
+                                <li className="home-list-item">
+                                    <h3 className="book-title">{book.title}</h3>
+                                    <h3 className="book-title">{book.author}</h3>
+                                    <p className="book-description">{book.description}</p>
+                                    <h3 className="book-title">{book.genre}</h3>
+                                    <p className="book-creator">{book.userName}</p>
+                                    <p className="book-date">Created At: {formatDate(book.createdAt)}</p>
+                                    {book.updatedAt && <p className="book-update-date">updated At: {formatDate(book.updatedAt)}</p>}
+                                </li>
+                            </div>
+                        ))}
+                    </ul>
+                </div>
+            </div>
         </div>
     );
 };

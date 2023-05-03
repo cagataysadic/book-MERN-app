@@ -1,0 +1,121 @@
+/* Forum.css */
+
+.forum-container {
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 2rem;
+    color: #2C2C2C;
+    background-color: #eaeaea;
+    }
+    
+    .forum-search-container {
+      padding-top: 60px;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    
+    .forum-search-container input {
+      width: 100%;
+      max-width: 600px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #868686;
+      border-radius: 4px;
+      outline: none;
+      color: #373737;
+      background-color: #F1F1F1;
+    }
+  
+    .forum-search-container input[type="text"]::-webkit-input-placeholder {
+      color: #373737;
+      opacity: 1;
+    }
+    
+    .forum-heading {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    
+    .forum-subheading {
+      font-size: 1.5rem;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .forum-list-masonry {
+      max-width: 100%;
+      list-style-type: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .forum-list-item-wrapper {
+      margin-bottom: 20px;
+    }
+    
+    .forum-list-item {
+      padding: 15px;
+      border-radius: 4px;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      background-color: #D8D7D7;
+      width: 400px;
+    }
+    
+    .forum-post-description {
+      background-color: #D8D7D7;
+      font-size: 1.3rem;
+      margin-bottom: 5px;
+    }
+    
+    .forum-post-author {
+      background-color: #D8D7D7;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #2C2C2C;
+    }
+  
+  /* Mobile styling */
+  @media screen and (max-width: 768px) {
+    .forum-container {
+      padding: 1rem;
+    }
+  
+    .forum-heading {
+      font-size: 2rem;
+    }
+  
+    .forum-subheading {
+      font-size: 1.2rem;
+    }
+  
+    .forum-search-container input {
+      font-size: 12px;
+      padding: 4px;
+      max-width: 300px;
+    }
+  
+    .forum-list-masonry {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .forum-list-item {
+      width: 100%;
+      max-width: 350px;
+    }
+  
+    .forum-post-description {
+      font-size: 1.1rem;
+    }
+  
+    .forum-post-author {
+      font-size: 0.9rem;
+    }
+  }

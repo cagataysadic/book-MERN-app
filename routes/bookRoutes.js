@@ -19,15 +19,27 @@ router.get('/', authenticateToken, async (req, res) => {
 });
 
 router.post('/', authenticateToken, async (req, res) => {
-  const { title, author, description } = req.body;
+  const { title, author, description, genre } = req.body;
   const user = await User.findById(req.user.userId)
-  const book = new Book({ title, author, description, userName: user.userName, userId: req.user.userId });
+  const book = new Book({ title, author, description, genre, userName: user.userName, createdAt: Date.now(), userId: req.user.userId });
 
   try {
     const newBook = await book.save();
     res.status(201).json(newBook);
   } catch (error) {
     res.status(400).json({ message: error.message });
+  }
+});
+
+router.put('/:id', authenticateToken, async (req, res) => {
+  const { id } = req.params;
+  const { title, author, description, genre } = req.body;
+
+  try {
+      const updatedBook = await Book.findByIdAndUpdate(id, { title, author, description, genre, updatedAt: Date.now() }, { new: true });
+      res.status(200).json(updatedBook);
+  } catch (error) {
+      res.status(500).json({ message: error.message });
   }
 });
 

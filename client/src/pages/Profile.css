@@ -1,110 +1,238 @@
-.profile-form {
+.profile-container {
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 2rem;
+    color: #2C2C2C;
+    background-color: #eaeaea;
+  }
+  
+  .error-popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 1rem;
+    z-index: 999;
+  }
+    
+  .profile-heading,
+  .profile-subheading {
+    text-align: center;
+  }
+  
+  .profile-heading {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .profile-subheading {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .profile-form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: 'Roboto', sans-serif;
-}
+    margin-bottom: 20px;
+  }
   
-.profile-label {
+  .profile-label {
     display: flex;
     flex-direction: column;
-    margin: 10px 0;
-    width: 100%;
-    max-width: 500px;
-}
+    margin-bottom: 10px;
+  }
   
-.profile-label-input,
-.profile-label-input-textarea {
+  .profile-label-input-textarea {
+    width: 100%;
+    max-width: 600px;
     padding: 10px;
-    border-radius: 5px;
     font-size: 16px;
-    width: 100%;
-    margin-top: 5px;
-    border: 2px solid #351717;
-    background-color: #573838;
-}
-
-.profile-label-input,
-.profile-label-input-textarea:focus {
-  border-color: #421d1d;
-  outline: none;
-}
+    border: 1px solid #868686;
+    border-radius: 4px;
+    outline: none;
+    color: #373737;
+    background-color: #F1F1F1;
+    resize: vertical;
+  }
   
-.profile-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
+  .delete-account-button {
     padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
     font-size: 16px;
-}
+    border: none;
+    border-radius: 4px;
+    background-color: #DB0000;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
   
-.profile-button:hover {
-    background-color: #3e8e41;
-}
+  .delete-account-button:hover {
+    background-color: #F30000;
+  }
 
-.profile-ul {
+  .button-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  
+  .profile-button {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #00D01A;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .profile-button:hover {
+    background-color: #00D070;
+  }
+  
+  .profile-ul {
     list-style: none;
     padding: 0;
-    margin: 20px 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+  }
   
-.profile-li {
-    background-color: #3a16167c;
-    padding: 20px;
-    border-radius: 5px;
-    margin: 10px;
-    width: calc(33.33% - 20px);
-    box-sizing: border-box;
-    position: relative;
-}
+  .profile-li {
+    padding: 15px;
+    border-radius: 4px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    background-color: #D8D7D7;
+    width: 400px;
+    min-width: 400px;
+  }
   
-.profile-li h3 {
-    margin-top: 0;
-    background-color: #221313;
-    font-family: 'Open Sans', sans-serif;
-}
+  .book-title,
+  .post-title,
+  .book-description,
+  .post-description,
+  .book-username,
+  .post-username,
+  .book-timestamp,
+  .post-timestamp {
+    width: 100%;
+    display: block;
+    background-color: #D8D7D7;
+    word-wrap: break-word;
+  }
   
-.profile-li p {
-    margin: 10px 0 20px 0;
-    background-color: #221313;
-    font-family: 'Open Sans', sans-serif;
-}
+  .book-title,
+  .post-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
   
-.prev-book-delete-button {
-    position: absolute;
-    bottom: 7px;
-    right: 10px;
-    background-color: #f44336;
-    color: white;
-    border: none;
+  .book-description,
+  .post-description {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+  
+  .book-username,
+  .post-username {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .profile-list-item-wrapper {
+    margin-bottom: 20px;
+  }
+  
+  .prev-book-delete-button,
+  .prev-book-edit-button {
     padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
     font-size: 14px;
-    width: 80px;
-}
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-right: 5px;
+  }
   
-.prev-book-delete-button:hover {
-    background-color: #c62828;
-}
-
-@media (max-width: 768px) {
-    .profile-form {
-      max-width: 80%;
+  .prev-book-delete-button {
+    background-color: #DB0000;
+    color: white;
+  }
+  
+  .prev-book-delete-button:hover {
+    background-color: #F30000;
+  }
+  
+  .prev-book-edit-button {
+    background-color: #00D09B;
+    color: white;
+  }
+  
+  .prev-book-edit-button:hover {
+    background-color: #00D0BC;
+  }
+  
+  /* Mobile styling */
+  @media screen and (max-width: 768px) {
+    .profile-container {
+      padding: 1rem;
     }
-    
+  
+    .profile-heading {
+      font-size: 2rem;
+    }
+  
+    .profile-subheading {
+      font-size: 1.2rem;
+    }
+  
+    .profile-label-input-textarea {
+      font-size: 14px;
+      padding: 8px;
+    }
+  
+    .delete-account-button,
+    .profile-button {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+  
+    .profile-ul {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+  
     .profile-li {
-      width: 100%;
+      width: 300px;
+      min-width: 300px;
     }
-    
-    .prev-book-delete-button {
+  
+    .book-title,
+    .post-title {
+      font-size: 1.3rem;
+    }
+  
+    .book-description,
+    .post-description {
+      font-size: 1rem;
+    }
+  
+    .book-username,
+    .post-username {
+      font-size: 1.1rem;
+    }
+  
+    .prev-book-delete-button,
+    .prev-book-edit-button {
       font-size: 12px;
-      width: 60px;
+      padding: 4px 8px;
     }
-}
+  }
