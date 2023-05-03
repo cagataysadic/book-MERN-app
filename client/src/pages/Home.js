@@ -91,7 +91,6 @@ const Home = () => {
                     </div>
                 </div>
                 <div className="right-container">
-                    
                     <h1 className="home-heading">Welcome</h1>
                     <h2 className="home-subheading">Our Books:</h2>
                     <ul className="home-list-masonry">
