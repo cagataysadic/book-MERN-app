@@ -47,7 +47,7 @@ const CommentsSection = ({ postId }) => {
 
   return (
     <div className="comments-section">
-        <h3>Yorumlar</h3>
+        <h3>Comments</h3>
         {comments.map((comment) => (
             <Comment key={comment._id} comment={comment} postId={postId} refreshComments={fetchComments} />
         ))}
@@ -58,7 +58,7 @@ const CommentsSection = ({ postId }) => {
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
             />
-            <button type="submit">Gönder</button>
+            <button type="submit">Send</button>
         </form>
     </div>
   )

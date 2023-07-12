@@ -5,9 +5,13 @@ const User = require('../models/User')
 const authenticateToken = require('../middlewares/authenticateToken');
 
 router.get('/every', async (req, res) => {
-    const books = await Book.find();
-    res.status(200).json(books);
-})
+  try {
+      const books = await Book.find().populate('userId');
+      res.send(books);
+  } catch (error) {
+    res.status(500).send('Server error');
+  }
+});
 
 router.get('/', authenticateToken, async (req, res) => {
   try {

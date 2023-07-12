@@ -46,33 +46,29 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <div className="dashboard">
-        {!token &&
-          <>
-            <div>
-              <Link to='/register' className="dashboard-nav-link">Üye Ol</Link>
-            </div>
-            <div>
-              <Link to='/login' className="dashboard-nav-link">Login</Link>
-            </div>
-          </>
-        }
-        {token &&
-          <>
+        <div className="center-links">
+          {!token &&
+            <>
+              <div>
+                <Link to='/register' className="dashboard-nav-link">Üye Ol</Link>
+              </div>
+              <div>
+                <Link to='/login' className="dashboard-nav-link">Login</Link>
+              </div>
+            </>
+          }
+          {token &&
             <div className="dashboard-account">
               <Link to='/profile' className="dashboard-nav-link">Profile</Link>
               <div className="dashboard-account-dropdown">
-                <Link onClick={handleDeleteAccount} className="dashboard-nav-link">Delete Account</Link>
+                <Link onClick={handleDeleteAccount} className="dashboard-nav-hovered-link">Delete Account</Link>
+                <Link to='/chat' className="dashboard-nav-hovered-link">Chat</Link>
+                <Link onClick={handleLogout} className="dashboard-nav-hovered-link">Logout</Link>
+                <Link to='/account-settings' className="dashboard-nav-hovered-link">Account Settings</Link>
               </div>
             </div>
-            <div>
-              <Link onClick={handleLogout} className="dashboard-nav-link">Logout</Link>
-            </div>
-          </>
-        }
-        <div>
+          }
           <Link to='/' className="dashboard-nav-link">Home</Link>
-        </div>
-        <div>
           <Link to='/forum' className="dashboard-nav-link">Forum</Link>
         </div>
         <Modal

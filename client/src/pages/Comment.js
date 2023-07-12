@@ -64,7 +64,8 @@ const Comment = ({ comment, postId, refreshComments }) => {
     const formatDate = (date) => {
         return new Date(date).toLocaleString();
     };
-       
+    
+    const currentUserId = localStorage.getItem('userId');
 
   return (
     <div className='comment'>
@@ -76,20 +77,22 @@ const Comment = ({ comment, postId, refreshComments }) => {
                     onChange={(e) => setEditedComment(e.target.value)}
                 />
                 <div className="comment-buttons">
-                    <button className='edit-button' onClick={handleEdit}>Kaydet</button>
-                    <button className='delete-button' onClick={() => setIsEditing(false)}>İptal</button>
+                    <button className='edit-button' onClick={handleEdit}>Save</button>
+                    <button className='delete-button' onClick={() => setIsEditing(false)}>Cancel</button>
                 </div>
             </>
         ) : (
             <>
                 <p>{comment.text}</p>
                 <p className='comment-author'>{comment.userName}</p>
-                <p className='comment-date'>Oluşturulma tarihi: {formatDate(comment.createdAt)}</p>
-                {comment.updatedAt && <p className="comment-update-date">Güncellenme tarihi: {formatDate(comment.updatedAt)}</p>}
-                <div className="comment-buttons">
-                    <button className='edit-button' onClick={() => setIsEditing(true)}>Güncelle</button>
-                    <button className='delete-button' onClick={handleDelete}>Sil</button>
-                </div>
+                <p className='comment-date'>Created At: {formatDate(comment.createdAt)}</p>
+                {comment.updatedAt && <p className="comment-update-date">Updated At: {formatDate(comment.updatedAt)}</p>}
+                {currentUserId === comment.userId.toString() && (
+                    <div className="comment-buttons">
+                        <button className='edit-button' onClick={() => setIsEditing(true)}>Update</button>
+                        <button className='delete-button' onClick={handleDelete}>Delete</button>
+                    </div>
+                )}
             </>
         )}
     </div>

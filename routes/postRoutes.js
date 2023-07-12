@@ -6,8 +6,8 @@ const Comment = require('../models/Comment');
 const authenticateToken = require('../middlewares/authenticateToken');
 
 router.get('/every', async (req, res) => {
-    const posts = await Post.find();
-    res.status(200).json(posts);
+  const posts = await Post.find();
+  res.status(200).json(posts);
 })
 
 router.get('/', authenticateToken, async (req, res) => {

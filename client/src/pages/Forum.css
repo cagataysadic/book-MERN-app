@@ -39,11 +39,72 @@
       text-align: center;
       margin-bottom: 10px;
     }
+
+    .sticky-form-container {
+      position: sticky;
+      top: 10px;
+      z-index: 10;
+      padding: 20px;
+      border-radius: 5px;
+    }
     
     .forum-subheading {
       font-size: 1.5rem;
+      align-items: center;
       text-align: center;
       margin-bottom: 30px;
+    }
+
+    .forum-create-post-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .forum-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .forum-label-input-textarea {
+      width: 500px;
+      height: 150px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #868686;
+      border-radius: 4px;
+      outline: none;
+      color: #373737;
+      background-color: rgba(241, 241, 241, 0.5);
+      resize: vertical;
+      backdrop-filter: blur(10px);
+    }
+    .forum-button-wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .forum-button {
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      background-color: #00D01A;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .forum-button:hover {
+      background-color: #00D070;
     }
     
     .forum-list-masonry {

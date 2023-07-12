@@ -3,33 +3,27 @@ import axios from 'axios';
 import Masonry from 'masonry-layout';
 import imagesLoaded from 'imagesloaded';
 
+
 import "./Profile.css"
 
 const Profile = () => {
     const [books, setBooks] = useState([]);
-    const [posts, setPosts] = useState([]);
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('')
     const [description, setDescription] = useState('');
     const [genre, setGenre] = useState('');
-    const [postText, setPostText] = useState('');
     const [updateBook, setUpdateBook] = useState(null);
-    const [updatePost, setUpdatePost] = useState(null);
 
+
+    const genres = ['Mystery', 'Fantasy', 'Romance', 'Sci-Fi', 'Thriller', 'Biography', 'Non-Fiction'];
+
+    
     useEffect(() => {
         const fetchBooks = async () => {
             const response = await axios.get('/api/book', { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
             setBooks(response.data);
         };
         fetchBooks();
-    }, []);
-
-    useEffect(() => {
-        const fetchPosts = async () => {
-            const response = await axios.get('/api/post', { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
-            setPosts(response.data);
-        };
-        fetchPosts();
     }, []);
 
     const initMasonry = (selector) => {
@@ -60,24 +54,6 @@ const Profile = () => {
         observer.disconnect();
         };
     }, [books]);
-    
-    // For posts
-    useEffect(() => {
-        if (posts.length > 0) {
-        initMasonry('.posts-ul');
-        }
-    
-        const observer = new MutationObserver(() => initMasonry('.posts-ul'));
-        observer.observe(document.querySelector('.posts-ul'), {
-        childList: true,
-        subtree: true,
-        });
-    
-        return () => {
-        observer.disconnect();
-        };
-    }, [posts]);
-  
       
 
     useEffect(() => {
@@ -135,52 +111,6 @@ const Profile = () => {
             console.log(error);
         }
     };
-      
-
-    useEffect(() => {
-        if (updatePost) {
-            setPostText(updatePost.postText);
-        } else {
-            setPostText('');
-        }
-    }, [updatePost]);
-
-    const handlePostSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                console.log('No token')
-                return;
-            }
-            if (updatePost) {
-                const response = await axios.put(`/api/post/${updatePost._id}`, { postText }, { headers: { Authorization: `Bearer ${token}`} });
-                setPosts(posts.map((post) => post._id === updatePost._id ? response.data : post));
-            } else {
-                const response = await axios.post('/api/post', { postText }, { headers: { Authorization: `Bearer ${token}`} });
-                setPosts([...posts, response.data]);
-            }
-            setPostText('');
-            setUpdatePost(null);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const handleCancelPostUpdate = () => {
-        setPostText('');
-        setUpdatePost(null);
-    }
-
-    const handlePostDelete = async (id) => {
-        try {
-            await axios.delete(`/api/post/${id}`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
-            setPosts(posts.filter((post) => post._id !== id));
-            setUpdatePost(null);
-        } catch (error) {
-            console.log(error);
-        }
-    };
 
     const formatDate = (timestamp) => {
         const date = new Date(timestamp);
@@ -204,7 +134,11 @@ const Profile = () => {
                     <textarea className='profile-label-input-textarea' placeholder='Description...' value={description} onChange={(e) => setDescription(e.target.value)} required />
                 </label>
                 <label>
-                    <textarea className='profile-label-input-textarea' placeholder='Genre...' value={genre} onChange={(e) => setGenre(e.target.value)} required />
+                    <span>Genre:</span>
+                    <select value={genre} className='profile-label-select' onChange={(e) => setGenre(e.target.value)} required>
+                        <option value="">Select genre...</option>
+                        {genres.map((g, index) => <option key={index} values={g}>{g}</option>)}
+                    </select>
                 </label>
                 <div className='button-wrapper'>
                     <button className='profile-button' type="submit">{updateBook ? 'Update' : 'Create'}</button>
@@ -225,31 +159,6 @@ const Profile = () => {
                             {book.updatedAt && <p className='book-timestamp'>Updated at: {formatDate(book.updatedAt)}</p>}
                             <button className='prev-book-delete-button' onClick={() => handleDelete(book._id)}>Delete</button>
                             <button className='prev-book-edit-button' onClick={() => setUpdateBook(book)}>Update</button>
-                        </li>
-                    </div>
-                ))}
-            </ul>
-            <h2 className='profile-subheading'>Yeni bir Forum gönderisi girin</h2>
-            <form className='profile-form' onSubmit={handlePostSubmit}>
-                <label className='profile-label'>
-                    <textarea className='profile-label-input-textarea' placeholder='Description...' value={postText} onChange={(e) => setPostText(e.target.value)} required />
-                </label>
-                <div className='button-wrapper'>
-                    <button className='profile-button' type="submit">{updatePost ? 'Update' : 'Create'}</button>
-                    <button className='profile-button' type="button" onClick={handleCancelPostUpdate}>Cancel</button>
-                </div>
-            </form>
-            <h2 className='profile-subheading'>Your Preavious Forum Posts</h2>
-            <ul className='profile-ul posts-ul'>
-                {posts.map((post) => (
-                    <div key={post._id} className='profile-list-item-wrapper'>
-                        <li className='profile-li'>
-                            <p className='book-description'>{post.postText}</p>
-                            <p className='book-username'>{post.userName}</p>
-                            <p className='book-timestamp'>Created at: {formatDate(post.createdAt)}</p>
-                            {post.updatedAt && <p className='book-timestamp'>Updated at: {formatDate(post.updatedAt)}</p>}
-                            <button className='prev-book-delete-button' onClick={() => handlePostDelete(post._id)}>Delete</button>
-                            <button className='prev-book-edit-button' onClick={() => setUpdatePost(post)}>Update</button>
                         </li>
                     </div>
                 ))}

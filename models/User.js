@@ -25,6 +25,10 @@ userSchema.pre('save', async function (next) {
     next();
   });
 
+userSchema.methods.comparePassword = async function(password) {
+    return await bcrypt.compare(password, this.password);
+};
+
 userSchema.statics.findByCredentials = async(email, password) => {
     const user = await User.findOne({ email });
 

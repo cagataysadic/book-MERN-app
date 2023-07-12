@@ -1,6 +1,7 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/authContext";
 
 import "./Login.css";
 
@@ -9,6 +10,8 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState(null);
+
+    const auth = useContext(AuthContext);
 
     const navigate = useNavigate();
     const errorPopupRef = useRef();
@@ -33,6 +36,9 @@ const Login = () => {
             const { token, user } = response.data;
             localStorage.setItem('token', token);
             localStorage.setItem('userId', user._id);
+
+            auth.login(user._id);
+            
             setEmail("");
             setPassword("");
             setErrorMessage(null);

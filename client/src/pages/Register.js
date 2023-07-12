@@ -1,6 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
+import { AuthContext } from "../context/authContext";
 
 import "./Register.css"
 
@@ -10,6 +12,8 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState(null);
+
+    const auth = useContext(AuthContext);
 
     const navigate = useNavigate();
     const errorPopupRef = useRef();
@@ -65,6 +69,9 @@ const Register = () => {
             const { token, user } = response.data;
             localStorage.setItem('token', token);
             localStorage.setItem('userId', user._id);
+
+            auth.login(user._id);
+            
             setErrorMessage("");
             setUserName("");
             setEmail("");
