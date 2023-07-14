@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from 'axios';
 import Masonry from 'masonry-layout';
 import imagesLoaded from "imagesloaded";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from '../context/authContext';
 
 import "./Home.css"
 
@@ -11,6 +12,8 @@ const Home = () => {
     const [search, setSearch] = useState("");
     const [genres, setGenres] = useState([]);
     const [selectedGenre, setSelectedGenre] = useState(null);
+
+    const { userId } = useContext(AuthContext);
 
     const navigate = useNavigate()
 
@@ -107,9 +110,11 @@ const Home = () => {
                                     <p className="book-creator">{book.userId.userName}</p>
                                     <p className="book-date">Created At: {formatDate(book.createdAt)}</p>
                                     {book.updatedAt && <p className="book-update-date">updated At: {formatDate(book.updatedAt)}</p>}
-                                    <button className="message-button" onClick={() => navigate('/chat', { state: { chatName: book.userId.userName, otherUserId: book.userId._id }})}>
+                                    {book.userId._id !== userId && 
+                                        <button className="message-button" onClick={() => navigate('/chat', { state: { chatName: book.userId.userName, otherUserId: book.userId._id }})}>
                                         Message
-                                    </button>
+                                        </button>
+                                    }
                                 </li>
                             </div>
                         ))}

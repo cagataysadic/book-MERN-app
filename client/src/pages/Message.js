@@ -3,6 +3,7 @@ import { AuthContext } from '../context/authContext';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import io from 'socket.io-client';
+import groupBy from 'lodash.groupby';
 
 import "./Message.css";
 
@@ -81,7 +82,28 @@ const Chat = ({ otherUserId, chatName }) => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState('');
+
   const socketRef = useRef();
+
+  const messagesEndRef = useRef(null);
+
+  const groupedMessages = groupBy(messages, message => 
+    new Date(message.createdAt).toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+  );
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (messagesEndRef.current) {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+      }
+    }, 0);
+  }, [messages]);
+
+  useEffect(() => {
+    if (!loading) {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [loading]);
 
   useEffect(() => {
     
@@ -108,11 +130,12 @@ const Chat = ({ otherUserId, chatName }) => {
     });
 
     socketRef.current.on('receive_message', (incomingMessage) => {
-      setMessages(prevMessages => [...prevMessages, incomingMessage]);
+      if (incomingMessage.receiver._id !== otherUserId && incomingMessage.sender._id !== otherUserId) return;
+        setMessages(prevMessages => [...prevMessages, incomingMessage]);
     });
 
     return () => socketRef.current.disconnect();
-  }, [userId]);
+  }, [userId, otherUserId]);
 
   if (!userId) {
     console.error('User ID is not defined!');
@@ -133,6 +156,13 @@ const Chat = ({ otherUserId, chatName }) => {
     setNewMessage('');
   };
 
+  const handleKeydown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      sendMessage();
+    }
+  };
+
 
   if (loading) {
     return <div>Loading...</div>;  // or your custom loading indicator
@@ -142,14 +172,31 @@ const Chat = ({ otherUserId, chatName }) => {
     <div className='chat'>
       <h2 className='chat-header'>Chat with {chatName}</h2>
       <div className='chat-history'>
-        {messages.map((message, index) => (
+      {Object.entries(groupedMessages).map(([date, messages], index) => (
           <div key={index}>
-            <p><strong>{ message.sender._id === userId ? 'You' : message.sender.userName}:</strong> {message.text}</p>
+            <h3>{date}</h3>
+            <div className='message-container'>
+              {messages.map((message, index) => (
+                <div 
+                  key={index}
+                  className={`message ${message.sender._id === userId ? 'sender' : 'receiver'}`}
+                >
+                  <p>{message.text}</p>
+                  <p className="message-time">{new Date(message.createdAt).toLocaleTimeString()}</p>
+                </div>
+              ))}
+            </div>
           </div>
         ))}
+        <div ref={messagesEndRef} />
       </div>
       <div className='chat-input'>
-        <input type="text" value={newMessage} onChange={e => setNewMessage(e.target.value)} />
+        <input
+          type="text" 
+          value={newMessage} 
+          onChange={e => setNewMessage(e.target.value)} 
+          onKeyDown={handleKeydown} 
+          />
         <button onClick={sendMessage}>Send</button>
       </div>
     </div>
