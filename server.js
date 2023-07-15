@@ -5,17 +5,14 @@ const path = require('path');
 const mongoose = require('mongoose');
 const http = require('http');
 const socketIo = require('socket.io');
-const Message = require('./models/Message'); // Import the Message model
+const Message = require('./models/Message');
 
 const port = process.env.PORT || 10000;
 const app = express();
 const server = http.createServer(app);
-const client_origin = "http://localhost:3000" || process.env.CLIENT_ORIGIN;
 const io = socketIo(server, {
     cors: {
-        origin: client_origin,
-        methods: ['GET', 'POST'],
-        credentials: true
+        origin: "*",
     }
 });
 
@@ -23,11 +20,7 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors({
-    origin: client_origin,
-    method: ['GET', 'POST'],
-    credentials: true
-}));
+app.use(cors());
 
 app.use("/api/user", require('./routes/userRoutes'));
 app.use("/api/book", require('./routes/bookRoutes'));
