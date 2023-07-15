@@ -130,7 +130,18 @@
     align-self: flex-start;
     background-color: #e5e5ea;
     color: black;
-  } 
+  }
+
+  .message-delete-button {
+    background-color: #DB0000;
+    color: white;
+    cursor: pointer;
+  }
+
+  .message-delete-button:hover {
+    background-color: #F30000;
+  }
+
   .chat-input {
     display: flex;
     margin-top: 10px;
