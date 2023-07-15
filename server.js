@@ -10,10 +10,10 @@ const Message = require('./models/Message'); // Import the Message model
 const port = process.env.PORT || 10000;
 const app = express();
 const server = http.createServer(app);
-const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || "http://localhost:3000";
+const client_origin = "http://localhost:3000" || process.env.CLIENT_ORIGIN;
 const io = socketIo(server, {
     cors: {
-        origin: CLIENT_ORIGIN,
+        origin: client_origin,
         methods: ['GET', 'POST'],
         credentials: true
     }
@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors({
-    origin: CLIENT_ORIGIN,
+    origin: client_origin,
     method: ['GET', 'POST'],
     credentials: true
 }));

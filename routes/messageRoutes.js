@@ -56,4 +56,22 @@ router.get('/conversations/:otherUserId', authenticateToken, async (req, res) =>
     }
 });
 
+router.delete('/delete/:messageId', authenticateToken, async (req, res) => {
+    try {
+        const message = await Message.findById(req.params.messageId);
+        if (!message) {
+            return res.status(404).json({ error: "Message not found" });
+        }
+        if (message.sender.toString() !== req.user.userId) {
+            return res.status(403).json({ error: "You can only delete your own messages" });
+        }
+
+        await Message.findByIdAndRemove(req.params.messageId);
+        res.json({ message: "Message deleted succesfully" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Server error" });
+    }
+});
+
 module.exports = router

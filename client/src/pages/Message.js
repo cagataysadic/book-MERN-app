@@ -28,7 +28,6 @@ const ChatList = () => {
       }
     })
     .then(response => {
-      console.log('Server response:', response.data);
       setConversations(response.data);
     })
     .catch(error => console.error(error));
@@ -114,12 +113,11 @@ const Chat = ({ otherUserId, chatName }) => {
       }
     })
     .then(response => {
-      setLoading(false);  // end loading
+      setLoading(false);
       setMessages(response.data);
-      console.log(response.data)
     })
     .catch(error => {
-      setLoading(false);  // end loading even in case of an error
+      setLoading(false);
       console.error(error);
     });
   }, [otherUserId, token]);
@@ -148,12 +146,22 @@ const Chat = ({ otherUserId, chatName }) => {
       sender: userId,
       receiver: otherUserId
     };
-
-    console.log(messageData.sender);
     
     socketRef.current.emit('send_message', messageData);
 
     setNewMessage('');
+  };
+
+  const deleteMessage = (messageId) => {
+    axios.delete(`/api/message/delete/${messageId}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then (() => {
+      setMessages(messages.filter(message => message._id !== messageId));
+    })
+    .catch(error => console.error(error));
   };
 
   const handleKeydown = (event) => {
@@ -165,7 +173,7 @@ const Chat = ({ otherUserId, chatName }) => {
 
 
   if (loading) {
-    return <div>Loading...</div>;  // or your custom loading indicator
+    return <div>Loading...</div>;
   }
 
   return (
@@ -183,6 +191,7 @@ const Chat = ({ otherUserId, chatName }) => {
                 >
                   <p>{message.text}</p>
                   <p className="message-time">{new Date(message.createdAt).toLocaleTimeString()}</p>
+                  {message.sender._id === userId && <button className='message-delete-button' onClick={() => deleteMessage(message._id)}>Delete</button>}
                 </div>
               ))}
             </div>
