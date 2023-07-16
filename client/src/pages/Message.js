@@ -123,7 +123,7 @@ const Chat = ({ otherUserId, chatName }) => {
   }, [otherUserId, token]);
 
   useEffect(() => {
-    socketRef.current = io.connect('http://localhost:10000', {
+    socketRef.current = io.connect(process.env.REACT_APP_SOCKET_URL || 'http://localhost:10000', {
       query: { userId }
     });
 
