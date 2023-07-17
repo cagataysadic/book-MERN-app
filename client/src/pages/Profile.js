@@ -3,8 +3,13 @@ import axios from 'axios';
 import Masonry from 'masonry-layout';
 import imagesLoaded from 'imagesloaded';
 
-
 import "./Profile.css"
+
+
+const api = axios.create({
+    baseURL: '/api',
+    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+  });
 
 const Profile = () => {
     const [books, setBooks] = useState([]);
@@ -20,7 +25,7 @@ const Profile = () => {
     
     useEffect(() => {
         const fetchBooks = async () => {
-            const response = await axios.get('/api/book', { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
+            const response = await api.get('/book');
             setBooks(response.data);
         };
         fetchBooks();
@@ -78,10 +83,10 @@ const Profile = () => {
                 return;
             }
             if (updateBook) {
-                const response = await axios.put(`/api/book/${updateBook._id}`, { title, author, description, genre }, { headers: { Authorization: `Bearer ${token}`} });
+                const response = await api.put(`/book/${updateBook._id}`, { title, author, description, genre });
                 setBooks(books.map((book) => book._id === updateBook._id ? response.data : book));
             } else {
-                const response = await axios.post('/api/book', { title, author, description, genre }, { headers: { Authorization: `Bearer ${token}`} });
+                const response = await api.post('/book', { title, author, description, genre });
                 setBooks([...books, response.data]);
             }
             setTitle('');
@@ -104,7 +109,7 @@ const Profile = () => {
 
     const handleDelete= async (id) => {
         try {
-            await axios.delete(`/api/book/${id}`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
+            await api.delete(`/book/${id}`);
             setBooks(books.filter((book) => book._id !== id));
             setUpdateBook(null);
         } catch (error) {

@@ -6,6 +6,11 @@ import Comment from './Comment';
 import "./CommentsSection.css"
 
 
+const api = axios.create({
+    baseURL: '/api',
+    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+  });
+
 const CommentsSection = ({ postId }) => {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
@@ -29,15 +34,8 @@ const CommentsSection = ({ postId }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (isUserAuthenticated()) {
-            const token = localStorage.getItem('token');
 
-            await axios.post(`/api/post/${postId}/comment`, { text: newComment },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-                );
+            await api.post(`/post/${postId}/comment`, { text: newComment });
                 setNewComment('');
                 fetchComments();
         } else {

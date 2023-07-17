@@ -6,7 +6,12 @@ import CommentsSection from './CommentsSection';
 
 import "./Forum.css"
 
-function Forum() {
+const api = axios.create({
+    baseURL: '/api',
+    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+  });
+
+const Forum = () => {
 
     const [posts, setPosts] = useState([]);
     const [search, setSearch] = useState("");
@@ -87,10 +92,10 @@ function Forum() {
                 return;
             }
             if (updatePost) {
-                const response = await axios.put(`/api/post/${updatePost._id}`, { postText }, { headers: { Authorization: `Bearer ${token}`} });
+                const response = await api.put(`/post/${updatePost._id}`, { postText });
                 setPosts(posts.map((post) => post._id === updatePost._id ? response.data : post));
             } else {
-                const response = await axios.post('/api/post', { postText, userId }, { headers: { Authorization: `Bearer ${token}`} });
+                const response = await api.post('/post', { postText, userId });
                 setPosts([response.data, ...posts]);
             }
             setPostText('');
@@ -108,7 +113,7 @@ function Forum() {
 
     const handlePostDelete = async (id) => {
         try {
-            await axios.delete(`/api/post/${id}`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
+            await api.delete(`/post/${id}`);
             setPosts(posts.filter((post) => post._id !== id));
             setUpdatePost(null);
         } catch (error) {

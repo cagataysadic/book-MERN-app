@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import "./AccountSettings.css"
 
-// Setup axios instance with headers
+
 const api = axios.create({
   baseURL: '/api',
   headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }

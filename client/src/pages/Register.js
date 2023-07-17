@@ -92,21 +92,21 @@ const Register = () => {
             )}
             <form className="register-form" onSubmit={handleSubmit}>
                 <label className="register-label">
-                    <input className="register-label-input" type="userName" value={userName} onChange={(e) => setUserName(e.target.value)} placeholder="Kullanıcı adınız..." required />
+                    <input className="register-label-input" type="userName" value={userName} onChange={(e) => setUserName(e.target.value)} placeholder="User name..." required />
                 </label>
                 <label className="register-label">
-                    <input className="register-label-input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-Posta adresiniz..." required />
+                    <input className="register-label-input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-Mail..." required />
                 </label>
                 <label className="register-label">
-                    <input className="register-label-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Şifreniz..." required />
+                    <input className="register-label-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password..." required />
                 </label>
                 <label className="register-label">
-                    <input className="register-label-input" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Şifrenizi tekrar yazınız..." required />
+                    <input className="register-label-input" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm Password..." required />
                 </label>
                 <div className="password-info">
                     <h3>Your password should contain at least 8 characters, should contain a capital letter, a lower letter, a number and a special character.</h3>
                 </div>
-                <button className="register-button" type="submit">Üye Ol</button>
+                <button className="register-button" type="submit">Register</button>
             </form>
         </div>
     );

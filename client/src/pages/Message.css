@@ -114,7 +114,7 @@
     padding: 5px 20px 5px 20px;
     border-radius: 10px;
     width: fit-content;
-    max-width: 80%; /* adjust this as necessary */
+    max-width: 80%;
     word-wrap: break-word;
     overflow-wrap: break-word;
   }
@@ -160,7 +160,7 @@
     margin-top: 10px;
   }
   
-  .chat-input input {
+  .chat-input textarea {
     flex: 1;
     padding: 10px;
     margin-bottom: 2%;
@@ -204,7 +204,7 @@
 
     .chat-container {
       width: 100%;
-      position: static; /* Updated */
+      position: static;
       left: 0;
     }
 
@@ -212,11 +212,11 @@
       height: auto;
       padding: 0;
       overflow-y: auto;
-      margin-left: 0; /* Added */
+      margin-left: 0;
     }
 
     .conversation-list-header {
-      font-size: 20px; /* Added */
+      font-size: 20px;
     }
 
     .chat {
@@ -225,11 +225,11 @@
     }
 
     .chat-input input {
-      padding: 8px; /* Added */
+      padding: 8px;
     }
 
     .chat-input button {
-      padding: 0 10px; /* Added */
+      padding: 0 10px;
     }
 
     .chat-select-message {

@@ -4,6 +4,11 @@ import axios from 'axios';
 
 import "./Comment.css"
 
+const api = axios.create({
+    baseURL: '/api',
+    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+  });  
+
 const Comment = ({ comment, postId, refreshComments }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedComment, setEditedComment] = useState(comment.text);
@@ -23,12 +28,7 @@ const Comment = ({ comment, postId, refreshComments }) => {
     const handleDelete = async () => {
         if (isUserAuthenticated()) {
             if (isUserAuthor()) {
-                const token = localStorage.getItem('token');
-                await axios.delete(`/api/post/${postId}/comment/${comment._id}`,{
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
+                await api.delete(`/post/${postId}/comment/${comment._id}`,);
                 refreshComments();
             } else {
                 alert("Sadece kendi yorumlarınızı silebilirsiniz.")
@@ -41,15 +41,9 @@ const Comment = ({ comment, postId, refreshComments }) => {
     const handleEdit = async () => {
         if (isUserAuthenticated()) {
             if (isUserAuthor()) {
-                const token = localStorage.getItem('token');
-                await axios.put(
-                    `/api/post/${postId}/comment/${comment._id}`,
-                    { text: editedComment },
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    }
+                await api.put(
+                    `/post/${postId}/comment/${comment._id}`,
+                    { text: editedComment }
                 );
                 setIsEditing(false);
                 refreshComments();

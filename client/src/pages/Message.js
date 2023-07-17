@@ -7,6 +7,12 @@ import groupBy from 'lodash.groupby';
 
 import "./Message.css";
 
+
+const api = axios.create({
+  baseURL: '/api',
+  headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+});
+
 const ChatList = () => {
   const token = localStorage.getItem('token');
   const [conversations, setConversations] = useState([]);
@@ -22,11 +28,7 @@ const ChatList = () => {
         setSelectedChatName(location.state ? location.state.chatName : '');
     }
 
-    axios.get('/api/message/conversations', {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
+    api.get('/message/conversations')
     .then(response => {
       setConversations(response.data);
     })
@@ -107,11 +109,7 @@ const Chat = ({ otherUserId, chatName }) => {
   useEffect(() => {
     
     setLoading(true);
-    axios.get(`/api/message/conversations/${otherUserId}`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
+    api.get(`/message/conversations/${otherUserId}`)
     .then(response => {
       setLoading(false);
       setMessages(response.data);
@@ -153,11 +151,7 @@ const Chat = ({ otherUserId, chatName }) => {
   };
 
   const deleteMessage = (messageId) => {
-    axios.delete(`/api/message/delete/${messageId}`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
+    api.delete(`/message/delete/${messageId}`)
     .then (() => {
       setMessages(messages.filter(message => message._id !== messageId));
     })
@@ -165,7 +159,7 @@ const Chat = ({ otherUserId, chatName }) => {
   };
 
   const handleKeydown = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault();
       sendMessage();
     }
@@ -189,7 +183,9 @@ const Chat = ({ otherUserId, chatName }) => {
                   key={index}
                   className={`message ${message.sender._id === userId ? 'sender' : 'receiver'}`}
                 >
-                  <p>{message.text}</p>
+                  <p>{message.text.split('\n').map((item, key) => {
+                    return <span key={key}>{item}<br /></span>
+                  })}</p>
                   <p className="message-time">{new Date(message.createdAt).toLocaleTimeString()}</p>
                   {message.sender._id === userId && <button className='message-delete-button' onClick={() => deleteMessage(message._id)}>Delete</button>}
                 </div>
@@ -200,8 +196,7 @@ const Chat = ({ otherUserId, chatName }) => {
         <div ref={messagesEndRef} />
       </div>
       <div className='chat-input'>
-        <input
-          type="text" 
+        <textarea
           value={newMessage} 
           onChange={e => setNewMessage(e.target.value)} 
           onKeyDown={handleKeydown} 

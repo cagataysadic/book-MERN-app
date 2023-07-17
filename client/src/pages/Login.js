@@ -60,13 +60,13 @@ const Login = () => {
             )}
             <form className="login-form" onSubmit={handleSubmit}>
                 <label className="login-label">
-                    <input className="login-label-input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="e-posta adresiniz..." required />
+                    <input className="login-label-input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-Mail..." required />
                 </label>
                 <label className="login-label">
-                    <input className="login-label-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Şifreniz..." required />
+                    <input className="login-label-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password..." required />
                 </label>
                 <div className="login-button-wrapper">
-                <button className="login-button" type="submit">Giriş</button>
+                <button className="login-button" type="submit">Login</button>
                 </div>
             </form>
         </div>

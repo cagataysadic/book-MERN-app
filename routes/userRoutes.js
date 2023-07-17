@@ -6,12 +6,19 @@ const Book = require('../models/Book');
 const Comment = require('../models/Comment');
 const authenticateToken = require('../middlewares/authenticateToken');
 const router = express.Router();
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs');
+const Message = require('../models/Message');
 
 const deleteRelatedData = async (userId) => {
     await Post.deleteMany({ userId });
     await Book.deleteMany({ userId });
     await Comment.deleteMany({ userId });
+    await Message.deleteMany({ 
+        $or: [
+            { sender: userId },
+            { receiver: userId }
+        ]
+    });
 };
 
 router.get('/me', authenticateToken, async (req, res) => {

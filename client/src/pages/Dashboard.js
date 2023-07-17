@@ -50,7 +50,7 @@ const Dashboard = () => {
           {!token &&
             <>
               <div>
-                <Link to='/register' className="dashboard-nav-link">Üye Ol</Link>
+                <Link to='/register' className="dashboard-nav-link">Register</Link>
               </div>
               <div>
                 <Link to='/login' className="dashboard-nav-link">Login</Link>
@@ -77,7 +77,7 @@ const Dashboard = () => {
           className="delete-account-modal custom-modal"
           overlayClassName="delete-account-modal-overlay"
         >
-          <h2>Hesabınızı silmek istediğinize emin misiniz?</h2>
+          <h2>Are You Sure?</h2>
           <div className="modal-buttons">
             <button onClick={confirmDeleteAccount} className="modal-button">Yes</button>
             <button onClick={closeModal} className="modal-button">No</button>

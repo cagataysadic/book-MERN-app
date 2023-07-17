@@ -1,13 +1,11 @@
-/* AccountSettings.css */
-
 .account-settings-container {
   align-items: flex-start;
   background-color: #eaeaea;
   display: flex;
-  gap: 2rem; /* Space between forms */
+  gap: 2rem;
   justify-content: space-around;
   min-height: 100vh;
-  padding: 2rem; /* Space around forms */
+  padding: 2rem;
 }
 
 .error-popup {
@@ -108,8 +106,8 @@
   
 @media screen and (max-width: 768px) {
   .account-settings-container {
-    flex-direction: column; /* Stack the forms vertically */
-    padding: 1rem; /* Reduce the space around the forms */
+    flex-direction: column;
+    padding: 1rem;
   }
 
   .account-settings-form {
@@ -117,7 +115,7 @@
   }
 
   .account-settings-container > div {
-    flex-basis: auto; /* Let the forms take up as much space as they need */
+    flex-basis: auto;
   }
 
   .account-settings-label-input {
@@ -133,8 +131,8 @@
   .validate-password-form,
   .update-information-form,
   .update-password-form {
-    margin-top: 2rem; /* Adjust the space above each form */
-    align-self: center; /* Align the forms to the center */
+    margin-top: 2rem;
+    align-self: center;
   }
 }
 
