@@ -13,6 +13,7 @@ function Forum() {
     const [updatePost, setUpdatePost] = useState(null);
     const [postText, setPostText] = useState('');
     const [showCreateForum, setShowCreateForum] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const userId = localStorage.getItem('userId');
 
@@ -37,6 +38,7 @@ function Forum() {
         const fetchPosts = async () => {
             const response = await axios.get('/api/post/every');
             setPosts(response.data);
+            setLoading(false);
         };
         fetchPosts();
     }, []);
@@ -132,7 +134,7 @@ function Forum() {
                 <input type="text" placeholder="looking for a specific user..." onChange={(e) => setSearch(e.target.value)} />
             </div>
             <h1 className="forum-heading">Welcome</h1>
-            {showCreateForum && (
+            {((!loading && posts.length <= 8) || showCreateForum) && (
                 <div className='sticky-form-container'>
                     <h2 className='forum-subheading'>{updatePost ? "Update Post" : "Create a new post"}</h2>
                     <form className="forum-create-post-form" onSubmit={handlePostSubmit}>

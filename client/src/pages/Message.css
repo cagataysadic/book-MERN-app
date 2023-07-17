@@ -127,23 +127,32 @@
   .sender {
     align-self: flex-end;
     background-color: #00F3B4;
-    color: white;
+    color: #F4F4F4;
   }
 
   .receiver {
     align-self: flex-start;
     background-color: #e5e5ea;
-    color: black;
+    color: #343434;
   }
 
   .message-delete-button {
-    background-color: #DB0000;
-    color: white;
+    visibility: hidden;
+    background-color: #CC0000;
+    color: #F4F4F4;
     cursor: pointer;
+    border: none;
+    padding: 5px;
+    border-radius: 10px;
+    transition: background-color 0.2s;
+  }
+
+  .sender:hover .message-delete-button {
+    visibility: visible;
   }
 
   .message-delete-button:hover {
-    background-color: #F30000;
+    background-color: #E90000;
   }
 
   .chat-input {

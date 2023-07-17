@@ -7,12 +7,12 @@ const http = require('http');
 const socketIo = require('socket.io');
 const Message = require('./models/Message');
 
-const port = process.env.PORT || 10000;
+const port = process.env.PORT;
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
     cors: {
-        origin: process.env.CORS_ORIGIN || "*",
+        origin: (process.env.CORS_ORIGIN) || (process.env.DEV_ORIGIN),
     }
 });
 
@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors());
+app.use(cors({ origin: (process.env.CORS_ORIGIN) || (process.env.DEV_ORIGIN) }));
 
 app.use("/api/user", require('./routes/userRoutes'));
 app.use("/api/book", require('./routes/bookRoutes'));
