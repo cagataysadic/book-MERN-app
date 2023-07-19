@@ -8,16 +8,16 @@ import groupBy from 'lodash.groupby';
 import "./Message.css";
 
 
-const api = axios.create({
-  baseURL: '/api',
-  headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-});
-
 const ChatList = () => {
-  const token = localStorage.getItem('token');
+  const { token, userId } = useContext(AuthContext);
   const [conversations, setConversations] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
   const [selectedChatName, setSelectedChatName] = useState('');
+
+  const api = axios.create({
+    baseURL: '/api',
+    headers: { 'Authorization': `Bearer ${token}` }
+  });
 
   const location = useLocation();
   const otherUserId = location.state ? location.state.otherUserId : null;
@@ -64,7 +64,7 @@ const ChatList = () => {
 
       <div className={`chat-container ${selectedChat ? 'active': ''}`}>
         {selectedChat ?
-         <Chat otherUserId={selectedChat} chatName={selectedChatName} /> :
+         <Chat otherUserId={selectedChat} chatName={selectedChatName} api={api} token={token} userId={userId} /> :
          null
         }
       </div>
@@ -77,9 +77,7 @@ const ChatList = () => {
   );
 };
 
-const Chat = ({ otherUserId, chatName }) => {
-  const token = localStorage.getItem('token');
-  const { userId } = useContext(AuthContext);
+const Chat = ({ otherUserId, chatName, api, token, userId }) => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState('');

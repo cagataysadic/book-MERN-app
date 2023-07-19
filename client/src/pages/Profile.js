@@ -1,17 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import Masonry from 'masonry-layout';
 import imagesLoaded from 'imagesloaded';
 
 import "./Profile.css"
+import { AuthContext } from '../context/authContext';
 
-
-const api = axios.create({
-    baseURL: '/api',
-    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-  });
 
 const Profile = () => {
+
+    const { token } = useContext(AuthContext);
+    const api = axios.create({
+        baseURL: '/api',
+        headers: { 'Authorization': `Bearer ${token}` }
+    });
+
     const [books, setBooks] = useState([]);
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('')
@@ -29,7 +32,7 @@ const Profile = () => {
             setBooks(response.data);
         };
         fetchBooks();
-    }, []);
+    }, [token]);
 
     const initMasonry = (selector) => {
         const grid = document.querySelector(selector);

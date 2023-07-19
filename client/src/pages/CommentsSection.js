@@ -1,17 +1,20 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Comment from './Comment';
 
 import "./CommentsSection.css"
+import { AuthContext } from "../context/authContext";
 
-
-const api = axios.create({
-    baseURL: '/api',
-    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-  });
 
 const CommentsSection = ({ postId }) => {
+
+    const { token, userId } = useContext(AuthContext);
+    const api = axios.create({
+        baseURL: '/api',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+    
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
 
@@ -27,7 +30,6 @@ const CommentsSection = ({ postId }) => {
     const navigate = useNavigate();
 
     const isUserAuthenticated = () => {
-        const token = localStorage.getItem('token');
         return token !== null;
     };
 
@@ -47,7 +49,7 @@ const CommentsSection = ({ postId }) => {
     <div className="comments-section">
         <h3>Comments</h3>
         {comments.map((comment) => (
-            <Comment key={comment._id} comment={comment} postId={postId} refreshComments={fetchComments} />
+            <Comment key={comment._id} comment={comment} postId={postId} refreshComments={fetchComments} token={token} userId={userId} />
         ))}
         <form onSubmit={handleSubmit}>
             <input

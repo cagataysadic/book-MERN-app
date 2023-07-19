@@ -13,6 +13,7 @@ import AccountSettings from './pages/AccountSettings';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState(null);
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -20,23 +21,26 @@ function App() {
     if (token && uid) {
       setIsLoggedIn(true);
       setUserId(uid);
+      setToken(token);
     }
   }, []);
 
   const login = useCallback((uid) => {
     setIsLoggedIn(true);
     setUserId(uid);
+    setToken(token);
   }, []);
 
   const logout = useCallback(() => {
     setIsLoggedIn(false);
     setUserId(null);
+    setToken(null);
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn: isLoggedIn, userId: userId, login: login, logout: logout }}>
+    <AuthContext.Provider value={{ isLoggedIn: isLoggedIn, userId: userId, token: token, login: login, logout: logout }}>
       <div className="App">
         <Router>
           <Dashboard />

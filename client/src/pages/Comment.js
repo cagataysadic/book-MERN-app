@@ -4,24 +4,23 @@ import axios from 'axios';
 
 import "./Comment.css"
 
-const api = axios.create({
-    baseURL: '/api',
-    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-  });  
 
-const Comment = ({ comment, postId, refreshComments }) => {
+const Comment = ({ comment, postId, refreshComments, token, userId }) => {
+
+    const api = axios.create({
+        baseURL: '/api',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
     const [isEditing, setIsEditing] = useState(false);
     const [editedComment, setEditedComment] = useState(comment.text);
 
     const navigate = useNavigate();
     
     const isUserAuthenticated = () => {
-        const token = localStorage.getItem('token');
         return token !== null;
     }
 
     const isUserAuthor = () => {
-        const userId = localStorage.getItem('userId'); 
         return userId === comment.userId.toString();
     }
 
@@ -59,7 +58,7 @@ const Comment = ({ comment, postId, refreshComments }) => {
         return new Date(date).toLocaleString();
     };
     
-    const currentUserId = localStorage.getItem('userId');
+    const currentUserId = userId;
 
   return (
     <div className='comment'>

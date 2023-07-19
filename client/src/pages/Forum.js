@@ -1,17 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Masonry from 'masonry-layout';
 import imagesLoaded from 'imagesloaded';
 import axios from 'axios';
 import CommentsSection from './CommentsSection';
 
 import "./Forum.css"
+import { AuthContext } from '../context/authContext';
 
-const api = axios.create({
-    baseURL: '/api',
-    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-  });
 
 const Forum = () => {
+
+    const { token, userId } = useContext(AuthContext);
+    const api = axios.create({
+        baseURL: '/api',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
 
     const [posts, setPosts] = useState([]);
     const [search, setSearch] = useState("");
@@ -20,7 +23,6 @@ const Forum = () => {
     const [showCreateForum, setShowCreateForum] = useState(false);
     const [loading, setLoading] = useState(true);
 
-    const userId = localStorage.getItem('userId');
 
     const handleScroll = () => {
         const position = window.scrollY;
@@ -86,7 +88,6 @@ const Forum = () => {
     const handlePostSubmit = async (e) => {
         e.preventDefault();
         try {
-            const token = localStorage.getItem('token');
             if (!token) {
                 console.log('No token');
                 return;

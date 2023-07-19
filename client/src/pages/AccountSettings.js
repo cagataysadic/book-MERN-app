@@ -1,15 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import axios from 'axios';
 
 import "./AccountSettings.css"
+import { AuthContext } from '../context/authContext';
 
-
-const api = axios.create({
-  baseURL: '/api',
-  headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-});
 
 const AccountSettings = () => {
+
+    const { token } = useContext(AuthContext)
+    const api = axios.create({
+        baseURL: '/api',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
     const [newUsername, setNewUsername] = useState('');
     const [newEmail, setNewEmail] = useState('');
     const [password, setPassword] = useState('');

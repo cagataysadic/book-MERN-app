@@ -1,11 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Modal from 'react-modal';
 import './Dashboard.css';
+import { AuthContext } from "../context/authContext";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const token = localStorage.getItem('token');
+  const { token } = useContext(AuthContext);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
