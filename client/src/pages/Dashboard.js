@@ -6,13 +6,13 @@ import { AuthContext } from "../context/authContext";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { token } = useContext(AuthContext);
+  const { token, setToken } = useContext(AuthContext);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const handleLogout = (e) => {
     e.preventDefault();
     localStorage.removeItem('token');
+    setToken(null);
     navigate('/login');
   };
 

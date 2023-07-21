@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
-import axios from 'axios';
 
 import "./AccountSettings.css"
 import { AuthContext } from '../context/authContext';
@@ -7,11 +6,7 @@ import { AuthContext } from '../context/authContext';
 
 const AccountSettings = () => {
 
-    const { token } = useContext(AuthContext)
-    const api = axios.create({
-        baseURL: '/api',
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
+    const { api } = useContext(AuthContext)
     const [newUsername, setNewUsername] = useState('');
     const [newEmail, setNewEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -119,6 +114,7 @@ const AccountSettings = () => {
                 password: newPassword
             });
             setNewPassword('');
+            setConfirmNewPassword('');
             setIsLocked(true);
         } catch (error) {
             console.log(error);

@@ -10,11 +10,7 @@ import { AuthContext } from '../context/authContext';
 
 const Forum = () => {
 
-    const { token, userId } = useContext(AuthContext);
-    const api = axios.create({
-        baseURL: '/api',
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
+    const { token, userId, api } = useContext(AuthContext);
 
     const [posts, setPosts] = useState([]);
     const [search, setSearch] = useState("");
@@ -50,9 +46,8 @@ const Forum = () => {
         fetchPosts();
     }, []);
 
-    const currentUserPosts = posts.filter((post) => post.userId === userId);
-    const otherUserPosts = posts.filter((post) => post.userId !== userId);
-
+    const currentUserPosts = posts.filter((post) => post.userId._id === userId);
+    const otherUserPosts = posts.filter((post) => post.userId._id !== userId);
     const orderedPosts = [...currentUserPosts, ...otherUserPosts];
 
     useEffect(() => {
@@ -158,11 +153,11 @@ const Forum = () => {
             <ul className="forum-list-masonry">
                 {orderedPosts &&
                     orderedPosts
-                        .filter((post) => post.userName.toLowerCase().includes(search.toLocaleLowerCase()))
+                        .filter((post) => post.userId.userName.toLowerCase().includes(search.toLocaleLowerCase()))
                         .map((post) => (
                             <div key={post._id} className='forum-list-item-wrapper'>
                                 <li className="forum-list-item">
-                                    {post.userId === userId ? (
+                                    {post.userId._id === userId ? (
                                         <>
                                         <h3 className="forum-post-description">{post.postText}</h3>
                                         <button
@@ -181,7 +176,7 @@ const Forum = () => {
                                     ) : (
                                       <h3 className="forum-post-description">{post.postText}</h3>
                                     )}
-                                    <p className="forum-post-author">{post.userName}</p>
+                                    <p className="forum-post-author">{post.userId.userName}</p>
                                     <p className="post-date">Created At: {formatDate(post.createdAt)}</p>
                                     {post.updatedAt && <p className="post-update-date">Updated At: {formatDate(post.updatedAt)}</p>}
                                     <CommentsSection postId={post._id} />

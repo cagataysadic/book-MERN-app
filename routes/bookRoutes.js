@@ -6,7 +6,7 @@ const authenticateToken = require('../middlewares/authenticateToken');
 
 router.get('/every', async (req, res) => {
   try {
-      const books = await Book.find().populate('userId');
+      const books = await Book.find().populate('userId', 'userName -_id');
       res.send(books);
   } catch (error) {
     res.status(500).send('Server error');
@@ -15,7 +15,7 @@ router.get('/every', async (req, res) => {
 
 router.get('/', authenticateToken, async (req, res) => {
   try {
-    const books = await Book.find({ userId: req.user.userId });
+    const books = await Book.find({ userId: req.user.userId }).populate('userId', 'userName -_id');
     res.status(200).json(books);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -24,12 +24,12 @@ router.get('/', authenticateToken, async (req, res) => {
 
 router.post('/', authenticateToken, async (req, res) => {
   const { title, author, description, genre } = req.body;
-  const user = await User.findById(req.user.userId)
-  const book = new Book({ title, author, description, genre, userName: user.userName, createdAt: Date.now(), userId: req.user.userId });
+  const book = new Book({ title, author, description, genre, createdAt: Date.now(), userId: req.user.userId });
 
   try {
     const newBook = await book.save();
-    res.status(201).json(newBook);
+    const populatedBook = await Book.findById(newBook._id).populate('userId', 'userName -_id');
+    res.status(201).json(populatedBook);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

@@ -6,7 +6,6 @@ const Book = require('../models/Book');
 const Comment = require('../models/Comment');
 const authenticateToken = require('../middlewares/authenticateToken');
 const router = express.Router();
-const bcrypt = require('bcryptjs');
 const Message = require('../models/Message');
 
 const deleteRelatedData = async (userId) => {

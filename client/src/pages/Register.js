@@ -70,7 +70,7 @@ const Register = () => {
             localStorage.setItem('token', token);
             localStorage.setItem('userId', user._id);
 
-            auth.login(user._id);
+            auth.login(user._id, token);
             
             setErrorMessage("");
             setUserName("");

@@ -25,8 +25,8 @@ router.get('/conversations', authenticateToken, async (req, res) => {
             '_id': { $in: [...new Set(uniqueConversations)] }
         }, 'userName');
 
-        console.log('uniqueConversations', uniqueConversations); // ADD THIS
-        console.log('populatedUniqueConversations', populatedUniqueConversations); // ADD THIS
+        console.log('uniqueConversations', uniqueConversations);
+        console.log('populatedUniqueConversations', populatedUniqueConversations);
         
         res.json(populatedUniqueConversations);
     } catch (err) {

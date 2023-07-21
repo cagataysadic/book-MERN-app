@@ -6,13 +6,13 @@ const Comment = require('../models/Comment');
 const authenticateToken = require('../middlewares/authenticateToken');
 
 router.get('/every', async (req, res) => {
-  const posts = await Post.find();
+  const posts = await Post.find().populate('userId', 'userName')
   res.status(200).json(posts);
 })
 
 router.get('/', authenticateToken, async (req, res) => {
   try {
-    const posts = await Post.find({ userId: req.user.userId });
+    const posts = await Post.find({ userId: req.user.userId }).populate('userId', 'userName')
     res.status(200).json(posts);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -22,11 +22,12 @@ router.get('/', authenticateToken, async (req, res) => {
 router.post('/', authenticateToken, async (req, res) => {
   const {postText } = req.body;
   const user = await User.findById(req.user.userId)
-  const post = new Post({ postText, userName: user.userName, createdAt: Date.now(), userId: req.user.userId });
+  const post = new Post({ postText, createdAt: Date.now(), userId: req.user.userId });
 
   try {
     const newPost = await post.save();
-    res.status(201).json(newPost);
+    const populatedPost = await Post.findById(newPost._id).populate('userId', 'userName');
+    res.status(201).json(populatedPost);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -38,7 +39,8 @@ router.put('/:id', authenticateToken, async (req, res) => {
 
     try {
         const updatedPost = await Post.findByIdAndUpdate(id, { postText, updatedAt: Date.now() }, { new: true });
-        res.status(200).json(updatedPost);
+        const populatedUpdatedPost = await Post.findById(updatedPost._id).populate('userId', 'userName');
+        res.status(200).json(populatedUpdatedPost);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -59,7 +61,7 @@ router.delete('/:id', authenticateToken, async (req, res) => {
 router.get('/:postId/comments', async (req, res) => {
   try {
     const { postId } = req.params;
-    const comments = await Comment.find({ postId }).select('text userName userId createdAt updatedAt');
+    const comments = await Comment.find({ postId }).populate('userId', 'userName').select('text userId createdAt updatedAt');
     res.status(200).json(comments);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -74,7 +76,8 @@ router.post('/:postId/comment', authenticateToken, async (req, res) => {
 
   try {
     const newComment = await comment.save();
-    res.status(201).json(newComment);
+    const populatedComment = await Comment.findById(newComment._id).populate('userId', 'userName');
+    res.status(201).json(populatedComment);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -86,7 +89,8 @@ router.put('/:postId/comment/:commentId', authenticateToken, async (req, res) =>
 
   try {
     const updatedComment = await Comment.findByIdAndUpdate(commentId, { text, updatedAt: Date.now() }, { new: true });
-    res.status(200).json(updatedComment);
+    const populatedUpdatedComment = await Comment.findById(updatedComment._id).populate('userId', 'userName');
+    res.status(200).json(populatedUpdatedComment);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

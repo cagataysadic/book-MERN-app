@@ -3,7 +3,6 @@ const User = require('./User')
 
 const postSchema = new mongoose.Schema({
     postText: String,
-    userName: String,
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

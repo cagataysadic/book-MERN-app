@@ -1,28 +1,35 @@
 import { createContext, useState, useEffect } from 'react';
 
-export const AuthContext = createContext();
+import axios from 'axios';
 
-export const AuthContextProvider = ({ children }) => {
+const AuthContext = createContext();
+
+const AuthContextProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState(null);
   const [token, setToken] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('userId');
-    if (token && userId) {
+    const storedToken = localStorage.getItem('token');
+    const storedUserId = localStorage.getItem('userId');
+    if (storedToken && storedUserId) {
       setIsLoggedIn(true);
-      setUserId(userId);
+      setUserId(storedUserId);
+      setToken(storedToken);
     } else {
       setIsLoggedIn(false);
       setUserId(null);
+      setToken(null);
     }
+    
+    setLoading(false);
   }, []);
 
-  const login = (userId) => {
+  const login = (userId, token) => {
     setIsLoggedIn(true);
     setUserId(userId);
-    setToken(token)
+    setToken(token);
     localStorage.setItem('userId', userId);
     localStorage.setItem('token', token);
   };
@@ -35,9 +42,20 @@ export const AuthContextProvider = ({ children }) => {
     localStorage.removeItem('userId');
   };
 
+  const api = axios.create({
+    baseURL: '/api',
+    headers: { 'Authorization': `Bearer ${token}`}
+  }); 
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
+
   return (
-    <AuthContext.Provider value={{ isLoggedIn, userId, token, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, userId, api, token, setToken, login, logout, }}>
       {children}
     </AuthContext.Provider>
   );
 };
+
+export { AuthContext, AuthContextProvider };

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { AuthContext } from '../context/authContext';
 import { useLocation } from 'react-router-dom';
-import axios from 'axios';
 import io from 'socket.io-client';
 import groupBy from 'lodash.groupby';
 
@@ -9,15 +8,10 @@ import "./Message.css";
 
 
 const ChatList = () => {
-  const { token, userId } = useContext(AuthContext);
+  const { token, userId, api } = useContext(AuthContext);
   const [conversations, setConversations] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
   const [selectedChatName, setSelectedChatName] = useState('');
-
-  const api = axios.create({
-    baseURL: '/api',
-    headers: { 'Authorization': `Bearer ${token}` }
-  });
 
   const location = useLocation();
   const otherUserId = location.state ? location.state.otherUserId : null;

@@ -1,16 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 import "./Comment.css"
 
 
-const Comment = ({ comment, postId, refreshComments, token, userId }) => {
+const Comment = ({ comment, postId, refreshComments, token, userId, api }) => {
 
-    const api = axios.create({
-        baseURL: '/api',
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
+    
     const [isEditing, setIsEditing] = useState(false);
     const [editedComment, setEditedComment] = useState(comment.text);
 
@@ -21,7 +17,7 @@ const Comment = ({ comment, postId, refreshComments, token, userId }) => {
     }
 
     const isUserAuthor = () => {
-        return userId === comment.userId.toString();
+        return userId === comment.userId._id;
     }
 
     const handleDelete = async () => {
@@ -77,10 +73,10 @@ const Comment = ({ comment, postId, refreshComments, token, userId }) => {
         ) : (
             <>
                 <p>{comment.text}</p>
-                <p className='comment-author'>{comment.userName}</p>
+                <p className='comment-author'>{comment.userId.userName}</p>
                 <p className='comment-date'>Created At: {formatDate(comment.createdAt)}</p>
                 {comment.updatedAt && <p className="comment-update-date">Updated At: {formatDate(comment.updatedAt)}</p>}
-                {currentUserId === comment.userId.toString() && (
+                {currentUserId === comment.userId._id && (
                     <div className="comment-buttons">
                         <button className='edit-button' onClick={() => setIsEditing(true)}>Update</button>
                         <button className='delete-button' onClick={handleDelete}>Delete</button>

@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
 import Masonry from 'masonry-layout';
 import imagesLoaded from 'imagesloaded';
 
@@ -9,11 +8,7 @@ import { AuthContext } from '../context/authContext';
 
 const Profile = () => {
 
-    const { token } = useContext(AuthContext);
-    const api = axios.create({
-        baseURL: '/api',
-        headers: { 'Authorization': `Bearer ${token}` }
-    });
+    const { token, api } = useContext(AuthContext);
 
     const [books, setBooks] = useState([]);
     const [title, setTitle] = useState('');
@@ -28,11 +23,23 @@ const Profile = () => {
     
     useEffect(() => {
         const fetchBooks = async () => {
-            const response = await api.get('/book');
-            setBooks(response.data);
+            if (!api) {
+                console.log('API not initialized');
+                return;
+            }
+            try {
+                const response = await api.get('/book');
+                setBooks(response.data);
+            } catch (err) {
+                console.log('Error fetching books:', err);
+            }
         };
-        fetchBooks();
-    }, [token]);
+
+        if (api) {
+            fetchBooks();
+        };
+
+    }, [token, api]);
 
     const initMasonry = (selector) => {
         const grid = document.querySelector(selector);
@@ -80,7 +87,6 @@ const Profile = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const token = localStorage.getItem('token');
             if (!token) {
                 console.log('No token')
                 return;
@@ -162,7 +168,7 @@ const Profile = () => {
                             <h3 className='book-title'>{book.author}</h3>
                             <p className='book-description'>{book.description}</p>
                             <h3 className='book-title'>{book.genre}</h3>
-                            <p className='book-username'>{book.userName}</p>
+                            <p className='book-username'>{book.userId.userName}</p>
                             <p className='book-timestamp'>Created at: {formatDate(book.createdAt)}</p>
                             {book.updatedAt && <p className='book-timestamp'>Updated at: {formatDate(book.updatedAt)}</p>}
                             <button className='prev-book-delete-button' onClick={() => handleDelete(book._id)}>Delete</button>

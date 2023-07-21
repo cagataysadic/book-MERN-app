@@ -9,11 +9,7 @@ import { AuthContext } from "../context/authContext";
 
 const CommentsSection = ({ postId }) => {
 
-    const { token, userId } = useContext(AuthContext);
-    const api = axios.create({
-        baseURL: '/api',
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
+    const { token, userId, api } = useContext(AuthContext);
     
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
@@ -49,7 +45,7 @@ const CommentsSection = ({ postId }) => {
     <div className="comments-section">
         <h3>Comments</h3>
         {comments.map((comment) => (
-            <Comment key={comment._id} comment={comment} postId={postId} refreshComments={fetchComments} token={token} userId={userId} />
+            <Comment key={comment._id} comment={comment} postId={postId} refreshComments={fetchComments} token={token} userId={userId} api={api} />
         ))}
         <form onSubmit={handleSubmit}>
             <input
