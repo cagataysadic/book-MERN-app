@@ -6,7 +6,8 @@ import { AuthContext } from '../context/authContext';
 
 const AccountSettings = () => {
 
-    const { api } = useContext(AuthContext)
+    const { api } = useContext(AuthContext);
+    
     const [newUsername, setNewUsername] = useState('');
     const [newEmail, setNewEmail] = useState('');
     const [password, setPassword] = useState('');
