@@ -2,8 +2,8 @@ const express = require('express');
 const Message = require('../models/Message');
 const User = require('../models/User');
 const mongoose = require('mongoose')
-const authenticateToken = require('../middlewares/authenticateToken');  
-
+const authenticateToken = require('../middlewares/authenticateToken');
+const socketManager = require('../socketManager');
 const router = express.Router();
 
 // Get all conversations for the logged-in user
@@ -65,6 +65,8 @@ router.delete('/delete/:messageId', authenticateToken, async (req, res) => {
         if (message.sender.toString() !== req.user.userId) {
             return res.status(403).json({ error: "You can only delete your own messages" });
         }
+
+        socketManager.getIo().emit('delete_message', req.params.messageId);
 
         await Message.findByIdAndRemove(req.params.messageId);
         res.json({ message: "Message deleted succesfully" });

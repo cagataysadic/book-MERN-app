@@ -122,6 +122,10 @@ const Chat = ({ otherUserId, chatName, api, token, userId }) => {
         setMessages(prevMessages => [...prevMessages, incomingMessage]);
     });
 
+    socketRef.current.on('delete_message', (deletedMessageId) => {
+      setMessages(prevMessages => prevMessages.filter(message => message._id !== deletedMessageId));
+    });
+
     return () => socketRef.current.disconnect();
   }, [userId, otherUserId]);
 

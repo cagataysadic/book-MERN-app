@@ -4,17 +4,13 @@ const cors = require('cors');
 const path = require('path');
 const mongoose = require('mongoose');
 const http = require('http');
-const socketIo = require('socket.io');
 const Message = require('./models/Message');
+const socketManager = require('./socketManager')
 
 const port = process.env.PORT;
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server, {
-    cors: {
-        origin: (process.env.CORS_ORIGIN) || (process.env.DEV_ORIGIN),
-    }
-});
+const io = socketManager.init(server);
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 
