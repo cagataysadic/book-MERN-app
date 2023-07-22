@@ -6,7 +6,7 @@ const authenticateToken = require('../middlewares/authenticateToken');
 
 router.get('/every', async (req, res) => {
   try {
-      const books = await Book.find().populate('userId', 'userName -_id');
+      const books = await Book.find().populate('userId');
       res.send(books);
   } catch (error) {
     res.status(500).send('Server error');
