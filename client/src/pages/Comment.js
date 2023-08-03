@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 
 const Comment = ({ comment, postId, refreshComments, userId, api }) => {
@@ -6,6 +6,7 @@ const Comment = ({ comment, postId, refreshComments, userId, api }) => {
     
     const [isEditing, setIsEditing] = useState(false);
     const [editedComment, setEditedComment] = useState(comment.text);
+
 
     const handleDelete = async () => {
         await api.delete(`/post/${postId}/comment/${comment._id}`,);
