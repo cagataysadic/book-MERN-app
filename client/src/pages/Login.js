@@ -3,8 +3,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 
-import "./Login.css";
-
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -52,22 +50,22 @@ const Login = () => {
     };
 
     return (
-        <div className="login-container">
+        <div className="flex w-full justify-center items-center min-h-screen bg-stone-200">
             {errorMessage && (
-                <div className="error-popup" ref={errorPopupRef}>
+                <div className="fixed top-16 right-5 rounded-xl bg-red-700 text-stone-200 py-2 px-4 text-base z-40" ref={errorPopupRef}>
                 {errorMessage}
               </div>
             )}
-            <form className="login-form" onSubmit={handleSubmit}>
-                <label className="login-label">
-                    <input className="login-label-input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-Mail..." required />
+            <form className="w-1/4 h-96 rounded-3xl py-6 bg-stone-300 flex flex-col items-center" onSubmit={handleSubmit}>
+                <label className="block my-12">
+                    <input className="w-96 p-4 text-lg rounded-xl outline-teal-500 focus:caret-teal-700 hover:shadow-lg bg-stone-100 text-stone-900 mx-auto" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-Mail..." required />
                 </label>
-                <label className="login-label">
-                    <input className="login-label-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password..." required />
+                <label className="block mb-12">
+                    <input className="w-96 p-4 text-lg rounded-xl outline-teal-500 focus:caret-teal-700 hover:shadow-lg bg-stone-100 text-stone-900 mx-auto" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password..." required />
                 </label>
-                <div className="login-button-wrapper">
-                <button className="login-button" type="submit">Login</button>
-                </div>
+                <label className="flex justify-center w-full">
+                    <button className="block w-1/3 p-4 text-xl bg-teal-700 text-stone-200 rounded-xl cursor-pointer transition-colors hover:bg-teal-800" type="submit">Login</button>
+                </label>
             </form>
         </div>
     )

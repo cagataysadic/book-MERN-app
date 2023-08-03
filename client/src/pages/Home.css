@@ -90,17 +90,8 @@
   font-weight: bold;
 }
 
-.home-list-masonry {
-  list-style: none;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-}
 
-.home-list-item-wrapper {
-  margin-bottom: 20px;
-}
+
 
 .home-list-item {
   padding: 15px;

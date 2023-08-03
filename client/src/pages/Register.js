@@ -84,29 +84,31 @@ const Register = () => {
     };
 
     return (
-        <div className="register-container">
+        <div className="flex w-full justify-center items-center min-h-screen bg-stone-200">
             {errorMessage && (
-                <div className="error-popup" ref={errorPopupRef}>
+                <div className="fixed top-16 right-5 rounded-xl bg-red-700 text-stone-200 py-2 px-4 text-base z-40" ref={errorPopupRef}>
                     {errorMessage}
                 </div>
             )}
-            <form className="register-form" onSubmit={handleSubmit}>
-                <label className="register-label">
-                    <input className="register-label-input" type="userName" value={userName} onChange={(e) => setUserName(e.target.value)} placeholder="User name..." required />
+            <form className="w-1/4 rounded-3xl py-6 bg-stone-300 flex flex-col items-center" onSubmit={handleSubmit}>
+                <label className="block my-4">
+                    <input className="w-96 p-4 text-lg rounded-xl outline-teal-500 focus:caret-teal-700 hover:shadow-lg bg-stone-100 text-stone-900 mx-auto" type="userName" value={userName} onChange={(e) => setUserName(e.target.value)} placeholder="User name..." required />
                 </label>
-                <label className="register-label">
-                    <input className="register-label-input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-Mail..." required />
+                <label className="block my-4">
+                    <input className="w-96 p-4 text-lg rounded-xl outline-teal-500 focus:caret-teal-700 hover:shadow-lg bg-stone-100 text-stone-900 mx-auto" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-Mail..." required />
                 </label>
-                <label className="register-label">
-                    <input className="register-label-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password..." required />
+                <label className="block my-4">
+                    <input className="w-96 p-4 text-lg rounded-xl outline-teal-500 focus:caret-teal-700 hover:shadow-lg bg-stone-100 text-stone-900 mx-auto" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password..." required />
                 </label>
-                <label className="register-label">
-                    <input className="register-label-input" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm Password..." required />
+                <label className="block my-4">
+                    <input className="w-96 p-4 text-lg rounded-xl outline-teal-500 focus:caret-teal-700 hover:shadow-lg bg-stone-100 text-stone-900 mx-auto" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm Password..." required />
                 </label>
-                <div className="password-info">
-                    <h3>Your password should contain at least 8 characters, should contain a capital letter, a lower letter, a number and a special character.</h3>
-                </div>
-                <button className="register-button" type="submit">Register</button>
+                <label className="w-96 my-2 mx-auto p-4 bg-stone-100 rounded-xl border-solid border-2 border-teal-700 text-justify">
+                    <h3 className="text-base text-stone-900 ">Your password should contain at least 8 characters, should contain a capital letter, a lower letter, a number and a special character.</h3>
+                </label>
+                <label className="flex justify-center w-full">
+                    <button className="block w-1/3 p-4 mt-2 mb-4 text-xl bg-teal-700 text-stone-200 rounded-xl cursor-pointer transition-colors hover:bg-teal-800" type="submit">Register</button>
+                </label>
             </form>
         </div>
     );

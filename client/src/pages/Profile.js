@@ -2,7 +2,6 @@ import { useState, useEffect, useContext } from 'react';
 import Masonry from 'masonry-layout';
 import imagesLoaded from 'imagesloaded';
 
-import "./Profile.css"
 import { AuthContext } from '../context/authContext';
 
 
@@ -134,45 +133,44 @@ const Profile = () => {
 
 
     return (
-        <div className='profile-container'>
-            <h1 className='profile-heading'>Welcome to Your Profile Page!</h1>
-            <h2 className='profile-subheading'>Share a New Book</h2>
-            <form className='profile-form' onSubmit={handleSubmit}>
-                <label className='profile-label'>
-                    <textarea className='profile-label-input-textarea' placeholder='Title...' value={title} onChange={(e) => setTitle(e.target.value)} required />
+        <div className='min-h-screen bg-stone-200 pt-8 flex flex-col'>
+            <h1 className='text-center text-4xl mb-2 mt-10 text-stone-900'>Welcome to Your Profile Page!</h1>
+            <h2 className='text-center text-2xl mb-5 mt-4 text-stone-900'>Share a New Book</h2>
+            <form className='flex flex-col items-center mb-5' onSubmit={handleSubmit}>
+                <label className='flex flex-col mb-2.5 hover:shadow-lg'>
+                    <textarea className='max-w-xl p-4 text-base rounded bg-stone-50 resize-y' placeholder='Title...' value={title} onChange={(e) => setTitle(e.target.value)} required />
                 </label>
-                <label className='profile-label'>
-                    <textarea className='profile-label-input-textarea' placeholder='Author...' value={author} onChange={(e) => setAuthor(e.target.value)} required />
+                <label className='flex flex-col mb-2.5 hover:shadow-lg'>
+                    <textarea className='max-w-xl p-4 text-base rounded bg-stone-50 resize-y' placeholder='Author...' value={author} onChange={(e) => setAuthor(e.target.value)} required />
                 </label>
-                <label>
-                    <textarea className='profile-label-input-textarea' placeholder='Description...' value={description} onChange={(e) => setDescription(e.target.value)} required />
+                <label className='flex flex-col mb-2.5 hover:shadow-lg'>
+                    <textarea className='max-w-xl p-4 text-base rounded bg-stone-50 resize-y' placeholder='Description...' value={description} onChange={(e) => setDescription(e.target.value)} required />
                 </label>
-                <label>
-                    <span>Genre:</span>
-                    <select value={genre} className='profile-label-select' onChange={(e) => setGenre(e.target.value)} required>
+                <label className='flex flex-col mb-2.5 hover:shadow-lg'>
+                    <select value={genre} className=' p-4 text-base rounded bg-stone-50 resize-y text-stone-800' onChange={(e) => setGenre(e.target.value)} required>
                         <option value="">Select genre...</option>
                         {genres.map((g, index) => <option key={index} values={g}>{g}</option>)}
                     </select>
                 </label>
-                <div className='button-wrapper'>
-                    <button className='profile-button' type="submit">{updateBook ? 'Update' : 'Create'}</button>
-                    <button className='profile-button' type="button" onClick={handleCancelUpdate}>Cancel</button>
+                <div className='flex'>
+                    <button className='py-2 px-4 m-1 text-base rounded bg-teal-500 text-stone-100 cursor-pointer transition-colors hover:bg-teal-600' type="submit">{updateBook ? 'Update' : 'Create'}</button>
+                    <button className='py-2 px-4 m-1 text-base rounded bg-teal-500 text-stone-100 cursor-pointer transition-colors hover:bg-teal-600' type="button" onClick={handleCancelUpdate}>Cancel</button>
                 </div>
             </form>
-            <h2 className='profile-subheading'>Your Previous Books</h2>
-            <ul className='profile-ul books-ul'>
+            <h2 className='text-center text-2xl mb-12 mt-4 text-stone-900'>Your Previous Books</h2>
+            <ul className='books-ul list-none p-0 grid gap-5 ml-28'>
                 {books.map((book) => (
-                    <div key={book._id} className='profile-list-item-wrapper'>
-                        <li className='profile-li'>
-                            <h3 className='book-title'>{book.title}</h3>
-                            <h3 className='book-title'>{book.author}</h3>
-                            <p className='book-description'>{book.description}</p>
-                            <h3 className='book-title'>{book.genre}</h3>
-                            <p className='book-username'>{book.userId.userName}</p>
-                            <p className='book-timestamp'>Created at: {formatDate(book.createdAt)}</p>
-                            {book.updatedAt && <p className='book-timestamp'>Updated at: {formatDate(book.updatedAt)}</p>}
-                            <button className='prev-book-delete-button' onClick={() => handleDelete(book._id)}>Delete</button>
-                            <button className='prev-book-edit-button' onClick={() => setUpdateBook(book)}>Update</button>
+                    <div key={book._id} className='profile-list-item-wrapper mb-5'>
+                        <li className='p-3.5 rounded break-words bg-neutral-300 w-96'>
+                            <h3 className='text-base mb-2.5 text-neutral-900'>{book.title}</h3>
+                            <h3 className='text-sm mb-2.5 text-neutral-900'>{book.author}</h3>
+                            <p className='text-sm mb-2.5 text-neutral-900'>{book.description}</p>
+                            <h3 className='text-sm mb-2.5 text-neutral-900'>{book.genre}</h3>
+                            <p className='text-lg mb-2.5 text-neutral-900'>{book.userId.userName}</p>
+                            <p className='text-xs mb-2.5 text-neutral-900'>Created at: {formatDate(book.createdAt)}</p>
+                            {book.updatedAt && <p className='text-xs mb-2.5 text-neutral-900'>Updated at: {formatDate(book.updatedAt)}</p>}
+                            <button className='py-1 px-2 text-sm rounded cursor-pointer transition-colors bg-red-600 hover:bg-red-500 text-stone-100 mr-2' onClick={() => handleDelete(book._id)}>Delete</button>
+                            <button className='py-1 px-2 text-sm rounded cursor-pointer transition-colors bg-teal-600 hover:bg-teal-500 text-stone-100' onClick={() => setUpdateBook(book)}>Update</button>
                         </li>
                     </div>
                 ))}

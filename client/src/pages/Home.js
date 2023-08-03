@@ -5,7 +5,6 @@ import imagesLoaded from "imagesloaded";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from '../context/authContext';
 
-import "./Home.css"
 
 const Home = () => {
     const [books, setBooks] = useState([]);
@@ -13,7 +12,7 @@ const Home = () => {
     const [genres, setGenres] = useState([]);
     const [selectedGenre, setSelectedGenre] = useState(null);
 
-    const { userId } = useContext(AuthContext);
+    const { userId, isLoggedIn } = useContext(AuthContext);
 
     const navigate = useNavigate()
 
@@ -75,43 +74,53 @@ const Home = () => {
         return new Date(date).toLocaleString();
     };
 
+    const sortedBooks = filteredBooks.sort((a, b) => {
+        const dateA = new Date(a.updatedAt || a.createdAt);
+        const dateB = new Date(b.updatedAt || b.createdAt);
+        return dateB - dateA;
+      });
+
     return (
-        <div className="home-container">
-            <div className="search-container">
-                    <input type="text" onChange={(e) => setSearch(e.target.value)} />
-            </div>
-            <div className="content-container">
-                <div className="left-container">
-                    <div className="genre-list-container">
-                        <ul className="genre-list">
-                        {genres.map((genre, index) => (
-                            <li
-                                key={index}
-                                className={`genre-item${selectedGenre === genre ? ' selected' : ''}`}
-                                onClick={() => handleGenreClick(genre)}
-                            >
-                                {genre}
-                            </li>
-                            ))}
-                        </ul>
-                    </div>
+        <div className="min-h-screen bg-stone-200 flex flex-col">
+            <div className="grow flex w-full">
+                <div className="w-1/5 h-screen bg-stone-300 pt-24 mx-auto overflow-y-hidden">
+                    <ul>
+                    {genres.map((genre, index) => (
+                        <li
+                            key={index}
+                            className={`cursor-pointer flex flex-col items-center transition-colors text-teal-700 hover:text-teal-500 text-xl break-words ${selectedGenre === genre ? 'font-bold' : ''}`}
+                            onClick={() => handleGenreClick(genre)}
+                        >
+                            {genre}
+                        </li>
+                        ))}
+                    </ul>
                 </div>
-                <div className="right-container">
-                    <h1 className="home-heading">Welcome</h1>
-                    <h2 className="home-subheading">Our Books:</h2>
-                    <ul className="home-list-masonry">
-                        {filteredBooks.map((book) => (
-                            <div key={book._id} className="home-list-item-wrapper">
-                                <li className="home-list-item">
-                                    <h3 className="book-title">{book.title}</h3>
-                                    <h3 className="book-title">{book.author}</h3>
-                                    <p className="book-description">{book.description}</p>
-                                    <h3 className="book-title">{book.genre}</h3>
-                                    <p className="book-creator">{book.userId.userName}</p>
-                                    <p className="book-date">Created At: {formatDate(book.createdAt)}</p>
-                                    {book.updatedAt && <p className="book-update-date">updated At: {formatDate(book.updatedAt)}</p>}
+                <div className="w-4/5 pl-28 h-screen overflow-y-auto pt-6">
+                    <div className="pt-12 mb-2 flex justify-center">
+                        <input type="text" onChange={(e) => setSearch(e.target.value)} className="w-full max-w-xl p-1 text-base border-2 border-solid border-stone-100 rounded outline-none bg-stone-100 text-stone-800 hover:shadow-lg" />
+                    </div>
+                    <h1 className="text-center text-4xl mb-2 mt-5">Welcome</h1>
+                    <h2 className="text-center text-2xl mb-7">Our Books:</h2>
+                    <ul className="home-list-masonry list-none p-0 grid gap-5">
+                        {sortedBooks.map((book) => (
+                            <div key={book._id} className="home-list-item-wrapper mb-5">
+                                <li className="p-3.5 rounded break-words bg-neutral-300 w-96">
+                                    <h3 className="text-base mb-2.5 text-neutral-900">{book.title}</h3>
+                                    <h3 className="text-sm mb-2.5 text-neutral-900">{book.author}</h3>
+                                    <p className="text-sm mb-2.5 text-neutral-900">{book.description}</p>
+                                    <h3 className="text-sm mb-2.5 text-neutral-900">{book.genre}</h3>
+                                    <p className="text-lg mb-2.5 text-neutral-900">{book.userId.userName}</p>
+                                    <p className="text-xs mb-2.5 text-neutral-900">Created At: {formatDate(book.createdAt)}</p>
+                                    {book.updatedAt && <p className="text-xs mb-2.5 text-neutral-900">updated At: {formatDate(book.updatedAt)}</p>}
                                     {book.userId._id !== userId && 
-                                        <button className="message-button" onClick={() => navigate('/chat', { state: { chatName: book.userId.userName, otherUserId: book.userId._id }})}>
+                                        <button className="bg-teal-500 text-stone-100 pt-1 pr-2 pb-1 pl-2 text-sm rounded cursor-pointer transition-colors hover:bg-teal-400" onClick={() => {
+                                            if (!isLoggedIn) {
+                                              navigate('/register');
+                                            } else if (book.userId._id !== userId) {
+                                              navigate('/chat', { state: { chatName: book.userId.userName, otherUserId: book.userId._id } });
+                                            }
+                                          }}>
                                         Message
                                         </button>
                                     }

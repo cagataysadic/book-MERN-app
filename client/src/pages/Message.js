@@ -4,8 +4,6 @@ import { useLocation } from 'react-router-dom';
 import io from 'socket.io-client';
 import groupBy from 'lodash.groupby';
 
-import "./Message.css";
-
 
 const ChatList = () => {
   const { token, userId, api } = useContext(AuthContext);
@@ -27,7 +25,7 @@ const ChatList = () => {
       setConversations(response.data);
     })
     .catch(error => console.error(error));
-  }, [token, otherUserId, location.state]);
+  }, [token, otherUserId, location.state, api]);
 
   const selectChat = (otherUserId, chatName) => {
     if (selectedChat === otherUserId && selectedChatName === chatName) {
@@ -40,38 +38,30 @@ const ChatList = () => {
   };
 
   return (
-    <div className='container'>
-      <div className={`chat-list-container ${selectedChat ? 'active' : ''}`}>
-        <div className='chat-list'>
-          <h1 className='conversation-list-header'>Your Conversation List</h1>
-          <div className='conversation-list'>
-            {conversations.map((conversation, index) => (
-              <div key={index}>
-                <div className='conversation-list-item' onClick={() => selectChat(conversation._id, conversation.userName)}>
-                  <h3>{conversation.userName}</h3>
-                </div>
+    <div className='relative flex justify-center items-center min-h-screen overflow-y-hidden bg-stone-200'>
+      <ul className={`transition-colors w-1/4 mx-auto py-12 flex flex-col items-center justify-center justify-items-center h-screen ${selectedChat ? 'ml-0 bg-stone-300' : ''}`}>
+        <li>
+          {conversations.map((conversation, index) => (
+            <div key={index}>
+              <div className={`relative inline-block py-6 text-2xl font-medium text-stone-900 hover:text-teal-700 cursor-pointer ${selectedChatName === conversation.userName ? 'text-teal-500 text-3xl' : ''}`} onClick={() => selectChat(conversation._id, conversation.userName)}>
+                <h3>{conversation.userName}</h3>
               </div>
-            ))}
-          </div>
-        </div>
-      </div>
+            </div>
+          ))}
+        </li>
+      </ul>
 
-      <div className={`chat-container ${selectedChat ? 'active': ''}`}>
+      <div className={`w-3/4 left-1/4 absolute ${selectedChat ? 'bg-neutral-200': ''}`}>
         {selectedChat ?
          <Chat otherUserId={selectedChat} chatName={selectedChatName} api={api} token={token} userId={userId} /> :
          null
         }
       </div>
-
-      {selectedChat ?
-        null :
-        <h1 className='chat-select-message'>Please select a chat to start messaging</h1>
-      }
     </div>
   );
 };
 
-const Chat = ({ otherUserId, chatName, api, token, userId }) => {
+const Chat = ({ otherUserId, api, token, userId }) => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState('');
@@ -110,7 +100,7 @@ const Chat = ({ otherUserId, chatName, api, token, userId }) => {
       setLoading(false);
       console.error(error);
     });
-  }, [otherUserId, token]);
+  }, [otherUserId, token, api]);
 
   useEffect(() => {
     socketRef.current = io.connect((process.env.REACT_APP_SOCKET_URL) || (process.env.REACT_DEV_URL), {
@@ -167,23 +157,22 @@ const Chat = ({ otherUserId, chatName, api, token, userId }) => {
   }
 
   return (
-    <div className='chat'>
-      <h2 className='chat-header'>Chat with {chatName}</h2>
-      <div className='chat-history'>
-      {Object.entries(groupedMessages).map(([date, messages], index) => (
-          <div key={index}>
-            <h3>{date}</h3>
-            <div className='message-container'>
+    <div className='flex-1 flex flex-col py-5 h-screen'>
+      <div className='h-screen flex flex-col items-stretch overflow-y-auto pt-6 scroll-smooth'>
+        {Object.entries(groupedMessages).map(([date, messages], index) => (
+          <div key={index} className='px-6'>
+            <h3 className='text-neutral-900 text-lg py-3 font-bold ml-4'>{date}</h3>
+            <div className='flex flex-col'>
               {messages.map((message, index) => (
                 <div 
                   key={index}
-                  className={`message ${message.sender._id === userId ? 'sender' : 'receiver'}`}
+                  className={`flex flex-col text-2xl justify-center items-center m-6 py-2 px-3 rounded-xl break-words ${message.sender._id === userId ? 'self-end bg-teal-400 text-neutral-200' : 'self-start bg-zinc-400 text-stone-100'}`}
                 >
                   <p>{message.text.split('\n').map((item, key) => {
                     return <span key={key}>{item}<br /></span>
                   })}</p>
-                  <p className="message-time">{new Date(message.createdAt).toLocaleTimeString()}</p>
-                  {message.sender._id === userId && <button className='message-delete-button' onClick={() => deleteMessage(message._id)}>Delete</button>}
+                  <p className="text-stone-100 text-sm py-2">{new Date(message.createdAt).toLocaleTimeString()}</p>
+                  {message.sender._id === userId &&  <button className='bg-red-600 text-stone-200 text-sm cursor-pointer mb-1 py-1 px-2 rounded-xl transition-colors hover:bg-red-700' onClick={() => deleteMessage(message._id)}>Delete</button>}
                 </div>
               ))}
             </div>
@@ -191,13 +180,14 @@ const Chat = ({ otherUserId, chatName, api, token, userId }) => {
         ))}
         <div ref={messagesEndRef} />
       </div>
-      <div className='chat-input'>
+      <div className='flex mt-2'>
         <textarea
+          className='w-5/6 ml-24 mb-2 p-2 outline-teal-300 rounded text-neutral-900 bg-neutral-100 focus:caret-teal-500 hover:shadow-lg'
           value={newMessage} 
           onChange={e => setNewMessage(e.target.value)} 
           onKeyDown={handleKeydown} 
           />
-        <button onClick={sendMessage}>Send</button>
+        <button className='ml-8 mb-2 py-0 px-3 border-none text-xl bg-teal-600 text-neutral-100 rounded-xl cursor-pointer transition-colors hover:bg-teal-700' onClick={sendMessage}>Send</button>
       </div>
     </div>
   );
