@@ -45,7 +45,7 @@ const Login = () => {
             setEmail("");
             setPassword("");
             console.log(error);
-            setErrorMessage("Yanlış e-posta adresi veya şifre girdiniz. Lütfen tekrar deneyiniz.")
+            setErrorMessage("Wrong E-Mail or Password. Please try again.")
         }
     };
 

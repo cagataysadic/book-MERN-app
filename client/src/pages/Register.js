@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../context/authContext";
 
-import "./Register.css"
-
 const Register = () => {
     const [userName,setUserName] = useState("");
     const [email, setEmail] = useState("");

@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
-
-import "./AccountSettings.css"
 import { AuthContext } from '../context/authContext';
 
 
@@ -125,7 +123,7 @@ const AccountSettings = () => {
     return (
         <div className="items-start bg-stone-200 flex gap-8 justify-around min-h-screen p-8">
             {errorMessage && (
-                <div className="fixed top-16 right-6 bg-red-700 py-2 px-4 text-stone-100 rounded text-base z-40" ref={errorPopupRef}>
+                <div className="fixed top-16 right-6 bg-red-700 py-2 px-4 text-stone-100 rounded-xl text-base z-40" ref={errorPopupRef}>
                     {errorMessage}
                 </div>
             )}
