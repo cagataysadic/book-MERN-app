@@ -36,10 +36,10 @@ const Comment = ({ comment, postId, refreshComments, userId, api }) => {
     <div className='bg-stone-300 p-2 rounded mb-5 flex flex-col flex-grow'>
         {isEditing ? (
             <>
-                <input 
+                <textarea 
                     type="text"
                     value={editedComment}
-                    className='w-72 p-1 my-2 text-sm rounded outline-none bg-neutral-100 text-neutral-900 hover:shadow-lg placeholder:text-neutral-900'
+                    className='w-72 p-1 my-2 text-sm rounded outline-teal-500 focus:caret-teal-700 bg-neutral-100 text-neutral-900 hover:shadow-lg placeholder:text-neutral-900'
                     onChange={(e) => setEditedComment(e.target.value)}
                 />
                 <div className="flex justify-center">

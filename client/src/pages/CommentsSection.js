@@ -47,9 +47,9 @@ const CommentsSection = ({ postId }) => {
             <Comment key={comment._id} comment={comment} postId={postId} refreshComments={fetchComments} userId={userId} api={api} />
         ))}
         <form className="flex items-center justify-between mt-2" onSubmit={handleSubmit}>
-            <input
+            <textarea
                 type="text"
-                className="w-96 p-1 text-sm rounded outline-none bg-neutral-200 text-neutral-900 hover:shadow-lg placeholder:text-neutral-900"
+                className="w-96 p-1 text-sm rounded outline-teal-500 focus:caret-teal-700 bg-neutral-200 text-neutral-900 hover:shadow-lg placeholder:text-neutral-900"
                 placeholder="Write a comment"
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}

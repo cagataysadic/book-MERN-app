@@ -98,7 +98,7 @@ const Home = () => {
                 </div>
                 <div className="w-4/5 pl-28 h-screen overflow-y-auto pt-6">
                     <div className="pt-12 mb-2 flex justify-center">
-                        <input type="text" onChange={(e) => setSearch(e.target.value)} className="w-full max-w-xl p-1 text-base border-2 border-solid border-stone-100 rounded outline-none bg-stone-100 text-stone-800 hover:shadow-lg" />
+                        <input type="text" onChange={(e) => setSearch(e.target.value)} className="w-full max-w-xl p-1 text-base border-stone-100 rounded-xl outline-teal-300 focus:caret-teal-500 bg-stone-100 text-stone-800 hover:shadow-lg" />
                     </div>
                     <h1 className="text-center text-4xl mb-2 mt-5">Welcome</h1>
                     <h2 className="text-center text-2xl mb-7">Our Books:</h2>

@@ -136,15 +136,15 @@ const Forum = () => {
     return (
         <div className="min-h-screen bg-stone-200 pt-8 flex flex-col">
             <div className="pt-12 mb-2 flex mx-auto">
-                <input type="text" className='w-96 h-10 p-1 text-base rounded-xl bg-stone-100 text-stone-900 placeholder:text-stone-900 hover:shadow-lg' placeholder="looking for a specific user..." onChange={(e) => setSearch(e.target.value)} />
+                <input type="text" className='w-96 h-10 p-1 outline-teal-300 focus:caret-teal-500 text-base rounded-xl bg-stone-100 text-stone-900 placeholder:text-stone-900 hover:shadow-lg' placeholder="looking for a specific user..." onChange={(e) => setSearch(e.target.value)} />
             </div>
             <h1 className="text-center text-4xl mb-2 mt-5">Welcome</h1>
             {((!loading && posts.length <= 8) || showCreateForum) && (
-                <div className='sticky inset-y-12 p-5 rounded z-40'>
+                <div className='sticky inset-y-12 mx-auto w-fit p-5 rounded z-40'>
                     <h2 className='text-2xl text-stone-900 items-center text-center mb-6 opacity-80'>{updatePost ? "Update Post" : "Create a new post"}</h2>
                     <form className="flex flex-col items-center justify-center mb-5" onSubmit={handlePostSubmit}>
                         <label className='flex flex-col items-center justify-center mb-2.5'>
-                            <textarea className='w-96 h-36 p-2 text-base rounded outline-none bg-stone-100 text-stone-900 resize-y hover:shadow-lg placeholder:text-stone-800 opacity-80' placeholder='Description...' value={postText} onChange={(e) => setPostText(e.target.value)} required />
+                            <textarea className='w-96 h-36 p-2 outline-teal-300 focus:caret-teal-500 text-base rounded-xl bg-stone-100 text-stone-900 resize-y hover:shadow-lg placeholder:text-stone-800 opacity-80' placeholder='Description...' value={postText} onChange={(e) => setPostText(e.target.value)} required />
                         </label>
                         <div className='flex flex-row justify-center items-center'>
                             <button className='py-2 px-4 text-base rounded bg-teal-500 text-stone-100 mr-2 hover:bg-teal-600 opacity-80' type="submit">{updatePost ? 'Update' : 'Create'}</button>
