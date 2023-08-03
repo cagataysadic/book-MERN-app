@@ -129,8 +129,12 @@ const Profile = () => {
         const date = new Date(timestamp);
         return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
     };
-      
-
+    
+    const sortedBooks = books.sort((a, b) => {
+        const dateA = new Date(a.updatedAt || a.createdAt);
+        const dateB = new Date(b.updatedAt || b.createdAt);
+        return dateB - dateA;
+      });
 
     return (
         <div className='min-h-screen bg-stone-200 pt-8 flex flex-col'>
@@ -159,7 +163,7 @@ const Profile = () => {
             </form>
             <h2 className='text-center text-2xl mb-12 mt-4 text-stone-900'>Your Previous Books</h2>
             <ul className='books-ul list-none p-0 grid gap-5 ml-28'>
-                {books.map((book) => (
+                {sortedBooks.map((book) => (
                     <div key={book._id} className='profile-list-item-wrapper mb-5'>
                         <li className='p-3.5 rounded break-words bg-neutral-300 w-96'>
                             <h3 className='text-base mb-2.5 text-neutral-900'>{book.title}</h3>
