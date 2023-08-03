@@ -138,16 +138,16 @@ const Profile = () => {
             <h2 className='text-center text-2xl mb-5 mt-4 text-stone-900'>Share a New Book</h2>
             <form className='flex flex-col items-center mb-5' onSubmit={handleSubmit}>
                 <label className='flex flex-col mb-2.5 hover:shadow-lg'>
-                    <textarea className='max-w-xl p-4 text-base rounded bg-stone-50 resize-y' placeholder='Title...' value={title} onChange={(e) => setTitle(e.target.value)} required />
+                    <textarea className='max-w-xl p-4 text-base outline-teal-300 focus:caret-teal-500 rounded-xl bg-stone-50 resize-y' placeholder='Title...' value={title} onChange={(e) => setTitle(e.target.value)} required />
                 </label>
                 <label className='flex flex-col mb-2.5 hover:shadow-lg'>
-                    <textarea className='max-w-xl p-4 text-base rounded bg-stone-50 resize-y' placeholder='Author...' value={author} onChange={(e) => setAuthor(e.target.value)} required />
+                    <textarea className='max-w-xl p-4 text-base outline-teal-300 focus:caret-teal-500 rounded-xl bg-stone-50 resize-y' placeholder='Author...' value={author} onChange={(e) => setAuthor(e.target.value)} required />
                 </label>
                 <label className='flex flex-col mb-2.5 hover:shadow-lg'>
-                    <textarea className='max-w-xl p-4 text-base rounded bg-stone-50 resize-y' placeholder='Description...' value={description} onChange={(e) => setDescription(e.target.value)} required />
+                    <textarea className='max-w-xl p-4 text-base outline-teal-300 focus:caret-teal-500 rounded-xl bg-stone-50 resize-y' placeholder='Description...' value={description} onChange={(e) => setDescription(e.target.value)} required />
                 </label>
                 <label className='flex flex-col mb-2.5 hover:shadow-lg'>
-                    <select value={genre} className=' p-4 text-base rounded bg-stone-50 resize-y text-stone-800' onChange={(e) => setGenre(e.target.value)} required>
+                    <select value={genre} className=' p-4 text-base outline-teal-300 focus:caret-teal-500 rounded-xl bg-stone-50 resize-y text-stone-800' onChange={(e) => setGenre(e.target.value)} required>
                         <option value="">Select genre...</option>
                         {genres.map((g, index) => <option key={index} values={g}>{g}</option>)}
                     </select>
