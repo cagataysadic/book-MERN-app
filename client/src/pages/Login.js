@@ -10,7 +10,7 @@ const Login = () => {
     const [errorMessage, setErrorMessage] = useState(null);
 
     const auth = useContext(AuthContext);
-    const darkMode = useContext(AuthContext);
+    const { darkMode } = useContext(AuthContext);
 
     const navigate = useNavigate();
     const errorPopupRef = useRef();

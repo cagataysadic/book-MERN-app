@@ -6,17 +6,17 @@ import Modal from 'react-modal';
 import { AuthContext } from "../context/authContext";
 
 const Dashboard = () => {
-  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const navigate = useNavigate();
-  const { token, setToken } = useContext(AuthContext);
-  const { darkMode, toggleDarkMode } = useContext(AuthContext);
+  const { token, setToken, darkMode, toggleDarkMode } = useContext(AuthContext);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const handleLogout = (e) => {
     e.preventDefault();
     localStorage.removeItem('token');
     setToken(null);
     navigate('/login');
+    setIsDropdownVisible(false);
   };
 
   const handleDeleteAccount = async () => {

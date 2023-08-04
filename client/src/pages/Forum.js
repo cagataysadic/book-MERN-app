@@ -9,7 +9,7 @@ import { AuthContext } from '../context/authContext';
 
 const Forum = () => {
 
-    const { token, userId, api, darkMode } = useContext(AuthContext);
+    const { token, userId, darkMode, api } = useContext(AuthContext);
 
     const [posts, setPosts] = useState([]);
     const [search, setSearch] = useState("");
