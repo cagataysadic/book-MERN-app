@@ -7,7 +7,7 @@ import { AuthContext } from "../context/authContext";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { token, setToken } = useContext(AuthContext);
+  const { token, setToken, darkMode, toggleDarkMode } = useContext(AuthContext);
 
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,15 +48,15 @@ const Dashboard = () => {
 
   return (
     <div className="fixed w-full z-50">
-      <div className=" bg-stone-400 pt-2.5 pb-2.5">
+      <div className={`${darkMode ? 'bg-stone-700' : 'bg-stone-400'} pt-2.5 pb-2.5`}>
         <div className="flex justify-center items-center grow">
           {!token &&
             <>
               <div>
-                <Link to='/register' className="text-stone-900 text-lg mx-20 transition-colors hover:text-teal-900">Register</Link>
+                <Link to='/register' className={`${darkMode ? 'text-stone-200 hover:text-teal-200' : 'text-stone-900 hover:text-teal-900'} text-lg mx-20 transition-colors`}>Register</Link>
               </div>
               <div>
-                <Link to='/login' className="text-stone-900 text-lg mx-20 transition-colors hover:text-teal-900">Login</Link>
+                <Link to='/login' className={`${darkMode ? 'text-stone-200 hover:text-teal-200' : 'text-stone-900 hover:text-teal-900'} text-lg mx-20 transition-colors`}>Login</Link>
               </div>
             </>
           }
@@ -64,19 +64,22 @@ const Dashboard = () => {
             <div className="relative flex items-center transition-colors duration-300 ease-in-out"
               onMouseEnter={() => setIsDropdownVisible(true)}
               onMouseLeave={() => setIsDropdownVisible(false)}>
-              <Link to='/profile' className="text-gray-900 text-lg mx-20 transition-colors hover:text-teal-900">Profile</Link>
+              <Link to='/profile' className={`${darkMode ? 'text-stone-200 hover:text-teal-200' : 'text-stone-900 hover:text-teal-900'} text-lg mx-20 transition-colors`}>Profile</Link>
               {isDropdownVisible && (
-                <div className="absolute left-1/2 transform -translate-x-1/2 mt-48 whitespace-nowrap z-5 flex flex-col bg-stone-400 rounded-md items-center pb-5">
-                  <Link onClick={handleDeleteAccount} className="px-4 pt-6 text-stone-900 rounded-t-md hover:text-teal-900">Delete Account</Link>
-                  <Link to='/chat' className="px-4 pt-2 text-stone-900 hover:text-teal-900">Chat</Link>
-                  <Link onClick={handleLogout} className="px-4 pt-2 text-stone-900 hover:text-teal-900">Logout</Link>
-                  <Link to='/account-settings' className="px-4 pt-2 text-stone-900 rounded-b-md hover:text-teal-900">Account Settings</Link>
+                <div className={`${darkMode ? 'bg-stone-700' : 'bg-stone-400'} absolute left-1/2 transform -translate-x-1/2 mt-56 whitespace-nowrap z-5 flex flex-col rounded-md items-center pb-5`}>
+                  <Link onClick={handleDeleteAccount} className={`${darkMode ? 'text-stone-200 hover:text-teal-200' : 'text-stone-900 hover:text-teal-900'} px-4 pt-4`}>Delete Account</Link>
+                  <Link to='/chat' className={`${darkMode ? 'text-stone-200 hover:text-teal-200' : 'text-stone-900 hover:text-teal-900'} px-4 pt-6`}>Chat</Link>
+                  <Link onClick={handleLogout} className={`${darkMode ? 'text-stone-200 hover:text-teal-200' : 'text-stone-900 hover:text-teal-900'} px-4 pt-6`}>Logout</Link>
+                  <Link to='/account-settings' className={`${darkMode ? 'text-stone-200 hover:text-teal-200' : 'text-stone-900 hover:text-teal-900'} px-4 pt-6`}>Account Settings</Link>
                 </div>
               )}
             </div>
           )}
-          <Link to='/' className="text-stone-900 text-lg mx-20 transition-colors hover:text-teal-900">Home</Link>
-          <Link to='/forum' className="text-stone-900 text-lg mx-20 transition-colors hover:text-teal-900">Forum</Link>
+          <Link to='/' className={`${darkMode ? 'text-stone-200 hover:text-teal-200' : 'text-stone-900 hover:text-teal-900'} text-lg mx-20 transition-colors`}>Home</Link>
+          <Link to='/forum' className={`${darkMode ? 'text-stone-200 hover:text-teal-200' : 'text-stone-900 hover:text-teal-900'} text-lg mx-20 transition-colors`}>Forum</Link>
+          <button onClick={toggleDarkMode} className={`${darkMode ? 'bg-stone-300 text-stone-900 hover:bg-stone-400' : 'bg-stone-700 hover:bg-stone-800 text-stone-200'} block py-1 px-2 mx-20 transition-colors  text-base rounded`}>
+            {darkMode ? 'Light Mode' : 'Dark Mode'}
+          </button>
         </div>
         <Modal
           isOpen={isModalOpen}

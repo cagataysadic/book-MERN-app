@@ -9,7 +9,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState(null);
 
-    const auth = useContext(AuthContext);
+    const { auth, darkMode} = useContext(AuthContext);
 
     const navigate = useNavigate();
     const errorPopupRef = useRef();
@@ -50,21 +50,21 @@ const Login = () => {
     };
 
     return (
-        <div className="flex w-full justify-center items-center min-h-screen bg-stone-200">
+        <div className={`${darkMode ? 'bg-stone-500' : 'bg-stone-200'} flex w-full justify-center items-center min-h-screen`}>
             {errorMessage && (
-                <div className="fixed top-16 right-5 rounded-xl bg-red-700 text-stone-200 py-2 px-4 text-base z-40" ref={errorPopupRef}>
+                <div className={`${darkMode ? 'bg-red-500 text-stone-100' : 'bg-red-700 text-stone-200'} fixed top-16 right-5 rounded-xl py-2 px-4 text-base z-40`} ref={errorPopupRef}>
                 {errorMessage}
               </div>
             )}
-            <form className="w-1/4 h-96 rounded-3xl py-6 bg-stone-300 flex flex-col items-center" onSubmit={handleSubmit}>
+            <form className={`${darkMode ? 'bg-stone-600' : 'bg-stone-300'} w-1/4 h-96 rounded-3xl py-6 flex flex-col items-center`} onSubmit={handleSubmit}>
                 <label className="block my-12">
-                    <input className="w-96 p-4 text-lg rounded-xl outline-teal-500 focus:caret-teal-700 hover:shadow-lg bg-stone-100 text-stone-900 mx-auto" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-Mail..." required />
+                    <input className={`${darkMode ? 'outline-teal-700 focus:caret-teal-800 bg-stone-200' : 'outline-teal-500 focus:caret-teal-700 bg-stone-100'} w-96 p-4 text-lg rounded-xl hover:shadow-lg text-stone-900 mx-auto`} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-Mail..." required />
                 </label>
                 <label className="block mb-12">
-                    <input className="w-96 p-4 text-lg rounded-xl outline-teal-500 focus:caret-teal-700 hover:shadow-lg bg-stone-100 text-stone-900 mx-auto" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password..." required />
+                    <input className={`${darkMode ? 'outline-teal-700 focus:caret-teal-800 bg-stone-200' : 'outline-teal-500 focus:caret-teal-700 bg-stone-100'} w-96 p-4 text-lg rounded-xl hover:shadow-lg text-stone-900 mx-auto`} type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password..." required />
                 </label>
                 <label className="flex justify-center w-full">
-                    <button className="block w-1/3 p-4 text-xl bg-teal-700 text-stone-200 rounded-xl cursor-pointer transition-colors hover:bg-teal-800" type="submit">Login</button>
+                    <button className={`${darkMode ? 'bg-teal-700 text-stone-300 hover:bg-teal-800' : 'bg-teal-600 text-stone-200 hover:bg-teal-700'} block w-1/3 p-4 text-xl rounded-xl cursor-pointer transition-colors`} type="submit">Login</button>
                 </label>
             </form>
         </div>

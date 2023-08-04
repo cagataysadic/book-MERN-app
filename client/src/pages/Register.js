@@ -11,7 +11,7 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState(null);
 
-    const auth = useContext(AuthContext);
+    const { auth, darkMode } = useContext(AuthContext);
 
     const navigate = useNavigate();
     const errorPopupRef = useRef();
@@ -82,30 +82,30 @@ const Register = () => {
     };
 
     return (
-        <div className="flex w-full justify-center items-center min-h-screen bg-stone-200">
+        <div className={`${darkMode ? 'bg-stone-500' : 'bg-stone-200'} flex w-full justify-center items-center min-h-screen`}>
             {errorMessage && (
-                <div className="fixed top-16 right-5 rounded-xl bg-red-700 text-stone-200 py-2 px-4 text-base z-40" ref={errorPopupRef}>
+                <div className={`${darkMode ? 'bg-red-500 text-stone-100' : 'bg-red-700 text-stone-200'} fixed top-16 right-5 rounded-xl py-2 px-4 text-base z-40`} ref={errorPopupRef}>
                     {errorMessage}
                 </div>
             )}
-            <form className="w-1/4 rounded-3xl py-6 bg-stone-300 flex flex-col items-center" onSubmit={handleSubmit}>
+            <form className={`${darkMode ? 'bg-stone-600' : 'bg-stone-300'} w-1/4 rounded-3xl py-6 flex flex-col items-center`} onSubmit={handleSubmit}>
                 <label className="block my-4">
-                    <input className="w-96 p-4 text-lg rounded-xl outline-teal-500 focus:caret-teal-700 hover:shadow-lg bg-stone-100 text-stone-900 mx-auto" type="userName" value={userName} onChange={(e) => setUserName(e.target.value)} placeholder="User name..." required />
+                    <input className={`${darkMode ? 'outline-teal-700 focus:caret-teal-800 bg-stone-200' : 'outline-teal-500 focus:caret-teal-700 bg-stone-100'} w-96 p-4 text-lg rounded-xl hover:shadow-lg text-stone-900 mx-auto`} type="userName" value={userName} onChange={(e) => setUserName(e.target.value)} placeholder="User name..." required />
                 </label>
                 <label className="block my-4">
-                    <input className="w-96 p-4 text-lg rounded-xl outline-teal-500 focus:caret-teal-700 hover:shadow-lg bg-stone-100 text-stone-900 mx-auto" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-Mail..." required />
+                    <input className={`${darkMode ? 'outline-teal-700 focus:caret-teal-800 bg-stone-200' : 'outline-teal-500 focus:caret-teal-700 bg-stone-100'} w-96 p-4 text-lg rounded-xl hover:shadow-lg text-stone-900 mx-auto`} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-Mail..." required />
                 </label>
                 <label className="block my-4">
-                    <input className="w-96 p-4 text-lg rounded-xl outline-teal-500 focus:caret-teal-700 hover:shadow-lg bg-stone-100 text-stone-900 mx-auto" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password..." required />
+                    <input className={`${darkMode ? 'outline-teal-700 focus:caret-teal-800 bg-stone-200' : 'outline-teal-500 focus:caret-teal-700 bg-stone-100'} w-96 p-4 text-lg rounded-xl hover:shadow-lg text-stone-900 mx-auto`} type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password..." required />
                 </label>
                 <label className="block my-4">
-                    <input className="w-96 p-4 text-lg rounded-xl outline-teal-500 focus:caret-teal-700 hover:shadow-lg bg-stone-100 text-stone-900 mx-auto" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm Password..." required />
+                    <input className={`${darkMode ? 'outline-teal-700 focus:caret-teal-800 bg-stone-200' : 'outline-teal-500 focus:caret-teal-700 bg-stone-100'} w-96 p-4 text-lg rounded-xl hover:shadow-lg text-stone-900 mx-auto`} type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm Password..." required />
                 </label>
-                <label className="w-96 my-2 mx-auto p-4 bg-stone-100 rounded-xl border-solid border-2 border-teal-700 text-justify">
+                <label className={`${darkMode ? 'bg-stone-300 border-teal-800' : 'bg-stone-100 border-teal-700'} w-96 my-2 mx-auto p-4 rounded-xl border-solid border-2 text-justify`}>
                     <h3 className="text-base text-stone-900 ">Your password should contain at least 8 characters, should contain a capital letter, a lower letter, a number and a special character.</h3>
                 </label>
                 <label className="flex justify-center w-full">
-                    <button className="block w-1/3 p-4 mt-2 mb-4 text-xl bg-teal-700 text-stone-200 rounded-xl cursor-pointer transition-colors hover:bg-teal-800" type="submit">Register</button>
+                    <button className={`${darkMode ? 'bg-teal-700 text-stone-300 hover:bg-teal-800' : 'bg-teal-600 text-stone-200 hover:bg-teal-700'} block w-1/3 p-4 mt-2 mb-4 text-xl rounded-xl cursor-pointer transition-colors`} type="submit">Register</button>
                 </label>
             </form>
         </div>
