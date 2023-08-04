@@ -39,7 +39,7 @@ const ChatList = () => {
 
   return (
     <div className={`${darkMode ? 'bg-stone-500' : 'bg-stone-200'} relative flex justify-center items-center min-h-screen overflow-y-hidden`}>
-      <ul className={`${darkMode ? `${selectedChat ? 'ml-0 bg-stone-600' : ''}` : `${selectedChat ? 'ml-0 bg-stone-300' : ''}`}transition-colors w-1/4 mx-auto py-12 flex flex-col items-center justify-center justify-items-center h-screen`}>
+      <ul className={`${darkMode ? `${selectedChat ? 'ml-0 bg-stone-600' : ''}` : `${selectedChat ? 'ml-0 bg-stone-300' : ''}`} transition-colors w-1/4 mx-auto py-12 flex flex-col items-center justify-center justify-items-center h-screen`}>
         <li>
           {conversations.map((conversation, index) => (
             <div key={index}>
