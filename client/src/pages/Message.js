@@ -43,7 +43,7 @@ const ChatList = () => {
         <li>
           {conversations.map((conversation, index) => (
             <div key={index}>
-              <div className={`${darkMode ? `${selectedChatName === conversation.userName ? 'text-teal-700 text-3xl' : ''}` : `${selectedChatName === conversation.userName ? 'text-teal-500 text-3xl' : ''}`} relative inline-block py-6 text-2xl font-medium text-stone-900 hover:text-teal-700 cursor-pointer`} onClick={() => selectChat(conversation._id, conversation.userName)}>
+              <div className={`${darkMode ? `${selectedChatName === conversation.userName ? 'text-teal-700 text-3xl' : ''} text-stone-200 hover:text-teal-500` : `${selectedChatName === conversation.userName ? 'text-teal-500 text-3xl' : ''} text-stone-900 hover:text-teal-700`} relative inline-block py-6 text-2xl font-medium cursor-pointer`} onClick={() => selectChat(conversation._id, conversation.userName)}>
                 <h3>{conversation.userName}</h3>
               </div>
             </div>
