@@ -166,13 +166,17 @@ const Chat = ({ otherUserId, api, token, userId }) => {
               {messages.map((message, index) => (
                 <div 
                   key={index}
-                  className={`flex flex-col text-2xl justify-center items-center m-6 py-2 px-3 rounded-xl break-words ${message.sender._id === userId ? 'self-end bg-teal-400 text-neutral-200' : 'self-start bg-zinc-400 text-stone-100'}`}
+                  className={`text-xl w-fit max-w-4xl justify-center items-center m-6 py-2 px-3 rounded-xl break-words ${message.sender._id === userId ? 'self-end bg-teal-400 text-neutral-200' : 'self-start bg-zinc-400 text-stone-100'}`}
                 >
                   <p>{message.text.split('\n').map((item, key) => {
                     return <span key={key}>{item}<br /></span>
                   })}</p>
                   <p className="text-stone-100 text-sm py-2">{new Date(message.createdAt).toLocaleTimeString()}</p>
-                  {message.sender._id === userId &&  <button className='bg-red-600 text-stone-200 text-sm cursor-pointer mb-1 py-1 px-2 rounded-xl transition-colors hover:bg-red-700' onClick={() => deleteMessage(message._id)}>Delete</button>}
+                  {message.sender._id === userId &&
+                    <div className='flex justify-center'>
+                      <button className='bg-red-600 text-stone-200 text-sm cursor-pointer mb-1 py-1 px-2 rounded-xl transition-colors hover:bg-red-700' onClick={() => deleteMessage(message._id)}>Delete</button>
+                    </div>
+                  }
                 </div>
               ))}
             </div>

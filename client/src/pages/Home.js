@@ -113,16 +113,18 @@ const Home = () => {
                                     <p className="text-lg mb-2.5 text-neutral-900">{book.userId.userName}</p>
                                     <p className="text-xs mb-2.5 text-neutral-900">Created At: {formatDate(book.createdAt)}</p>
                                     {book.updatedAt && <p className="text-xs mb-2.5 text-neutral-900">updated At: {formatDate(book.updatedAt)}</p>}
-                                    {book.userId._id !== userId && 
-                                        <button className="bg-teal-500 text-stone-100 pt-1 pr-2 pb-1 pl-2 text-sm rounded cursor-pointer transition-colors hover:bg-teal-400" onClick={() => {
-                                            if (!isLoggedIn) {
-                                              navigate('/register');
-                                            } else if (book.userId._id !== userId) {
-                                              navigate('/chat', { state: { chatName: book.userId.userName, otherUserId: book.userId._id } });
-                                            }
-                                          }}>
-                                        Message
-                                        </button>
+                                    {book.userId._id !== userId &&
+                                        <div className="flex justify-center">
+                                            <button className="bg-teal-500 text-stone-100 py-1 px-2 text-sm rounded cursor-pointer transition-colors hover:bg-teal-400" onClick={() => {
+                                                if (!isLoggedIn) {
+                                                navigate('/register');
+                                                } else if (book.userId._id !== userId) {
+                                                navigate('/chat', { state: { chatName: book.userId.userName, otherUserId: book.userId._id } });
+                                                }
+                                            }}>
+                                            Message
+                                            </button>
+                                        </div>
                                     }
                                 </li>
                             </div>
