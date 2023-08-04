@@ -11,7 +11,8 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState(null);
 
-    const { auth, darkMode } = useContext(AuthContext);
+    const auth  = useContext(AuthContext);
+    const darkMode = useContext(AuthContext);
 
     const navigate = useNavigate();
     const errorPopupRef = useRef();

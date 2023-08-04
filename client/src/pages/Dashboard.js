@@ -6,11 +6,12 @@ import Modal from 'react-modal';
 import { AuthContext } from "../context/authContext";
 
 const Dashboard = () => {
-  const navigate = useNavigate();
-  const { token, setToken, darkMode, toggleDarkMode } = useContext(AuthContext);
-
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const navigate = useNavigate();
+  const { token, setToken } = useContext(AuthContext);
+  const { darkMode, toggleDarkMode } = useContext(AuthContext);
   const handleLogout = (e) => {
     e.preventDefault();
     localStorage.removeItem('token');
@@ -77,9 +78,11 @@ const Dashboard = () => {
           )}
           <Link to='/' className={`${darkMode ? 'text-stone-200 hover:text-teal-200' : 'text-stone-900 hover:text-teal-900'} text-lg mx-20 transition-colors`}>Home</Link>
           <Link to='/forum' className={`${darkMode ? 'text-stone-200 hover:text-teal-200' : 'text-stone-900 hover:text-teal-900'} text-lg mx-20 transition-colors`}>Forum</Link>
-          <button onClick={toggleDarkMode} className={`${darkMode ? 'bg-stone-300 text-stone-900 hover:bg-stone-400' : 'bg-stone-700 hover:bg-stone-800 text-stone-200'} block py-1 px-2 mx-20 transition-colors  text-base rounded`}>
-            {darkMode ? 'Light Mode' : 'Dark Mode'}
-          </button>
+          <div className="mx-20">
+            <button onClick={toggleDarkMode} className={`${darkMode ? 'bg-stone-300 text-stone-900 hover:bg-stone-400' : 'bg-stone-700 hover:bg-stone-800 text-stone-200'} py-1 px-2 transition-colors  text-base rounded`}>
+              {darkMode ? 'Light Mode' : 'Dark Mode'}
+            </button>
+          </div>
         </div>
         <Modal
           isOpen={isModalOpen}
