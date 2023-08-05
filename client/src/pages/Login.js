@@ -57,16 +57,10 @@ const Login = () => {
                 {errorMessage}
               </div>
             )}
-            <form className={`${darkMode ? 'bg-stone-600' : 'bg-stone-300'} w-1/4 h-96 rounded-3xl py-6 flex flex-col items-center`} onSubmit={handleSubmit}>
-                <label className="block my-12">
-                    <input className={`${darkMode ? 'outline-teal-700 focus:caret-teal-800 bg-stone-200' : 'outline-teal-500 focus:caret-teal-700 bg-stone-100'} w-96 p-4 text-lg rounded-xl hover:shadow-lg text-stone-900 mx-auto`} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-Mail..." required />
-                </label>
-                <label className="block mb-12">
-                    <input className={`${darkMode ? 'outline-teal-700 focus:caret-teal-800 bg-stone-200' : 'outline-teal-500 focus:caret-teal-700 bg-stone-100'} w-96 p-4 text-lg rounded-xl hover:shadow-lg text-stone-900 mx-auto`} type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password..." required />
-                </label>
-                <label className="flex justify-center w-full">
-                    <button className={`${darkMode ? 'bg-teal-700 text-stone-300 hover:bg-teal-800' : 'bg-teal-600 text-stone-200 hover:bg-teal-700'} block w-1/3 p-4 text-xl rounded-xl cursor-pointer transition-colors`} type="submit">Login</button>
-                </label>
+            <form className={`${darkMode ? 'bg-stone-600' : 'bg-stone-300'} w-1/4 rounded-3xl py-6 flex flex-col items-center justify-center`} onSubmit={handleSubmit}>
+                    <input className={`${darkMode ? 'outline-teal-700 focus:caret-teal-800 bg-stone-200' : 'outline-teal-500 focus:caret-teal-700 bg-stone-100'} w-5/6 my-6 p-4 text-lg rounded-xl hover:shadow-lg text-stone-900`} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-Mail..." required />
+                    <input className={`${darkMode ? 'outline-teal-700 focus:caret-teal-800 bg-stone-200' : 'outline-teal-500 focus:caret-teal-700 bg-stone-100'} w-5/6 my-6 p-4 text-lg rounded-xl hover:shadow-lg text-stone-900`} type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password..." required />
+                    <button className={`${darkMode ? 'bg-teal-700 text-stone-300 hover:bg-teal-800' : 'bg-teal-600 text-stone-200 hover:bg-teal-700'} p-3 my-2 text-xl rounded-xl cursor-pointer transition-colors`} type="submit">Login</button>
             </form>
         </div>
     )

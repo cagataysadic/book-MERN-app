@@ -50,14 +50,14 @@ const Dashboard = () => {
   return (
     <div className="fixed w-full z-50">
       <div className={`${darkMode ? 'bg-stone-700' : 'bg-stone-400'} pt-2.5 pb-2.5`}>
-        <div className="flex justify-center items-center grow">
+        <div className="flex justify-around items-center mx-72">
           {!token &&
             <>
               <div>
-                <Link to='/register' className={`${darkMode ? 'text-stone-200 hover:text-teal-200' : 'text-stone-900 hover:text-teal-900'} text-lg mx-20 transition-colors`}>Register</Link>
+                <Link to='/register' className={`${darkMode ? 'text-stone-200 hover:text-teal-200' : 'text-stone-900 hover:text-teal-900'} text-lg transition-colors`}>Register</Link>
               </div>
               <div>
-                <Link to='/login' className={`${darkMode ? 'text-stone-200 hover:text-teal-200' : 'text-stone-900 hover:text-teal-900'} text-lg mx-20 transition-colors`}>Login</Link>
+                <Link to='/login' className={`${darkMode ? 'text-stone-200 hover:text-teal-200' : 'text-stone-900 hover:text-teal-900'} text-lg transition-colors`}>Login</Link>
               </div>
             </>
           }
@@ -65,7 +65,7 @@ const Dashboard = () => {
             <div className="relative flex items-center transition-colors duration-300 ease-in-out"
               onMouseEnter={() => setIsDropdownVisible(true)}
               onMouseLeave={() => setIsDropdownVisible(false)}>
-              <Link to='/profile' className={`${darkMode ? 'text-stone-200 hover:text-teal-200' : 'text-stone-900 hover:text-teal-900'} text-lg mx-20 transition-colors`}>Profile</Link>
+              <Link to='/profile' className={`${darkMode ? 'text-stone-200 hover:text-teal-200' : 'text-stone-900 hover:text-teal-900'} text-lg transition-colors`}>Profile</Link>
               {isDropdownVisible && (
                 <div className={`${darkMode ? 'bg-stone-700' : 'bg-stone-400'} absolute left-1/2 transform -translate-x-1/2 mt-56 whitespace-nowrap z-5 flex flex-col rounded-md items-center pb-5`}>
                   <Link onClick={handleDeleteAccount} className={`${darkMode ? 'text-stone-200 hover:text-teal-200' : 'text-stone-900 hover:text-teal-900'} px-4 pt-4`}>Delete Account</Link>
@@ -76,13 +76,11 @@ const Dashboard = () => {
               )}
             </div>
           )}
-          <Link to='/' className={`${darkMode ? 'text-stone-200 hover:text-teal-200' : 'text-stone-900 hover:text-teal-900'} text-lg mx-20 transition-colors`}>Home</Link>
-          <Link to='/forum' className={`${darkMode ? 'text-stone-200 hover:text-teal-200' : 'text-stone-900 hover:text-teal-900'} text-lg mx-20 transition-colors`}>Forum</Link>
-          <div className="mx-20">
-            <button onClick={toggleDarkMode} className={`${darkMode ? 'bg-stone-300 text-stone-900 hover:bg-stone-400' : 'bg-stone-700 hover:bg-stone-800 text-stone-200'} py-1 px-2 transition-colors  text-base rounded`}>
-              {darkMode ? 'Light Mode' : 'Dark Mode'}
-            </button>
-          </div>
+          <Link to='/' className={`${darkMode ? 'text-stone-200 hover:text-teal-200' : 'text-stone-900 hover:text-teal-900'} text-lg transition-colors`}>Home</Link>
+          <Link to='/forum' className={`${darkMode ? 'text-stone-200 hover:text-teal-200' : 'text-stone-900 hover:text-teal-900'} text-lg transition-colors`}>Forum</Link>
+          <button onClick={toggleDarkMode} className={`${darkMode ? 'bg-stone-300 text-stone-900 hover:bg-stone-400' : 'bg-stone-700 hover:bg-stone-800 text-stone-200'} py-1 px-2 transition-colors  text-base rounded`}>
+            {darkMode ? 'Light Mode' : 'Dark Mode'}
+          </button>
         </div>
         <Modal
           isOpen={isModalOpen}
