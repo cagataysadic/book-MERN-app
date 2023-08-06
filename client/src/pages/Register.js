@@ -79,6 +79,16 @@ const Register = () => {
             navigate('/profile')
         } catch (error) {
             console.log(error);
+            if (error.response && error.response.data) {
+                const { userName, email } = error.response.data;
+                if (userName) {
+                    setErrorMessage(userName);
+                } else if (email) {
+                    setErrorMessage(email);
+                } else {
+                    setErrorMessage("An error accured during registration. Please try again.")
+                }
+            }
         }
     };
 

@@ -82,7 +82,19 @@ router.post('/register', async (req, res) => {
         res.status(201).send({ user, token });
     } catch (error) {
         console.log('Error:', error.message);
-        res.status(400).send(error);
+
+        let errors = { userName: '', email: '' };
+
+        if (error.code === 11000) {
+            
+            const duplicateFieldMatch = /index: (\w+)_\d/.exec(error.message);
+            if (duplicateFieldMatch) {
+                const duplicateField = duplicateFieldMatch[1];
+                errors[duplicateField] = `${duplicateField.charAt(0).toUpperCase() + duplicateField.slice(1)} already exists. Please use a different one.`;
+            }
+        }
+
+        res.status(400).send(errors)
     }
 });
 
