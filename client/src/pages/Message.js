@@ -40,11 +40,11 @@ const ChatList = () => {
 
   return (
     <div className="bg-zinc-900 relative flex justify-center items-center min-h-screen overflow-y-hidden">
-      <ul className={`${selectedChat ? 'ml-0 bg-zinc-950' : ''} transition-colors w-1/4 mx-auto py-12 flex flex-col items-center justify-center justify-items-center h-screen`}>
+      <ul className={`${selectedChat ? 'ml-0 bg-zinc-950' : ''} transition-colors w-1/6 mx-auto py-12 flex flex-col items-center justify-center justify-items-center h-screen`}>
         <li>
           {conversations.map((conversation, index) => (
             <div key={index}>
-              <div className={`${selectedChatName === conversation.userName ? 'text-teal-200 text-3xl' : ''} text-teal-300 hover:text-teal-200 relative inline-block py-6 text-2xl font-medium cursor-pointer`} onClick={() => selectChat(conversation._id, conversation.userName)}>
+              <div className={`${selectedChatName === conversation.userName ? 'text-teal-200 text-2xl' : ''} text-teal-300 hover:text-teal-200 relative inline-block py-6 text-2xl font-medium cursor-pointer`} onClick={() => selectChat(conversation._id, conversation.userName)}>
                 <h3>{conversation.userName}</h3>
               </div>
             </div>
@@ -52,7 +52,7 @@ const ChatList = () => {
         </li>
       </ul>
 
-      <div className={`${selectedChat ? 'bg-zinc-900': ''} w-3/4 left-1/4 absolute`}>
+      <div className={`${selectedChat ? 'bg-zinc-900': ''} w-5/6 right-0 absolute`}>
         {selectedChat ?
          <Chat otherUserId={selectedChat} chatName={selectedChatName} api={api} token={token} userId={userId} /> :
          null
@@ -167,7 +167,7 @@ const Chat = ({ otherUserId, api, token, userId }) => {
               {messages.map((message, index) => (
                 <div 
                   key={index}
-                  className={`${message.sender._id === userId ? 'self-end bg-teal-950 text-teal-100' : 'self-start bg-cyan-950 text-cyan-100'} text-xl w-fit max-w-4xl justify-center items-center m-6 py-2 px-3 rounded-xl break-words`}
+                  className={`${message.sender._id === userId ? 'self-end bg-teal-950 text-teal-100' : 'self-start bg-cyan-950 text-cyan-100'} text-lg w-fit max-w-2xl justify-center items-center m-6 py-2 px-3 rounded-xl break-words`}
                 >
                   <p>{message.text.split('\n').map((item, key) => {
                     return <span key={key}>{item}<br /></span>
