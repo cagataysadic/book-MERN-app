@@ -112,12 +112,12 @@ const Home = () => {
     return (
         <div className="bg-zinc-900 min-h-screen flex flex-col items-center">
             <div className="grow flex w-full">
-                <div className="bg-zinc-950 w-1/12 h-screen pt-24 mx-auto overflow-y-hidden">
+                <div className="bg-zinc-950 lg:w-1/12 sm:w-1/6 h-screen lg:pt-24 sm:pt-8 overflow-y-hidden">
                     <ul>
                     {genres.map((genre, index) => (
                         <li
                             key={index}
-                            className={`text-teal-400 hover:text-teal-200 cursor-pointer flex flex-col items-center transition-colors text-xl break-words ${selectedGenre === genre ? 'font-bold' : ''}`}
+                            className={`text-teal-400 hover:text-teal-200 cursor-pointer flex flex-col items-center transition-colors lg:text-xl sm:text-sm break-words ${selectedGenre === genre ? 'font-bold' : ''}`}
                             onClick={() => handleGenreClick(genre)}
                         >
                             {genre}
@@ -125,26 +125,26 @@ const Home = () => {
                         ))}
                     </ul>
                 </div>
-                <div className="w-11/12 h-screen overflow-y-auto pt-6">
-                    <div className="pt-12 mb-2 flex justify-center">
-                        <input type="text" onChange={(e) => setSearch(e.target.value)} className="outline-teal-500 focus:caret-teal-600 bg-teal-200 text-teal-800' w-full max-w-xl p-1 text-base rounded-xl hover:shadow-lg"/>
+                <div className="lg:w-11/12 sm:w-5/6 h-screen overflow-y-auto lg:pt-6 sm:pt-3">
+                    <div className="lg:pt-12 sm:pt-8 lg:mb-2 sm:mb-1 flex justify-center">
+                        <input type="text" onChange={(e) => setSearch(e.target.value)} className="outline-teal-500 focus:caret-teal-600 bg-teal-200 text-teal-800' w-full lg:max-w-xl sm:max-w-md p-1 lg:text-base sm:text-sm lg:rounded-xl sm:rounded-md hover:shadow-lg hover:shadow-teal-300"/>
                     </div>
-                    <h1 className="text-center text-4xl text-teal-500 mb-2 mt-5">Welcome</h1>
-                    <h2 className="text-center text-2xl text-teal-500 mb-7">Our Books:</h2>
-                    <ul className="home-list-masonry list-none ml-10 grid gap-5">
+                    <h1 className="text-center lg:text-4xl sm:text-md text-teal-500 lg:mb-2 sm:mb-1 lg:mt-5 sm:mt-2">Welcome</h1>
+                    <h2 className="text-center lg:text-2xl sm:text-sm text-teal-500 lg:mb-7 sm:mb-2">Our Books:</h2>
+                    <ul className="home-list-masonry list-none lg:ml-12 sm:ml-20 grid lg:gap-5 sm:gap-1">
                         {sortedBooks.map((book) => (
-                            <div key={book._id} className="home-list-item-wrapper mb-5">
-                                <li className="bg-zinc-950 rounded-xl break-words w-96 p-3.5 transition-all duration-300 group hover:shadow-xl rotating-border" style={{animationName: genreAnimationName(book.genre)}}>
-                                    <div className="absolute inset-0 flex items-center justify-center group-hover:items-start p-3.5">
-                                        <h3 className={`text-base break-all`}>{book.title}</h3>
+                            <div key={book._id} className="home-list-item-wrapper lg:mb-5 sm:mb-1">
+                                <li className="bg-zinc-950 lg:rounded-xl sm:rounded-md break-words lg:w-96 sm:w-80 lg:p-3.5 sm:p-1 transition-all duration-300 group rotating-border" style={{animationName: genreAnimationName(book.genre)}}>
+                                    <div className="absolute inset-0 flex items-center justify-center group-hover:items-start lg:p-3.5 sm:p-1">
+                                        <h3 className={`lg:text-base sm:text-sm break-all`}>{book.title}</h3>
                                     </div>
-                                    <div className="mt-8 relative opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <h3 className={` text-sm mb-2`}>{book.author}</h3>
-                                        <p className={` text-sm mb-2`}>{book.description}</p>
-                                        <h3 className={` text-sm mb-2`}>{book.genre}</h3>
-                                        <p className={` text-lg mb-2`}>{book.userId.userName}</p>
-                                        <p className={` text-xs mb-2`}>Created At: {formatDate(book.createdAt)}</p>
-                                        {book.updatedAt && <p className={` text-xs mb-2`}>updated At: {formatDate(book.updatedAt)}</p>}
+                                    <div className="lg:mt-8 sm:mt-4 relative opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <h3 className="lg:text-sm sm:text-xs lg:mb-2 sm:mb-1">{book.author}</h3>
+                                        <p className="lg:text-sm sm:text-xs lg:mb-2 sm:mb-1">{book.description}</p>
+                                        <h3 className="lg:text-sm sm:text-xs lg:mb-2 sm:mb-1">{book.genre}</h3>
+                                        <p className="lg:text-lg sm:text-xs lg:mb-2 sm:mb-1">{book.userId.userName}</p>
+                                        <p className="text-xs lg:mb-2 sm:mb-1">Created At: {formatDate(book.createdAt)}</p>
+                                        {book.updatedAt && <p className="text-xs lg:mb-2 sm:mb-1">updated At: {formatDate(book.updatedAt)}</p>}
                                         {book.userId._id !== userId &&
                                             <div className="flex justify-center">
                                                 <button className="message-button" onClick={() => {
