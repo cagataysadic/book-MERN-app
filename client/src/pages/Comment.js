@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import "./styles/Animation.scss";
 
 
-const Comment = ({ comment, postId, refreshComments, userId, api, darkMode }) => {
+const Comment = ({ comment, postId, refreshComments, userId, api }) => {
 
     
     const [isEditing, setIsEditing] = useState(false);
@@ -33,30 +34,54 @@ const Comment = ({ comment, postId, refreshComments, userId, api, darkMode }) =>
     const currentUserId = userId;
 
   return (
-    <div className={`${darkMode ? 'bg-stone-800' : 'bg-stone-300'} p-2 rounded mb-5 flex flex-col flex-grow`}>
+    <div className="bg-zinc-800 p-2 rounded mb-5 flex flex-col flex-grow">
         {isEditing ? (
             <>
                 <textarea 
                     type="text"
                     value={editedComment}
-                    className={`${darkMode ? 'outline-teal-600 focus:caret-teal-700 bg-neutral-300 text-neutral-900' : 'outline-teal-500 focus:caret-teal-700 bg-neutral-100 text-neutral-900'} w-72 p-1 my-2 text-sm rounded hover:shadow-lg placeholder:text-neutral-900`}
+                    className="outline-teal-600 focus:caret-teal-700 bg-teal-200 text-teal-800 w-72 p-1 my-2 text-sm rounded hover:shadow-lg placeholder:text-neutral-900"
                     onChange={(e) => setEditedComment(e.target.value)}
                 />
                 <div className="flex justify-center">
-                    <button className={`${darkMode ? 'bg-teal-700 hover:bg-teal-800 text-stone-300' : 'bg-teal-600 hover:bg-teal-700 text-stone-100'} py-1 px-2 text-sm rounded cursor-pointer transition-colors mx-2 my-1`} onClick={handleEdit}>Save</button>
-                    <button className={`${darkMode ? 'bg-red-700 hover:bg-red-800 text-stone-300' : 'bg-red-600 hover:bg-red-700 text-stone-100'} py-1 px-2 text-sm rounded cursor-pointer transition-colors mx-2 my-1`} onClick={() => setIsEditing(false)}>Cancel</button>
+                    <button className="update-button" onClick={handleEdit}>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Save
+                    </button>
+                    <button className="delete-button" onClick={() => setIsEditing(false)}>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Cancel
+                    </button>
                 </div>
             </>
         ) : (
             <>
-                <p className={`${darkMode ? 'text-neutral-200' : 'text-neutral-900'} text-base m-1 break-words`}>{comment.text}</p>
-                <p className={`${darkMode ? 'text-neutral-200' : 'text-neutral-900'} font-bold text-base m-1 break-words`}>{comment.userId.userName}</p>
-                <p className={`${darkMode ? 'text-neutral-200' : 'text-neutral-900'} text-sm m-1`}>Created At: {formatDate(comment.createdAt)}</p>
-                {comment.updatedAt && <p className={`${darkMode ? 'text-neutral-200' : 'text-neutral-900'} text-sm m-1`}>Updated At: {formatDate(comment.updatedAt)}</p>}
+                <p className="text-teal-200 text-base m-1 break-words">{comment.text}</p>
+                <p className="text-teal-200 font-bold text-base m-1 break-words">{comment.userId.userName}</p>
+                <p className="text-teal-200 text-sm m-1">Created At: {formatDate(comment.createdAt)}</p>
+                {comment.updatedAt && <p className="text-teal-200 text-sm m-1">Updated At: {formatDate(comment.updatedAt)}</p>}
                 {currentUserId === comment.userId._id && (
                     <div className="flex justify-center">
-                        <button className={`${darkMode ? 'bg-teal-700 hover:bg-teal-800 text-stone-200' : 'bg-teal-600 hover:bg-teal-700 text-stone-100'} py-1 px-2 text-sm rounded cursor-pointer transition-colors mr-2`} onClick={() => setIsEditing(true)}>Update</button>
-                        <button className={`${darkMode ? 'bg-red-700 hover:bg-red-800 text-stone-200' : 'bg-red-600 hover:bg-red-700 text-stone-100'} py-1 px-2 text-sm rounded cursor-pointer transition-colors mr-2`} onClick={handleDelete}>Delete</button>
+                        <button className="update-button" onClick={() => setIsEditing(true)}>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            Update
+                        </button>
+                        <button className="delete-button" onClick={handleDelete}>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            Delete
+                        </button>
                     </div>
                 )}
             </>

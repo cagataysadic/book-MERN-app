@@ -3,13 +3,13 @@ import Masonry from 'masonry-layout';
 import imagesLoaded from 'imagesloaded';
 import axios from 'axios';
 import CommentsSection from './CommentsSection';
-
 import { AuthContext } from '../context/authContext';
+import "./styles/Animation.scss";
 
 
 const Forum = () => {
 
-    const { token, userId, darkMode, api } = useContext(AuthContext);
+    const { token, userId, api } = useContext(AuthContext);
 
     const [posts, setPosts] = useState([]);
     const [search, setSearch] = useState("");
@@ -66,14 +66,12 @@ const Forum = () => {
             initMasonry();
         }
         
-        // Trigger Masonry layout whenever posts state changes
         const observer = new MutationObserver(initMasonry);
         observer.observe(document.querySelector('.forum-list-masonry'), {
             childList: true,
             subtree: true,
         });
     
-        // Clean up the observer when the component is unmounted
         return () => {
             observer.disconnect();
         };
@@ -134,55 +132,75 @@ const Forum = () => {
       });
 
     return (
-        <div className={`${darkMode ? 'bg-stone-500' : 'bg-stone-200'} min-h-screen pt-8 flex flex-col`}>
+        <div className="bg-zinc-900 min-h-screen pt-8 flex flex-col">
             <div className="pt-12 mb-2 flex mx-auto">
-                <input type="text" className={`${darkMode ? 'outline-teal-500 focus:caret-teal-600 bg-stone-300' : 'outline-teal-300 focus:caret-teal-500 bg-stone-100'} w-96 h-10 p-1 text-base rounded-xl text-stone-900 placeholder:text-stone-900 hover:shadow-lg`} placeholder="looking for a specific user..." onChange={(e) => setSearch(e.target.value)} />
+                <input type="text" className="outline-teal-500 focus:caret-teal-600 bg-teal-200 w-96 h-10 p-1 text-base rounded-xl text-stone-900 placeholder:text-stone-900 hover:shadow-lg" placeholder="looking for a specific user..." onChange={(e) => setSearch(e.target.value)} />
             </div>
-            <h1 className={`${darkMode ? 'text-stone-200' : 'text-stone-900'} text-center text-4xl mb-2 mt-5`}>Welcome</h1>
+            <h1 className="text-teal-500 text-center text-4xl mb-2 mt-5">Welcome</h1>
             {((!loading && posts.length <= 8) || showCreateForum) && (
                 <div className='sticky inset-y-12 mx-auto w-fit p-5 rounded z-40'>
-                    <h2 className={`${darkMode ? 'text-stone-200' : 'text-stone-900'} text-2xl items-center text-center mb-6 opacity-80`}>{updatePost ? "Update Post" : "Create a new post"}</h2>
+                    <h2 className="text-teal-500 text-2xl items-center text-center mb-6 opacity-80">{updatePost ? "Update Post" : "Create a new post"}</h2>
                     <form className="flex flex-col items-center justify-center mb-5" onSubmit={handlePostSubmit}>
                         <label className='flex flex-col items-center justify-center mb-2.5'>
-                            <textarea className={`${darkMode ? 'outline-teal-500 focus:caret-teal-600 bg-stone-300 text-stone-900 placeholder:text-stone-800' : 'outline-teal-300 focus:caret-teal-500 bg-stone-100 text-stone-900 placeholder:text-stone-800'} w-96 h-36 p-2 text-base rounded-xl resize-y hover:shadow-lg opacity-80`} placeholder='Description...' value={postText} onChange={(e) => setPostText(e.target.value)} required />
+                            <textarea className="outline-teal-500 focus:caret-teal-600 bg-teal-200 text-teal-800 placeholder:text-teal-800' w-96 h-36 p-2 text-base rounded-xl resize-y hover:shadow-lg opacity-80" placeholder='Description...' value={postText} onChange={(e) => setPostText(e.target.value)} required />
                         </label>
                         <div className='flex flex-row justify-center items-center'>
-                            <button className={`${darkMode ? 'bg-teal-600 text-stone-200 hover:bg-teal-500' : 'bg-teal-500 text-stone-100 hover:bg-teal-600'} py-2 px-4 my-1 mx-2 text-base rounded cursor-pointer transition-colors opacity-80`} type="submit">{updatePost ? 'Update' : 'Create'}</button>
-                            <button className={`${darkMode ? 'bg-teal-600 text-stone-200 hover:bg-teal-500' : 'bg-teal-500 text-stone-100 hover:bg-teal-600'} py-2 px-4 my-1 mx-2 text-base rounded cursor-pointer transition-colors opacity-80`} type="button" onClick={handleCancelPostUpdate}>Cancel</button>
+                            <button className="update-button" type="submit">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                {updatePost ? 'Update' : 'Create'}
+                            </button>
+                            <button className="delete-button" type="button" onClick={handleCancelPostUpdate}>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                Cancel
+                            </button>
                         </div>
                     </form>
                 </div>
             )}
-            <h2 className={`${darkMode ? 'text-stone-200' : 'text-stone-900'} text-center text-2xl mt-4 mb-8`}>Our Current Forum Posts:</h2>
-            <ul className="forum-list-masonry list-none p-0 grid gap-5 ml-28">
+            <h2 className="text-teal-500 text-center text-2xl mt-4 mb-8">Our Current Forum Posts:</h2>
+            <ul className="forum-list-masonry list-none grid gap-5 ml-28">
                 {sortedPosts &&
                     sortedPosts
                         .filter((post) => post.userId.userName.toLowerCase().includes(search.toLocaleLowerCase()))
                         .map((post) => (
                             <div key={post._id} className='forum-list-item-wrapper mb-5'>
-                                <li className={`${darkMode ? 'bg-stone-600' : 'bg-stone-300'} p-3.5 rounded break-words w-96`}>
+                                <li className="bg-zinc-950 rounded-xl break-words w-96 p-3.5 transition-all duration-300 group hover:shadow-xl rotating-border" style={{animationName: 'rotateDefaultColor'}}>
                                     {post.userId._id === userId ? (
                                         <>
-                                        <h3 className={`${darkMode ? 'text-neutral-200' : 'text-neutral-900'} text-xl mb-2.5`}>{post.postText}</h3>
+                                        <h3 className="text-xl mb-2.5">{post.postText}</h3>
                                         <button
-                                          className={`${darkMode ? 'bg-teal-600 text-stone-200 hover:bg-teal-500' : 'bg-teal-500 text-stone-100 hover:bg-teal-600'} py-2 px-4 my-1 mx-2 text-base rounded cursor-pointer transition-colors`}
+                                          className="update-button"
                                           onClick={() => handlePostUpdate(post)}
                                         >
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
                                           Update
                                         </button>
                                         <button
-                                          className={`${darkMode ? 'bg-red-600 text-stone-200 hover:bg-red-500' : 'bg-red-500 text-stone-100 hover:bg-red-600'} py-2 px-4 my-1 mx-2 text-base rounded cursor-pointer transition-colors`}
+                                          className="delete-button"
                                           onClick={() => handlePostDelete(post._id)}
                                         >
+                                          <span></span>
+                                          <span></span>
+                                          <span></span>
+                                          <span></span>
                                           Delete
                                         </button>
                                       </>
                                     ) : (
-                                      <h3 className={`${darkMode ? 'text-neutral-200' : 'text-neutral-900'} text-xl mb-2.5`}>{post.postText}</h3>
+                                      <h3 className="text-xl mb-2.5">{post.postText}</h3>
                                     )}
-                                    <p className={`${darkMode ? 'text-neutral-200' : 'text-neutral-900'} text-lg mb-2.5`}>{post.userId.userName}</p>
-                                    <p className={`${darkMode ? 'text-neutral-200' : 'text-neutral-900'} text-xs mb-2.5`}>Created At: {formatDate(post.createdAt)}</p>
-                                    {post.updatedAt && <p className={`${darkMode ? 'text-neutral-200' : 'text-neutral-900'} text-xs mb-2.5`}>Updated At: {formatDate(post.updatedAt)}</p>}
+                                    <p className="text-lg mb-2.5">{post.userId.userName}</p>
+                                    <p className="text-xs mb-2.5">Created At: {formatDate(post.createdAt)}</p>
+                                    {post.updatedAt && <p className="text-xs mb-2.5">Updated At: {formatDate(post.updatedAt)}</p>}
                                     <CommentsSection postId={post._id} />
                                 </li>
                             </div>

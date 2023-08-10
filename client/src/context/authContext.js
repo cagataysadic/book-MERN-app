@@ -9,10 +9,6 @@ const AuthContextProvider = ({ children }) => {
   const [userId, setUserId] = useState(null);
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [darkMode, setDarkMode] = useState(() => {
-    const storedDarkMode = localStorage.getItem('darkMode');
-    return storedDarkMode === 'true' ? true : false;
-  });
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
@@ -50,21 +46,13 @@ const AuthContextProvider = ({ children }) => {
     baseURL: '/api',
     headers: { 'Authorization': `Bearer ${token}`}
   });
-  
-  const toggleDarkMode = () => {
-    setDarkMode(prevMode => {
-      const newMode = !prevMode;
-      localStorage.setItem('darkMode', newMode);
-      return newMode;
-    });
-  };
 
   if (loading) {
     return <div>Loading...</div>
   }
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, userId, api, token, darkMode, setToken, login, logout, toggleDarkMode }}>
+    <AuthContext.Provider value={{ isLoggedIn, userId, api, token, setToken, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,8 +1,8 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
 import { AuthContext } from "../context/authContext";
+import "./styles/Animation.scss";
 
 const Register = () => {
     const [userName,setUserName] = useState("");
@@ -12,7 +12,6 @@ const Register = () => {
     const [errorMessage, setErrorMessage] = useState(null);
 
     const auth = useContext(AuthContext);
-    const { darkMode } = useContext(AuthContext);
 
     const navigate = useNavigate();
     const errorPopupRef = useRef();
@@ -31,19 +30,14 @@ const Register = () => {
     }, []);
 
     const validatePassword = (password) => {
-        // Minimum length of 8 characters
         if (password.length < 8) return false;
 
-        // At least one uppercase letter
         if (!/[A-Z]/.test(password)) return false;
 
-        // At least one lowercase letter
         if (!/[a-z]/.test(password)) return false;
 
-        // At least one digit
         if (!/[0-9]/.test(password)) return false;
 
-        // At least one special character
         if (!/[@$!%*?&#^()_+=[\]{}|;]/.test(password)) return false;
 
         return true;
@@ -93,22 +87,52 @@ const Register = () => {
     };
 
     return (
-        <div className={`${darkMode ? 'bg-stone-500' : 'bg-stone-200'} flex justify-center items-center min-h-screen`}>
+        <div className="bg-zinc-900 flex justify-center items-center min-h-screen">
             {errorMessage && (
-                <div className={`${darkMode ? 'bg-red-500 text-stone-100' : 'bg-red-700 text-stone-200'} fixed top-16 right-5 rounded-xl py-2 px-4 text-base z-40`} ref={errorPopupRef}>
+                <div className="bg-red-500 text-stone-100 fixed top-16 right-5 rounded-xl py-2 px-4 text-base z-40" ref={errorPopupRef}>
                     {errorMessage}
                 </div>
             )}
-            <form className={`${darkMode ? 'bg-stone-600' : 'bg-stone-300'} w-1/4 rounded-3xl py-6 flex flex-col items-center`} onSubmit={handleSubmit}>
-                <input className={`${darkMode ? 'outline-teal-700 focus:caret-teal-800 bg-stone-200' : 'outline-teal-500 focus:caret-teal-700 bg-stone-100'} w-5/6 p-4 my-4 text-lg rounded-xl hover:shadow-lg text-stone-900 mx-auto`} type="userName" value={userName} onChange={(e) => setUserName(e.target.value)} placeholder="User name..." required />
-                <input className={`${darkMode ? 'outline-teal-700 focus:caret-teal-800 bg-stone-200' : 'outline-teal-500 focus:caret-teal-700 bg-stone-100'} w-5/6 p-4 my-4 text-lg rounded-xl hover:shadow-lg text-stone-900 mx-auto`} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-Mail..." required />
-                <input className={`${darkMode ? 'outline-teal-700 focus:caret-teal-800 bg-stone-200' : 'outline-teal-500 focus:caret-teal-700 bg-stone-100'} w-5/6 p-4 my-4 text-lg rounded-xl hover:shadow-lg text-stone-900 mx-auto`} type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password..." required />
-                <input className={`${darkMode ? 'outline-teal-700 focus:caret-teal-800 bg-stone-200' : 'outline-teal-500 focus:caret-teal-700 bg-stone-100'} w-5/6 p-4 my-4 text-lg rounded-xl hover:shadow-lg text-stone-900 mx-auto`} type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm Password..." required />
-                <label className={`${darkMode ? 'bg-stone-300 border-teal-800' : 'bg-stone-100 border-teal-700'} block w-5/6 my-2 mx-auto p-4 rounded-xl border-solid border-2 text-justify`}>
-                    <h3 className="text-base text-stone-900 ">Your password should contain at least 8 characters, should contain a capital letter, a lower letter, a number and a special character.</h3>
+            <form className="bg-zinc-950 w-96 rounded-3xl py-6 flex flex-col items-center" onSubmit={handleSubmit}>
+                <div className="input-border">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <input className="custom-input" type="userName" value={userName} onChange={(e) => setUserName(e.target.value)} placeholder="User name..." required />
+                </div>
+                <div className="input-border">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <input className="custom-input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-Mail..." required />
+                </div>
+                <div className="input-border">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <input className="custom-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password..." required />
+                </div>
+                <div className="input-border">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <input className="custom-input" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm Password..." required />
+                </div>
+                <label className="bg-teal-200 border-teal-800 block w-5/6 my-2 mx-auto p-4 rounded-xl border-solid border-2 text-justify">
+                    <h3 className="text-base text-teal-800 ">Your password should contain at least 8 characters, should contain a capital letter, a lower letter, a number and a special character.</h3>
                 </label>
                 <label className="flex justify-center">
-                    <button className={`${darkMode ? 'bg-teal-700 text-stone-300 hover:bg-teal-800' : 'bg-teal-600 text-stone-200 hover:bg-teal-700'} p-3 mt-2 mb-4 text-xl rounded-xl cursor-pointer transition-colors`} type="submit">Register</button>
+                    <button className="message-button" type="submit">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Register
+                    </button>
                 </label>
             </form>
         </div>

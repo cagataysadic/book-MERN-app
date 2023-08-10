@@ -2,13 +2,13 @@ import { useState, useEffect, useCallback, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Comment from './Comment';
-
 import { AuthContext } from "../context/authContext";
+import "./styles/Animation.scss";
 
 
 const CommentsSection = ({ postId }) => {
 
-    const { token, userId, api, isLoggedIn, darkMode } = useContext(AuthContext);
+    const { token, userId, api, isLoggedIn } = useContext(AuthContext);
     
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
@@ -41,24 +41,30 @@ const CommentsSection = ({ postId }) => {
     };
 
   return (
-    <div className={`${darkMode ? 'bg-stone-700' : 'bg-stone-400'} p-4 rounded mt-2 flex-wrap`}>
-        <h3 className={`${darkMode ? 'text-stone-300' : 'text-stone-900'} text-xl mb-2`}>Comments</h3>
+    <div className="bg-zinc-900 p-4 rounded mt-2 flex-wrap">
+        <h3 className="text-teal-500 text-xl mb-2">Comments</h3>
         {comments.map((comment) => (
-            <Comment key={comment._id} comment={comment} postId={postId} refreshComments={fetchComments} userId={userId} api={api} darkMode={darkMode} />
+            <Comment key={comment._id} comment={comment} postId={postId} refreshComments={fetchComments} userId={userId} api={api} />
         ))}
         <form className="flex items-center justify-between mt-2" onSubmit={handleSubmit}>
             <textarea
                 type="text"
-                className={`${darkMode ? 'outline-teal-600 focus:caret-teal-700 bg-neutral-300' : 'outline-teal-500 focus:caret-teal-700 bg-neutral-200'} w-96 p-1 text-sm rounded text-neutral-900 hover:shadow-lg placeholder:text-neutral-900`}
+                className="outline-teal-200 focus:caret-teal-800 bg-teal-200 w-96 p-1 text-sm rounded text-teal-800 hover:shadow-lg placeholder:text-text-800"
                 placeholder="Write a comment"
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
             />
-            <button type="submit" className={`${darkMode ? 'bg-teal-700 text-neutral-300 hover:bg-teal-800' : 'bg-teal-600 text-neutral-100 hover:bg-teal-700'} ml-2 py-1 px-2 text-sm rounded cursor-pointer`} onClick={() => {
+            <button type="submit" className="update-button" onClick={() => {
                 if (!isLoggedIn) {
                     navigate('/register')
                 }
-            }}>Send</button>
+            }}>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Send
+            </button>
         </form>
     </div>
   )

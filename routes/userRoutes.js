@@ -90,7 +90,11 @@ router.post('/register', async (req, res) => {
             const duplicateFieldMatch = /index: (\w+)_\d/.exec(error.message);
             if (duplicateFieldMatch) {
                 const duplicateField = duplicateFieldMatch[1];
-                errors[duplicateField] = `${duplicateField.charAt(0).toUpperCase() + duplicateField.slice(1)} already exists. Please use a different one.`;
+                if (duplicateField === "userName") {
+                    errors[duplicateField] = `User name already exists. Please use a different one.`
+                } else {
+                    errors[duplicateField] = `Email already exists. Please use a different one.`;
+                }
             }
         }
 
