@@ -41,7 +41,7 @@ const CommentsSection = ({ postId }) => {
     };
 
   return (
-    <div className="bg-zinc-900 lg:p-4 p-1 rounded lg:mt-2 mt-1 flex-wrap">
+    <div className="bg-zinc-900 lg:p-4 p-1 rounded-xl lg:mt-2 mt-1 flex-wrap">
         <h3 className="text-teal-500 lg:text-xl text-sm lg:mb-2 mb-1">Comments</h3>
         {comments.map((comment) => (
             <Comment key={comment._id} comment={comment} postId={postId} refreshComments={fetchComments} userId={userId} api={api} />

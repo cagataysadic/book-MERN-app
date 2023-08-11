@@ -164,7 +164,7 @@ const Forum = () => {
                 </div>
             )}
             <h2 className="text-teal-500 text-center lg:text-2xl text-lg mt-4 mb-8">Our Current Forum Posts:</h2>
-            <ul className="forum-list-masonry list-none lg:ml-12 ml-10 grid lg:gap-5 gap-1">
+            <ul className="forum-list-masonry list-none lg:ml-32 ml-10 grid lg:gap-5 gap-1">
                 {sortedPosts &&
                     sortedPosts
                         .filter((post) => post.userId.userName.toLowerCase().includes(search.toLocaleLowerCase()))

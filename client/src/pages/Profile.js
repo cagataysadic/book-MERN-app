@@ -188,8 +188,8 @@ const Profile = () => {
                     <button className="delete-button" type="button" onClick={handleCancelUpdate}>Cancel</button>
                 </div>
             </form>
-            <h2 className="text-center lg:text-4xl text-lg text-teal-500 lg:mb-2 mb-5">Your Previous Books</h2>
-            <ul className='books-ul list-none lg:ml-12 ml-10 grid lg:gap-5 gap-1'>
+            <h2 className="text-center lg:text-4xl text-lg text-teal-500 lg:mb-10 mb-5">Your Previous Books</h2>
+            <ul className='books-ul list-none lg:ml-32 ml-10 grid lg:gap-5 gap-1'>
                 {sortedBooks.map((book) => (
                     <div key={book._id} className='profile-list-item-wrapper lg:mb-5 mb-3'>
                         <li className="bg-zinc-950 lg:rounded-xl rounded-2xl break-words lg:w-96 w-72 lg:p-3.5 p-2 transition-all duration-300 rotating-border" style={{animationName: genreAnimationName(book.genre)}}>
