@@ -49,7 +49,7 @@ const CommentsSection = ({ postId }) => {
         <form className="flex items-center justify-between w-full mt-2" onSubmit={handleSubmit}>
             <textarea
                 type="text"
-                className="outline-teal-200 focus:caret-teal-800 bg-teal-200 lg:w-72 w-40 p-1 mb-4 text-sm rounded text-teal-800 hover:shadow-lg hover:shadow-teal-300 placeholder:text-teal-800"
+                className="outline-teal-200 focus:caret-teal-800 bg-teal-200 lg:w-72 w-44 p-1 mb-4 text-sm rounded text-teal-800 hover:shadow-lg hover:shadow-teal-300 placeholder:text-teal-800"
                 placeholder="Write a comment"
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
