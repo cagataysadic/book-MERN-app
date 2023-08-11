@@ -83,10 +83,10 @@ const Dashboard = () => {
         <Modal
           isOpen={isModalOpen}
           onRequestClose={closeModal}
-          className="absolute lg:top-16 lg:left-44 sm:top-6 left-12 w-auto bg-zinc-950 lg:p-8 p-4 lg:shadow-lg shadow-sm z-10 lg:rounded-xl rounded-md"
+          className="absolute lg:top-16 lg:left-44 top-10 left-4 h-28 w-auto bg-zinc-950 lg:p-8 p-4 lg:shadow-lg shadow-sm z-10 lg:rounded-xl rounded-lg"
           overlayClassName="content-none"
         >
-          <h2 className="text-teal-200 lg:text-lg lg:mx-8 text-sm mx-2">Are You Sure?</h2>
+          <h2 className="text-teal-200 lg:text-lg lg:mx-8 text-sm text-center mx-2">Are You Sure?</h2>
           <div className="flex justify-between lg:mt-5 mt-2">
             <button onClick={confirmDeleteAccount} className="delete-button">
               <span></span>
