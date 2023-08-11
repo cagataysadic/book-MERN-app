@@ -70,7 +70,7 @@ const Dashboard = () => {
               onMouseLeave={() => setIsDropdownVisible(false)}>
               <Link to='/profile' className="text-teal-400 hover:text-teal-200 lg:text-lg text-sm transition-colors">Profile</Link>
               {isDropdownVisible && (
-                <div className="bg-zinc-950 absolute left-1/2 transform -translate-x-1/2 lg:mt-56 mt-32 lg:text-lg text-sm whitespace-nowrap z-5 flex flex-col rounded-md items-center lg:pb-5 pb-1">
+                <div className="bg-zinc-950 absolute left-1/2 transform -translate-x-1/2 lg:mt-60 mt-32 lg:text-lg text-sm whitespace-nowrap z-5 flex flex-col rounded-md items-center lg:pb-5 pb-1">
                   <Link onClick={handleDeleteAccount} className="text-teal-400 hover:text-teal-200 lg:px-4 lg:pt-4 px-1 pt-1">Delete Account</Link>
                   <Link to='/chat' className="text-teal-400 hover:text-teal-200 lg:px-4 lg:pt-6 px-1 pt-2">Chat</Link>
                   <Link onClick={handleLogout} className="text-teal-400 hover:text-teal-200 lg:px-4 lg:pt-6 px-1 pt-2">Logout</Link>
