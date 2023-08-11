@@ -70,15 +70,17 @@ $colors: (
 @mixin buttonStyles($color) {
   position: relative;
   display: inline-block;
-  padding: 10px 20px;
+  justify-content: center;
+  width: 80px;
+  height: 40px;
   margin-bottom: 1rem;
   color: $color;
-  font-size: 16px;
+  font-size: small;
   text-decoration: none;
   text-transform: uppercase;
   overflow: hidden;
   transition: .5s;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
   
   &:hover {
     background: $color;
@@ -88,11 +90,6 @@ $colors: (
                 0 0 25px $color,
                 0 0 50px $color,
                 0 0 100px $color;
-  }
-  @media screen {
-    padding: 5px 10px;
-    font-size: small;
-    margin-bottom: 0.5rem;
   }
 
   span {
