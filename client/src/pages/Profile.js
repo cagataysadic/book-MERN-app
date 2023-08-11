@@ -164,21 +164,21 @@ const Profile = () => {
     }
 
     return (
-        <div className="bg-zinc-900 min-h-screen pt-8 flex flex-col">
-            <h1 className="text-teal-500 text-center text-4xl mb-2 mt-10">Welcome to Your Profile Page!</h1>
-            <h2 className="text-teal-500 text-center text-2xl mb-5 mt-4">Share a New Book</h2>
-            <form className='flex flex-col items-center mb-5' onSubmit={handleSubmit}>
-                <label className='flex flex-col mb-2.5 hover:shadow-lg'>
-                    <textarea className="outline-teal-500 focus:caret-teal-600 rounded-xl bg-teal-200 text-teal-800 max-w-xl p-4 text-base resize-y" placeholder='Title...' value={title} maxLength={maxTitleLength} onChange={(e) => setTitle(e.target.value)} required />
+        <div className="bg-zinc-900 min-h-screen lg:pt-8 pt-3 flex flex-col">
+            <h1 className="text-teal-500 text-center lg:text-4xl text-lg lg:mb-2 mb-1 mt-5 lg:mt-10">Welcome to Your Profile Page!</h1>
+            <h2 className="text-teal-500 text-center lg:text-2xl text-md lg:mb-5 mb-2 lg:mt-4 mt-2">Share a New Book</h2>
+            <form className='flex flex-col items-center lg:mb-5 mb-2' onSubmit={handleSubmit}>
+                <label className='flex flex-col lg:mb-2.5 mb-1 hover:shadow-lg'>
+                    <textarea className="outline-teal-500 focus:caret-teal-600 rounded-xl bg-teal-200 text-teal-800 lg:max-w-xl max-w-md lg:p-4 p-2 lg:text-base text-sm resize-y" placeholder='Title...' value={title} maxLength={maxTitleLength} onChange={(e) => setTitle(e.target.value)} required />
                 </label>
-                <label className='flex flex-col mb-2.5 hover:shadow-lg'>
-                    <textarea className="outline-teal-500 focus:caret-teal-600 rounded-xl bg-teal-200 text-teal-800 max-w-xl p-4 text-base resize-y" placeholder='Author...' value={author} maxLength={maxAuthorLength} onChange={(e) => setAuthor(e.target.value)} required />
+                <label className='flex flex-col lg:mb-2.5 mb-1 hover:shadow-lg'>
+                    <textarea className="outline-teal-500 focus:caret-teal-600 rounded-xl bg-teal-200 text-teal-800 lg:max-w-xl max-w-md lg:p-4 p-2 lg:text-base text-sm resize-y" placeholder='Author...' value={author} maxLength={maxAuthorLength} onChange={(e) => setAuthor(e.target.value)} required />
                 </label>
-                <label className='flex flex-col mb-2.5 hover:shadow-lg'>
-                    <textarea className="outline-teal-500 focus:caret-teal-600 rounded-xl bg-teal-200 text-teal-800 max-w-xl p-4 text-base resize-y" placeholder='Description...' value={description} maxLength={maxDescritionLength} onChange={(e) => setDescription(e.target.value)} required />
+                <label className='flex flex-col lg:mb-2.5 mb-1 hover:shadow-lg'>
+                    <textarea className="outline-teal-500 focus:caret-teal-600 rounded-xl bg-teal-200 text-teal-800 lg:max-w-xl max-w-md lg:p-4 p-2 lg:text-base text-sm resize-y" placeholder='Description...' value={description} maxLength={maxDescritionLength} onChange={(e) => setDescription(e.target.value)} required />
                 </label>
-                <label className='flex flex-col mb-2.5 hover:shadow-lg'>
-                    <select value={genre} className="outline-teal-500 focus:caret-teal-600 rounded-xl bg-teal-200 text-teal-800 max-w-xl p-4 text-base resize-y" onChange={(e) => setGenre(e.target.value)} required>
+                <label className='flex flex-col lg:mb-2.5 mb-1 hover:shadow-lg'>
+                    <select value={genre} className="outline-teal-500 focus:caret-teal-600 rounded-xl bg-teal-200 text-teal-800 lg:max-w-xl max-w-md lg:p-4 p-2 lg:text-base text-sm resize-y" onChange={(e) => setGenre(e.target.value)} required>
                         <option value="">Select genre...</option>
                         {genres.map((g, index) => <option key={index} values={g}>{g}</option>)}
                     </select>
@@ -188,18 +188,18 @@ const Profile = () => {
                     <button className="delete-button" type="button" onClick={handleCancelUpdate}>Cancel</button>
                 </div>
             </form>
-            <h2 className="text-teal-500 text-center text-2xl mb-12 mt-4">Your Previous Books</h2>
-            <ul className='books-ul list-none p-0 grid gap-5 ml-28'>
+            <h2 className="text-center lg:text-4xl text-lg text-teal-500 lg:mb-2 mb-5">Your Previous Books</h2>
+            <ul className='books-ul list-none lg:ml-12 ml-10 grid lg:gap-5 gap-1'>
                 {sortedBooks.map((book) => (
-                    <div key={book._id} className='profile-list-item-wrapper mb-5'>
-                        <li className="bg-zinc-950 rounded-xl break-words w-96 p-3.5 transition-all duration-300 group hover:shadow-xl rotating-border" style={{animationName: genreAnimationName(book.genre)}}>
-                            <h3 className="text-base mb-2.5">{book.title}</h3>
-                            <h3 className="text-sm mb-2.5">{book.author}</h3>
-                            <p className="text-sm mb-2.5">{book.description}</p>
-                            <h3 className="text-sm mb-2.5">{book.genre}</h3>
-                            <p className="text-lg mb-2.5">{book.userId.userName}</p>
-                            <p className="text-xs mb-2.5">Created at: {formatDate(book.createdAt)}</p>
-                            {book.updatedAt && <p className="text-xs mb-2.5">Updated at: {formatDate(book.updatedAt)}</p>}
+                    <div key={book._id} className='profile-list-item-wrapper lg:mb-5 mb-3'>
+                        <li className="bg-zinc-950 lg:rounded-xl rounded-2xl break-words lg:w-96 w-72 lg:p-3.5 p-2 transition-all duration-300 rotating-border" style={{animationName: genreAnimationName(book.genre)}}>
+                            <h3 className="lg:text-base text-sm lg:mb-2.5 mb-1">{book.title}</h3>
+                            <h3 className="lg:text-sm text-xs lg:mb-2 mb-1">{book.author}</h3>
+                            <p className="lg:text-sm text-xs lg:mb-2 mb-1">{book.description}</p>
+                            <h3 className="lg:text-sm text-xs lg:mb-2 mb-1">{book.genre}</h3>
+                            <p className="lg:text-lg text-xs lg:mb-2 mb-1">{book.userId.userName}</p>
+                            <p className="text-xs lg:mb-2 mb-1">Created at: {formatDate(book.createdAt)}</p>
+                            {book.updatedAt && <p className="text-xs lg:mb-2.5 mb-1">Updated at: {formatDate(book.updatedAt)}</p>}
                             <div className='flex justify-center'>
                                 <button className="delete-button" onClick={() => handleDelete(book._id)}>Delete</button>
                                 <button className="update-button" onClick={() => setUpdateBook(book)}>Update</button>

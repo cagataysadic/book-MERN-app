@@ -44,7 +44,7 @@ const ChatList = () => {
         <li>
           {conversations.map((conversation, index) => (
             <div key={index}>
-              <div className={`${selectedChatName === conversation.userName ? 'text-teal-200 text-2xl' : ''} text-teal-300 hover:text-teal-200 relative inline-block py-6 text-2xl font-medium cursor-pointer`} onClick={() => selectChat(conversation._id, conversation.userName)}>
+              <div className={`${selectedChatName === conversation.userName ? 'text-teal-300 font-bold' : ''} text-teal-300 hover:text-teal-200 relative inline-block py-6 lg:text-2xl text-xs lg:font-medium cursor-pointer`} onClick={() => selectChat(conversation._id, conversation.userName)}>
                 <h3>{conversation.userName}</h3>
               </div>
             </div>
@@ -162,17 +162,17 @@ const Chat = ({ otherUserId, api, token, userId }) => {
       <div className='h-screen flex flex-col items-stretch overflow-y-auto pt-6 scroll-smooth'>
         {Object.entries(groupedMessages).map(([date, messages], index) => (
           <div key={index} className='px-6'>
-            <h3 className="text-teal-200 text-lg py-3 font-bold ml-4">{date}</h3>
+            <h3 className="text-teal-200 lg:text-lg text-xs py-3 font-bold ml-4">{date}</h3>
             <div className='flex flex-col'>
               {messages.map((message, index) => (
                 <div 
                   key={index}
-                  className={`${message.sender._id === userId ? 'self-end bg-teal-950 text-teal-100' : 'self-start bg-cyan-950 text-cyan-100'} text-lg w-fit max-w-2xl justify-center items-center m-6 py-2 px-3 rounded-xl break-words`}
+                  className={`${message.sender._id === userId ? 'self-end bg-teal-950 text-teal-100' : 'self-start bg-cyan-950 text-cyan-100'} lg:text-lg text-xs lg:w-fit lg:max-w-2xl w-fit max-w-[10rem] justify-center items-center lg:m-6 m-2 lg:p-2 p-1 lg:rounded-xl rounded-lg break-words`}
                 >
                   <p>{message.text.split('\n').map((item, key) => {
                     return <span key={key}>{item}<br /></span>
                   })}</p>
-                  <p className="text-teal-200 text-sm py-2">{new Date(message.createdAt).toLocaleTimeString()}</p>
+                  <p className="text-teal-200 lg:text-sm text-xs py-2">{new Date(message.createdAt).toLocaleTimeString()}</p>
                   {message.sender._id === userId &&
                     <div className='flex justify-center'>
                       <button className="delete-button" onClick={() => deleteMessage(message._id)}>
@@ -193,7 +193,7 @@ const Chat = ({ otherUserId, api, token, userId }) => {
       </div>
       <div className='flex mt-2'>
         <textarea
-          className="outline-teal-500 bg-teal-200 focus:caret-teal-600 w-5/6 ml-24 mb-2 p-2 rounded text-neutral-900 hover:shadow-lg"
+          className="outline-teal-500 bg-teal-200 focus:caret-teal-600 w-5/6 lg:ml-24 ml-4 mb-2 p-2 rounded text-neutral-900 hover:shadow-lg"
           value={newMessage} 
           onChange={e => setNewMessage(e.target.value)} 
           onKeyDown={handleKeydown} 

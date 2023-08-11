@@ -89,6 +89,11 @@ $colors: (
                 0 0 50px $color,
                 0 0 100px $color;
   }
+  @media screen {
+    padding: 5px 10px;
+    font-size: small;
+    margin-bottom: 0.5rem;
+  }
 
   span {
     position: absolute;

@@ -89,11 +89,11 @@ const Register = () => {
     return (
         <div className="bg-zinc-900 flex justify-center items-center min-h-screen">
             {errorMessage && (
-                <div className="bg-red-500 text-stone-100 fixed top-16 right-5 rounded-xl py-2 px-4 text-base z-40" ref={errorPopupRef}>
+                <div className="bg-red-500 text-stone-100 fixed top-16 right-5 rounded-xl py-2 px-3 text-base z-40" ref={errorPopupRef}>
                     {errorMessage}
                 </div>
             )}
-            <form className="bg-zinc-950 w-96 rounded-3xl py-6 flex flex-col items-center" onSubmit={handleSubmit}>
+            <form className="bg-zinc-950 lg:w-96 w-80 lg:rounded-3xl rounded-2xl mt-6 flex flex-col items-center" onSubmit={handleSubmit}>
                 <div className="input-border">
                     <span></span>
                     <span></span>

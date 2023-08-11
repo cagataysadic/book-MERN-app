@@ -122,14 +122,14 @@ const AccountSettings = () => {
     };
 
     return (
-        <div className="bg-zinc-900 items-center flex gap-8 justify-around min-h-screen p-8">
+        <div className="bg-zinc-900 items-center lg:flex flex-col gap-8 justify-around min-h-screen p-8">
             {errorMessage && (
                 <div className="bg-red-500 text-stone-200 fixed top-16 right-6 py-2 px-4 rounded-xl text-base z-40" ref={errorPopupRef}>
                     {errorMessage}
                 </div>
             )}
                 
-                <form className="bg-zinc-950 w-96 rounded-3xl flex flex-col items-center" onSubmit={validateCurrentPassword}>
+                <form className="bg-zinc-950 lg:w-96 w-80 my-5 rounded-3xl flex flex-col items-center" onSubmit={validateCurrentPassword}>
                     <h1 className="text-teal-200 text-xl font-bold my-6">Validate Password</h1>
                     <div className='input-border'>
                         <span></span>
@@ -147,7 +147,7 @@ const AccountSettings = () => {
                     </button>
                 </form>
                 
-                <form className="bg-zinc-950 w-96 rounded-3xl flex flex-col items-center" onSubmit={handleUpdate}>
+                <form className="bg-zinc-950 lg:w-96 w-80 my-5 rounded-3xl flex flex-col items-center" onSubmit={handleUpdate}>
                     <h1 className="text-teal-200 text-xl font-bold my-6">Update Credentials</h1>
                     <div className='input-border'>
                         <span></span>
@@ -172,7 +172,7 @@ const AccountSettings = () => {
                     </button>
                 </form>
                 
-                <form className="bg-zinc-950 w-96 rounded-3xl flex flex-col items-center" onSubmit={handlePasswordUpdate}>
+                <form className="bg-zinc-950 lg:w-96 w-80 my-5 rounded-3xl flex flex-col items-center" onSubmit={handlePasswordUpdate}>
                     <h2 className="text-teal-200 text-xl font-bold my-6">Update Password</h2>
                     <div className='input-border'>
                         <span></span>
