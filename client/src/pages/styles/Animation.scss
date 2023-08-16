@@ -174,7 +174,7 @@ $colors: (
 }
 
 .custom-input {
-  width: 300px;
+  width: 270px;
   padding: 12px;
   background: none;
   border: none;
@@ -182,4 +182,27 @@ $colors: (
   font-size: 16px;
   border-radius: 8px;
   outline: none;
+}
+
+.list-masonry {
+  max-width: 100%;
+  width: 788px;
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.list-item-wrapper {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .list-masonry {
+    width: 18rem;
+  }
+  .list-item-wrapper {
+    margin-bottom: 10px;
+  }
 }

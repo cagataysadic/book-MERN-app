@@ -78,7 +78,7 @@ const Dashboard = () => {
                   {genres.map((genre, index) => (
                       <li
                           key={index}
-                          className={`text-neutral-900 hover:text-teal-800 cursor-pointer flex flex-col items-center transition-colors break-words lg:px-4 lg:pt-2 ${selectedGenre === genre ? 'font-bold' : ''}`}
+                          className={`text-neutral-900 hover:text-teal-800 cursor-pointer flex flex-col items-center transition-colors break-words lg:px-4 lg:pt-2 ${selectedGenre === genre ? 'text-teal-900' : ''}`}
                           onClick={() => handleGenreClick(genre)}
                       >
                           {genre}

@@ -26,6 +26,34 @@ const Home = () => {
         fetchBooks();
     }, []);
 
+    useEffect(() => {
+        const initMasonry = () => {
+            const grid = document.querySelector('.list-masonry');
+            imagesLoaded(grid, function () {
+                new Masonry(grid, {
+                    itemSelector: '.list-item-wrapper',
+                    columnWidth: '.list-item-wrapper',
+                    gutter: 20,
+                    percentPosition: true,
+                });
+            });
+        };
+    
+        if (books.length > 0) {
+            initMasonry();
+        }
+        
+        const observer = new MutationObserver(initMasonry);
+        observer.observe(document.querySelector('.list-masonry'), {
+            childList: true,
+            subtree: true,
+        });
+
+        return () => {
+            observer.disconnect();
+        };
+    }, [books]);
+
     const [filteredBooks, setFilteredBooks] = useState([]);
 
     useEffect(() => {
@@ -38,33 +66,6 @@ const Home = () => {
         });
         setFilteredBooks(results);
     }, [books, search, selectedGenre]);
-
-    useEffect(() => {
-        const initMasonry = () => {
-            const grid = document.querySelector('.home-list-masonry');
-            imagesLoaded(grid, function () {
-                new Masonry(grid, {
-                    itemSelector: '.home-list-item-wrapper',
-                    columnWidth: '.home-list-item-wrapper',
-                    percentPosition: true,
-                });
-            });
-        };
-
-        if (books.length > 0) {
-            initMasonry();
-        }
-
-        const observer = new MutationObserver(initMasonry);
-        observer.observe(document.querySelector('.home-list-masonry'), {
-            childList: true,
-            subtree: true,
-        });
-
-        return () => {
-            observer.disconnect();
-        };
-    }, [books]);
 
     const formatDate = (date) => {
         return new Date(date).toLocaleString();
@@ -109,10 +110,10 @@ const Home = () => {
             </div>
             <h1 className="text-center lg:text-4xl text-md text-neutral-900 lg:mb-2 mb-1 lg:mt-5 mt-2">Welcome</h1>
             <h2 className="text-center lg:text-2xl text-sm text-neutral-900 lg:mb-7 mb-2">Our Books:</h2>
-            <div className="flex flex-col justify-center items-center">
-                <div className="home-list-masonry list-none grid grid-cols-2 lg:w-1/2 w-full">
-                    {sortedBooks.map((book) => (
-                        <li key={book._id} className="home-list-item-wrapper lg:mx-10 lg:my-5 mx-12 my-3 bg-neutral-300 text-neutral-900 lg:rounded-xl rounded-2xl break-words lg:w-96 w-72 lg:p-3.5 p-2 transition-all duration-300 rotating-border"
+            <ul className="list-masonry mx-auto">
+                {sortedBooks.map((book) => (
+                    <div key={book._id} className='list-item-wrapper'>
+                        <li className="bg-neutral-300 text-neutral-900 lg:rounded-xl rounded-2xl break-words lg:w-96 w-72 lg:p-3.5 p-2 transition-all duration-300 rotating-border"
                             style={{animationName: genreAnimationName(book.genre)}}
                         >
                             <h3 className="lg:text-base text-center text-sm break-all">{book.title}</h3>
@@ -136,9 +137,9 @@ const Home = () => {
                                 </div>
                             }
                         </li>
-                    ))}
-                </div>
-            </div>
+                    </div>
+                ))}
+            </ul>
         </div>
     );
 };

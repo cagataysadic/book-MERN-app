@@ -37,6 +37,34 @@ const Forum = () => {
     }, []);
 
     useEffect(() => {
+        const initMasonry = () => {
+            const grid = document.querySelector('.list-masonry');
+            imagesLoaded(grid, function () {
+                new Masonry(grid, {
+                    itemSelector: '.list-item-wrapper',
+                    columnWidth: '.list-item-wrapper',
+                    gutter: 20,
+                    percentPosition: true,
+                });
+            });
+        };
+    
+        if (posts.length > 0) {
+            initMasonry();
+        }
+        
+        const observer = new MutationObserver(initMasonry);
+        observer.observe(document.querySelector('.list-masonry'), {
+            childList: true,
+            subtree: true,
+        });
+
+        return () => {
+            observer.disconnect();
+        };
+    }, [posts]);
+
+    useEffect(() => {
         const fetchPosts = async () => {
             const response = await axios.get('/api/post/every');
             setPosts(response.data);
@@ -48,33 +76,6 @@ const Forum = () => {
     const currentUserPosts = posts.filter((post) => post.userId._id === userId);
     const otherUserPosts = posts.filter((post) => post.userId._id !== userId);
     const orderedPosts = [...currentUserPosts, ...otherUserPosts];
-
-    useEffect(() => {
-        const initMasonry = () => {
-            const grid = document.querySelector('.forum-list-masonry');
-            imagesLoaded(grid, function () {
-                new Masonry(grid, {
-                    itemSelector: '.forum-list-item-wrapper',
-                    columnWidth: '.forum-list-item-wrapper',
-                    percentPosition: true,
-                });
-            });
-        };
-    
-        if (posts.length > 0) {
-            initMasonry();
-        }
-        
-        const observer = new MutationObserver(initMasonry);
-        observer.observe(document.querySelector('.forum-list-masonry'), {
-            childList: true,
-            subtree: true,
-        });
-    
-        return () => {
-            observer.disconnect();
-        };
-    }, [posts]);
 
     const handlePostSubmit = async (e) => {
         e.preventDefault();
@@ -137,7 +138,7 @@ const Forum = () => {
             </div>
             <h1 className="text-neutral-900 text-center lg:text-4xl text-xl lg:mt-10 mt-5">Welcome</h1>
             {((!loading && posts.length <= 8) || showCreateForum) && (
-                <div className='sticky lg:inset-y-12 inset-y-4 mx-auto w-fit lg:p-5 p-1 rounded z-40'>
+                <div className='sticky lg:inset-y-12 inset-y-4 mx-auto w-fit lg:p-5 pt-6 rounded z-40'>
                     <h2 className="text-neutral-900 lg:text-2xl text-md items-center text-center lg:mb-6 mb-2 opacity-80">{updatePost ? "Update Post" : "Create a new post"}</h2>
                     <form className="flex flex-col items-center justify-center lg:mb-5 mb-2" onSubmit={handlePostSubmit}>
                         <label className='flex flex-col items-center justify-center mb-2.5'>
@@ -163,48 +164,48 @@ const Forum = () => {
                 </div>
             )}
             <h2 className="text-neutral-900 text-center lg:text-2xl text-lg mt-4 mb-8">Our Current Forum Posts:</h2>
-            <div className="flex flex-col justify-center items-center">
-                <div className="forum-list-masonry list-none grid grid-cols-2 lg:w-1/2 w-full">
+                <div className="list-masonry mx-auto">
                     {sortedPosts &&
                         sortedPosts
                             .filter((post) => post.userId.userName.toLowerCase().includes(search.toLocaleLowerCase()))
                             .map((post) => (
-                                <li key={post._id} className="forum-list-item-wrapper lg:mx-10 lg:my-5 mx-12 my-3 bg-neutral-300 text-neutral-900 lg:rounded-xl rounded-2xl break-words lg:w-96 w-72 lg:p-3.5 p-2 transition-all duration-300 rotating-border" style={{animationName: 'rotateDefaultColor'}}>
-                                    {post.userId._id === userId ? (
-                                        <>
+                                <div key={post._id} className='list-item-wrapper'>
+                                    <li className="bg-neutral-300 text-neutral-900 lg:rounded-xl rounded-2xl break-words lg:w-96 w-72 lg:p-3.5 p-2 transition-all duration-300 rotating-border" style={{animationName: 'rotateDefaultColor'}}>
+                                        {post.userId._id === userId ? (
+                                            <>
+                                            <h3 className="lg:text-xl text-sm lg:mb-2.5 mb-1">{post.postText}</h3>
+                                            <button
+                                            className="update-button"
+                                            onClick={() => handlePostUpdate(post)}
+                                            >
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                            Update
+                                            </button>
+                                            <button
+                                            className="delete-button"
+                                            onClick={() => handlePostDelete(post._id)}
+                                            >
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            Delete
+                                            </button>
+                                        </>
+                                        ) : (
                                         <h3 className="lg:text-xl text-sm lg:mb-2.5 mb-1">{post.postText}</h3>
-                                        <button
-                                        className="update-button"
-                                        onClick={() => handlePostUpdate(post)}
-                                        >
-                                            <span></span>
-                                            <span></span>
-                                            <span></span>
-                                            <span></span>
-                                        Update
-                                        </button>
-                                        <button
-                                        className="delete-button"
-                                        onClick={() => handlePostDelete(post._id)}
-                                        >
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        Delete
-                                        </button>
-                                    </>
-                                    ) : (
-                                    <h3 className="lg:text-xl text-sm lg:mb-2.5 mb-1">{post.postText}</h3>
-                                    )}
-                                    <p className="lg:text-lg text-xs lg:mb-2.5 mb-1">{post.userId.userName}</p>
-                                    <p className="text-xs lg:mb-2.5 mb-1">Created At: {formatDate(post.createdAt)}</p>
-                                    {post.updatedAt && <p className="text-xs lg:mb-2.5 mb-1">Updated At: {formatDate(post.updatedAt)}</p>}
-                                    <CommentsSection postId={post._id} />
-                                </li>
+                                        )}
+                                        <p className="lg:text-lg text-xs lg:mb-2.5 mb-1">{post.userId.userName}</p>
+                                        <p className="text-xs lg:mb-2.5 mb-1">Created At: {formatDate(post.createdAt)}</p>
+                                        {post.updatedAt && <p className="text-xs lg:mb-2.5 mb-1">Updated At: {formatDate(post.updatedAt)}</p>}
+                                        <CommentsSection postId={post._id} />
+                                    </li>
+                                </div>
                             ))}
                 </div>
-            </div>
         </div>
     );
 }
