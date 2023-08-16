@@ -73,12 +73,12 @@ const Dashboard = () => {
             onMouseLeave={() => setIsGenresDropdownVisible(false)}>
             <Link to='/' className="text-neutral-900 hover:text-teal-800 lg:text-lg text-sm transition-colors">Genres</Link>
             {isGenresDropdownVisible && (
-              <div className="bg-teal-300 absolute left-1/2 transform -translate-x-1/2 lg:mt-64 mt-32 lg:text-lg text-sm whitespace-nowrap z-5 flex flex-col rounded-md items-center lg:pb-3 pb-1">
+              <div className="bg-teal-300 absolute left-1/2 transform -translate-x-1/2 lg:mt-64 mt-36 lg:text-lg text-sm whitespace-nowrap z-5 flex flex-col rounded-md items-center lg:pb-3 pb-1">
                 <ul>
                   {genres.map((genre, index) => (
                       <li
                           key={index}
-                          className={`text-neutral-900 hover:text-teal-800 cursor-pointer flex flex-col items-center transition-colors text-sm break-words my-2 ${selectedGenre === genre ? 'font-bold' : ''}`}
+                          className={`text-neutral-900 hover:text-teal-800 cursor-pointer flex flex-col items-center transition-colors break-words lg:px-4 lg:pt-2 ${selectedGenre === genre ? 'font-bold' : ''}`}
                           onClick={() => handleGenreClick(genre)}
                       >
                           {genre}
