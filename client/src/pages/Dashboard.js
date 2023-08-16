@@ -65,7 +65,7 @@ const Dashboard = () => {
   return (
     <div className="fixed w-full z-50">
       <div className="bg-teal-300 lg:py-2.5 py-1">
-        <div className="w-1/3 flex justify-around items-center mx-auto">
+        <div className="lg:w-1/3 flex justify-around items-center mx-auto">
           <Link to='/' className="text-neutral-900 hover:text-teal-800 lg:text-lg text-sm transition-colors">Home</Link>
           <Link to='/forum' className="text-neutral-900 hover:text-teal-800 lg:text-lg text-sm transition-colors">Forum</Link>
           <div className="relative flex items-center transition-colors duration-300 ease-in-out"
