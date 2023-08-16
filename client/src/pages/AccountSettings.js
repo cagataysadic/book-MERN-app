@@ -122,23 +122,18 @@ const AccountSettings = () => {
     };
 
     return (
-        <div className="bg-zinc-900 items-center lg:flex flex-col gap-8 justify-around min-h-screen p-8">
+        <div className="bg-neutral-200 flex lg:flex-row flex-col gap-8 justify-around items-center min-h-screen p-8">
             {errorMessage && (
-                <div className="bg-red-500 text-stone-200 fixed top-16 right-6 py-2 px-4 rounded-xl text-base z-40" ref={errorPopupRef}>
+                <div className="bg-red-600 text-stone-100 fixed top-16 right-6 py-2 px-4 rounded-xl text-base z-40" ref={errorPopupRef}>
                     {errorMessage}
                 </div>
             )}
-                
-                <form className="bg-zinc-950 lg:w-96 w-80 my-5 rounded-3xl flex flex-col items-center" onSubmit={validateCurrentPassword}>
-                    <h1 className="text-teal-200 text-xl font-bold my-6">Validate Password</h1>
-                    <div className='input-border'>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                <form className="bg-neutral-300 lg:w-96 w-80 my-5 rounded-3xl flex flex-col items-center" onSubmit={validateCurrentPassword}>
+                    <h1 className="text-neutral-950 text-xl font-bold my-6">Validate Password</h1>
+                    <div className='input-border bg-teal-100'>
                         <input type="password" className="custom-input" value={password} onChange={e => setPassword(e.target.value)} required />
                     </div>
-                    <button className="message-button" type="submit">
+                    <button className="message-button mb-3" type="submit">
                         <span></span>
                         <span></span>
                         <span></span>
@@ -147,23 +142,15 @@ const AccountSettings = () => {
                     </button>
                 </form>
                 
-                <form className="bg-zinc-950 lg:w-96 w-80 my-5 rounded-3xl flex flex-col items-center" onSubmit={handleUpdate}>
-                    <h1 className="text-teal-200 text-xl font-bold my-6">Update Credentials</h1>
-                    <div className='input-border'>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                <form className="bg-neutral-300 lg:w-96 w-80 my-5 rounded-3xl flex flex-col items-center" onSubmit={handleUpdate}>
+                    <h1 className="text-neutral-950 text-xl font-bold my-6">Update Credentials</h1>
+                    <div className='input-border bg-teal-100'>
                         <input type="text" className="custom-input" value={newUsername} onChange={e => setNewUsername(e.target.value)} disabled={isLocked} />
                     </div>
-                    <div className='input-border'>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                    <div className='input-border bg-teal-100'>
                         <input type="email" className="custom-input" value={newEmail} onChange={e => setNewEmail(e.target.value)} disabled={isLocked} />
                     </div>
-                    <button className="message-button" type="submit" disabled={isLocked}>
+                    <button className="message-button mb-3" type="submit" disabled={isLocked}>
                         <span></span>
                         <span></span>
                         <span></span>
@@ -172,23 +159,15 @@ const AccountSettings = () => {
                     </button>
                 </form>
                 
-                <form className="bg-zinc-950 lg:w-96 w-80 my-5 rounded-3xl flex flex-col items-center" onSubmit={handlePasswordUpdate}>
-                    <h2 className="text-teal-200 text-xl font-bold my-6">Update Password</h2>
-                    <div className='input-border'>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                <form className="bg-neutral-300 lg:w-96 w-80 my-5 rounded-3xl flex flex-col items-center" onSubmit={handlePasswordUpdate}>
+                    <h2 className="text-neutral-950 text-xl font-bold my-6">Update Password</h2>
+                    <div className='input-border bg-teal-100'>
                         <input type="password" className="custom-input" placeholder='New Password...' value={newPassword} onChange={e => setNewPassword(e.target.value)} disabled={isLocked} />
                     </div>
-                    <div className='input-border'>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                    <div className='input-border bg-teal-100'>
                         <input type="password" className="custom-input" placeholder='Confirm Password...' value={confirmNewPassword} onChange={e => setConfirmNewPassword(e.target.value)} disabled={isLocked} />
                     </div>
-                    <button className="message-button" type="submit" disabled={isLocked}>
+                    <button className="message-button mb-3" type="submit" disabled={isLocked}>
                         <span></span>
                         <span></span>
                         <span></span>

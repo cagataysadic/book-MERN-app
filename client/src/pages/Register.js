@@ -87,45 +87,29 @@ const Register = () => {
     };
 
     return (
-        <div className="bg-zinc-900 flex justify-center items-center min-h-screen">
+        <div className="bg-neutral-200 flex justify-center items-center min-h-screen">
             {errorMessage && (
-                <div className="bg-red-500 text-stone-100 fixed top-16 right-5 rounded-xl py-2 px-3 text-base z-40" ref={errorPopupRef}>
+                <div className="bg-red-600 text-stone-100 fixed top-16 right-5 rounded-xl py-2 px-3 text-base z-40" ref={errorPopupRef}>
                     {errorMessage}
                 </div>
             )}
-            <form className="bg-zinc-950 lg:w-96 w-80 lg:rounded-3xl rounded-2xl mt-6 flex flex-col items-center" onSubmit={handleSubmit}>
-                <div className="input-border">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
+            <form className="bg-neutral-300 lg:w-96 w-80 lg:rounded-3xl rounded-2xl mt-6 flex flex-col items-center" onSubmit={handleSubmit}>
+                <div className="input-border bg-teal-100">
                     <input className="custom-input" type="userName" value={userName} onChange={(e) => setUserName(e.target.value)} placeholder="User name..." required />
                 </div>
-                <div className="input-border">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <div className="input-border bg-teal-100">
                     <input className="custom-input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-Mail..." required />
                 </div>
-                <div className="input-border">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <div className="input-border bg-teal-100">
                     <input className="custom-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password..." required />
                 </div>
-                <div className="input-border">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <div className="input-border bg-teal-100">
                     <input className="custom-input" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm Password..." required />
                 </div>
                 <label className="bg-teal-200 border-teal-800 block w-5/6 my-2 mx-auto p-4 rounded-xl border-solid border-2 text-justify">
-                    <h3 className="text-base text-teal-800 ">Your password should contain at least 8 characters, should contain a capital letter, a lower letter, a number and a special character.</h3>
+                    <h3 className="text-base text-teal-900 ">Your password should contain at least 8 characters, should contain a capital letter, a lower letter, a number and a special character.</h3>
                 </label>
-                <label className="flex justify-center">
+                <label className="flex justify-center mb-4">
                     <button className="message-button" type="submit">
                         <span></span>
                         <span></span>

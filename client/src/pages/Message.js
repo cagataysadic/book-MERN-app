@@ -39,12 +39,12 @@ const ChatList = () => {
   };
 
   return (
-    <div className="bg-zinc-900 relative flex justify-center items-center min-h-screen overflow-y-hidden">
-      <ul className={`${selectedChat ? 'ml-0 bg-zinc-950' : ''} transition-colors w-1/6 mx-auto py-12 flex flex-col items-center justify-center justify-items-center h-screen`}>
+    <div className="bg-neutral-200 relative flex justify-center items-center min-h-screen overflow-y-hidden">
+      <ul className={`${selectedChat ? 'ml-0 bg-neutral-300' : ''} transition-colors w-1/6 mx-auto py-12 flex flex-col items-center justify-center justify-items-center h-screen`}>
         <li>
           {conversations.map((conversation, index) => (
             <div key={index}>
-              <div className={`${selectedChatName === conversation.userName ? 'text-teal-300 font-bold' : ''} text-teal-300 hover:text-teal-200 relative inline-block py-6 lg:text-2xl text-xs lg:font-medium cursor-pointer`} onClick={() => selectChat(conversation._id, conversation.userName)}>
+              <div className={`${selectedChatName === conversation.userName ? 'text-teal-900 font-bold' : ''} text-neutral-900 hover:text-teal-900 relative inline-block py-6 lg:text-2xl text-xs lg:font-medium cursor-pointer`} onClick={() => selectChat(conversation._id, conversation.userName)}>
                 <h3>{conversation.userName}</h3>
               </div>
             </div>
@@ -52,7 +52,7 @@ const ChatList = () => {
         </li>
       </ul>
 
-      <div className={`${selectedChat ? 'bg-zinc-900': ''} w-5/6 right-0 absolute`}>
+      <div className={`${selectedChat ? 'bg-neutral-200': ''} w-5/6 right-0 absolute`}>
         {selectedChat ?
          <Chat otherUserId={selectedChat} chatName={selectedChatName} api={api} token={token} userId={userId} /> :
          null
@@ -162,17 +162,17 @@ const Chat = ({ otherUserId, api, token, userId }) => {
       <div className='h-screen flex flex-col items-stretch overflow-y-auto pt-6 scroll-smooth'>
         {Object.entries(groupedMessages).map(([date, messages], index) => (
           <div key={index} className='px-6'>
-            <h3 className="text-teal-200 lg:text-lg text-xs py-3 font-bold ml-4">{date}</h3>
+            <h3 className="text-neutral-900 lg:text-lg text-xs py-3 font-bold ml-4">{date}</h3>
             <div className='flex flex-col'>
               {messages.map((message, index) => (
                 <div 
                   key={index}
-                  className={`${message.sender._id === userId ? 'self-end bg-teal-950 text-teal-100' : 'self-start bg-cyan-950 text-cyan-100'} lg:text-lg text-xs lg:w-fit lg:max-w-2xl w-fit max-w-[10rem] justify-center items-center lg:m-6 m-2 lg:p-2 p-1 lg:rounded-xl rounded-lg break-words`}
+                  className={`${message.sender._id === userId ? 'self-end bg-teal-400 text-neutral-950' : 'self-start bg-neutral-300 text-neutral-950'} lg:text-lg text-xs lg:w-fit lg:max-w-2xl w-fit max-w-[10rem] justify-center items-center lg:m-6 m-2 lg:p-2 p-1 lg:rounded-xl rounded-lg break-words`}
                 >
                   <p>{message.text.split('\n').map((item, key) => {
                     return <span key={key}>{item}<br /></span>
                   })}</p>
-                  <p className="text-teal-200 lg:text-sm text-xs py-2">{new Date(message.createdAt).toLocaleTimeString()}</p>
+                  <p className="text-neutral-900 lg:text-sm text-xs py-2">{new Date(message.createdAt).toLocaleTimeString()}</p>
                   {message.sender._id === userId &&
                     <div className='flex justify-center'>
                       <button className="delete-button" onClick={() => deleteMessage(message._id)}>
@@ -191,9 +191,9 @@ const Chat = ({ otherUserId, api, token, userId }) => {
         ))}
         <div ref={messagesEndRef} />
       </div>
-      <div className='flex mt-2'>
+      <div className='flex justify-center items-center'>
         <textarea
-          className="outline-teal-500 bg-teal-200 focus:caret-teal-600 w-5/6 lg:ml-24 ml-4 mb-2 p-2 rounded text-neutral-900 hover:shadow-lg"
+          className="outline-teal-500 bg-teal-100 focus:caret-teal-600 w-11/12 p-2 rounded text-teal-900 hover:shadow-lg"
           value={newMessage} 
           onChange={e => setNewMessage(e.target.value)} 
           onKeyDown={handleKeydown} 

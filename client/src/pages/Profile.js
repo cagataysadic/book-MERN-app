@@ -50,7 +50,6 @@ const Profile = () => {
           new Masonry(grid, {
             itemSelector: '.profile-list-item-wrapper',
             columnWidth: '.profile-list-item-wrapper',
-            gutter: 20,
             percentPosition: true,
           });
         });
@@ -164,21 +163,21 @@ const Profile = () => {
     }
 
     return (
-        <div className="bg-zinc-900 min-h-screen lg:pt-8 pt-3 flex flex-col">
-            <h1 className="text-teal-500 text-center lg:text-4xl text-lg lg:mb-2 mb-1 mt-5 lg:mt-10">Welcome to Your Profile Page!</h1>
-            <h2 className="text-teal-500 text-center lg:text-2xl text-md lg:mb-5 mb-2 lg:mt-4 mt-2">Share a New Book</h2>
+        <div className="bg-neutral-200 min-h-screen lg:pt-8 pt-3 flex flex-col">
+            <h1 className="text-neutral-900 text-center lg:text-4xl text-lg lg:mb-2 mb-1 mt-5 lg:mt-10">Welcome to Your Profile Page!</h1>
+            <h2 className="text-neutral-900 text-center lg:text-2xl text-md lg:mb-5 mb-2 lg:mt-4 mt-2">Share a New Book</h2>
             <form className='flex flex-col items-center lg:mb-5 mb-2' onSubmit={handleSubmit}>
                 <label className='flex flex-col lg:mb-2.5 mb-1 hover:shadow-lg'>
-                    <textarea className="outline-teal-500 focus:caret-teal-600 rounded-xl bg-teal-200 text-teal-800 lg:max-w-xl max-w-md lg:p-4 p-2 lg:text-base text-sm resize-y" placeholder='Title...' value={title} maxLength={maxTitleLength} onChange={(e) => setTitle(e.target.value)} required />
+                    <textarea className="outline-teal-500 focus:caret-teal-600 rounded-xl bg-teal-200 text-teal-900 lg:max-w-xl max-w-md lg:p-4 p-2 lg:text-base text-sm resize-y" placeholder='Title...' value={title} maxLength={maxTitleLength} onChange={(e) => setTitle(e.target.value)} required />
                 </label>
                 <label className='flex flex-col lg:mb-2.5 mb-1 hover:shadow-lg'>
-                    <textarea className="outline-teal-500 focus:caret-teal-600 rounded-xl bg-teal-200 text-teal-800 lg:max-w-xl max-w-md lg:p-4 p-2 lg:text-base text-sm resize-y" placeholder='Author...' value={author} maxLength={maxAuthorLength} onChange={(e) => setAuthor(e.target.value)} required />
+                    <textarea className="outline-teal-500 focus:caret-teal-600 rounded-xl bg-teal-200 text-teal-900 lg:max-w-xl max-w-md lg:p-4 p-2 lg:text-base text-sm resize-y" placeholder='Author...' value={author} maxLength={maxAuthorLength} onChange={(e) => setAuthor(e.target.value)} required />
                 </label>
                 <label className='flex flex-col lg:mb-2.5 mb-1 hover:shadow-lg'>
-                    <textarea className="outline-teal-500 focus:caret-teal-600 rounded-xl bg-teal-200 text-teal-800 lg:max-w-xl max-w-md lg:p-4 p-2 lg:text-base text-sm resize-y" placeholder='Description...' value={description} maxLength={maxDescritionLength} onChange={(e) => setDescription(e.target.value)} required />
+                    <textarea className="outline-teal-500 focus:caret-teal-600 rounded-xl bg-teal-200 text-teal-900 lg:max-w-xl max-w-md lg:p-4 p-2 lg:text-base text-sm resize-y" placeholder='Description...' value={description} maxLength={maxDescritionLength} onChange={(e) => setDescription(e.target.value)} required />
                 </label>
                 <label className='flex flex-col lg:mb-2.5 mb-1 hover:shadow-lg'>
-                    <select value={genre} className="outline-teal-500 focus:caret-teal-600 rounded-xl bg-teal-200 text-teal-800 lg:max-w-xl max-w-md lg:p-4 p-2 lg:text-base text-sm resize-y" onChange={(e) => setGenre(e.target.value)} required>
+                    <select value={genre} className="outline-teal-500 focus:caret-teal-600 rounded-xl bg-teal-200 text-teal-900 lg:max-w-xl max-w-md lg:p-4 p-2 lg:text-base text-sm resize-y" onChange={(e) => setGenre(e.target.value)} required>
                         <option value="">Select genre...</option>
                         {genres.map((g, index) => <option key={index} values={g}>{g}</option>)}
                     </select>
@@ -188,11 +187,11 @@ const Profile = () => {
                     <button className="delete-button" type="button" onClick={handleCancelUpdate}>Cancel</button>
                 </div>
             </form>
-            <h2 className="text-center lg:text-4xl text-lg text-teal-500 lg:mb-10 mb-5">Your Previous Books</h2>
-            <ul className='books-ul list-none lg:ml-32 ml-10 grid lg:gap-5 gap-1'>
-                {sortedBooks.map((book) => (
-                    <div key={book._id} className='profile-list-item-wrapper lg:mb-5 mb-3'>
-                        <li className="bg-zinc-950 lg:rounded-xl rounded-2xl break-words lg:w-96 w-72 lg:p-3.5 p-2 transition-all duration-300 rotating-border" style={{animationName: genreAnimationName(book.genre)}}>
+            <h2 className="text-center lg:text-4xl text-lg text-neutral-900 lg:mb-10 mb-5">Your Previous Books</h2>
+            <div className="flex flex-col justify-center items-center">
+                <ul className='books-ul list-none grid grid-cols-2 lg:w-1/2 w-full'>
+                    {sortedBooks.map((book) => (
+                        <li key={book._id} className="profile-list-item-wrapper lg:mx-10 lg:my-5 mx-12 my-3 bg-neutral-300 text-neutral-900 lg:rounded-xl rounded-2xl break-words lg:w-96 w-72 lg:p-3.5 p-2 transition-all duration-300 rotating-border" style={{animationName: genreAnimationName(book.genre)}}>
                             <h3 className="lg:text-base text-sm lg:mb-2.5 mb-1">{book.title}</h3>
                             <h3 className="lg:text-sm text-xs lg:mb-2 mb-1">{book.author}</h3>
                             <p className="lg:text-sm text-xs lg:mb-2 mb-1">{book.description}</p>
@@ -205,9 +204,9 @@ const Profile = () => {
                                 <button className="update-button" onClick={() => setUpdateBook(book)}>Update</button>
                             </div>
                         </li>
-                    </div>
-                ))}
-            </ul>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 };
