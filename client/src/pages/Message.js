@@ -11,7 +11,6 @@ const ChatList = () => {
   const [conversations, setConversations] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
   const [selectedChatName, setSelectedChatName] = useState('');
-  const [loading, setLoading] = useState(true);
 
   const location = useLocation();
   const otherUserId = location.state ? location.state.otherUserId : null;
@@ -25,10 +24,9 @@ const ChatList = () => {
     api.get('/message/conversations')
     .then(response => {
       setConversations(response.data);
-      setLoading(false);
     })
     .catch(error => console.error(error));
-  }, [token, otherUserId, location.state, api]);
+  }, [token, otherUserId, location.state, api, conversations]);
 
   const selectChat = (otherUserId, chatName) => {
     if (selectedChat === otherUserId && selectedChatName === chatName) {
@@ -42,33 +40,24 @@ const ChatList = () => {
 
   return (
     <div className="bg-neutral-200 relative flex justify-center items-center min-h-screen overflow-y-hidden">
-      {(!loading && conversations.length === 0) && (
-          <div className='mx-auto'>
-            <h1 className='text-neutral-900 text-xl text-center items-center'>You do not have any conversation. We recomment a visit to the home page</h1>
-          </div>
-        )}
-      {(!loading && conversations.length > 0) && (
-        <>
-          <ul className={`${selectedChat ? 'ml-0 bg-neutral-300' : ''} transition-colors w-1/6 mx-auto py-12 flex flex-col items-center justify-center justify-items-center h-screen`}>
-            <li>
-              {conversations.map((conversation, index) => (
-                <div key={index}>
-                  <div className={`${selectedChatName === conversation.userName ? 'text-teal-900 font-bold' : ''} text-neutral-900 hover:text-teal-900 relative inline-block py-6 lg:text-2xl text-xs lg:font-medium cursor-pointer`} onClick={() => selectChat(conversation._id, conversation.userName)}>
-                    <h3>{conversation.userName}</h3>
-                  </div>
-                </div>
-              ))}
-            </li>
-          </ul>
+      <ul className={`${selectedChat ? 'ml-0 bg-neutral-300' : ''} transition-colors w-1/6 mx-auto py-12 flex flex-col items-center justify-center justify-items-center h-screen`}>
+        <li>
+          {conversations.length > 0 ? conversations.map((conversation, index) => (
+            <div key={index}>
+              <div className={`${selectedChatName === conversation.userName ? 'text-teal-900 font-bold' : ''} text-neutral-900 hover:text-teal-900 relative inline-block py-6 lg:text-2xl text-xs lg:font-medium cursor-pointer`} onClick={() => selectChat(conversation._id, conversation.userName)}>
+                <h3>{conversation.userName}</h3>
+              </div>
+            </div>
+          )) : <div className="text-neutral-900 lg:text-xl text-sm text-center mx-1">You don't have any chat.</div>}
+        </li>
+      </ul>
 
-          <div className={`${selectedChat ? 'bg-neutral-200': ''} w-5/6 right-0 absolute`}>
-            {selectedChat ?
-            <Chat otherUserId={selectedChat} chatName={selectedChatName} api={api} token={token} userId={userId} /> :
-            null
-            }
-          </div>
-        </>
-      )}
+      <div className={`${selectedChat ? 'bg-neutral-200': ''} w-5/6 right-0 absolute`}>
+        {selectedChat ?
+        <Chat otherUserId={selectedChat} chatName={selectedChatName} api={api} token={token} userId={userId} /> :
+        null
+        }
+      </div>
     </div>
   );
 };
