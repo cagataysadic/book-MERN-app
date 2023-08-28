@@ -32,7 +32,7 @@ const Dashboard = () => {
         setGenres(uniqueGenres);
     };
     fetchBooks();
-}, [setGenres]);
+}, [genres]);
 
   const handleDeleteAccount = async () => {
     setIsModalOpen(true);
@@ -71,20 +71,18 @@ const Dashboard = () => {
           <div className="relative flex items-center transition-colors duration-300 ease-in-out"
             onMouseEnter={() => setIsGenresDropdownVisible(true)}
             onMouseLeave={() => setIsGenresDropdownVisible(false)}>
-            <Link to='/' className="text-neutral-900 hover:text-teal-800 lg:text-lg text-sm transition-colors">Genres</Link>
+            <Link to='/' className="text-neutral-900 relative hover:text-teal-800 lg:text-lg text-sm transition-colors">Genres</Link>
             {isGenresDropdownVisible && (
-              <div className="bg-teal-200 absolute left-1/2 transform -translate-x-1/2 lg:mt-64 mt-36 lg:text-lg text-sm whitespace-nowrap z-5 flex flex-col rounded-md items-center lg:pb-3 pb-1">
-                <ul>
+              <div className="bg-teal-200 absolute left-1/2 transform -translate-x-1/2 top-full lg:text-lg text-sm whitespace-nowrap z-5 flex flex-col rounded-md items-center lg:pb-3 pb-1">
                   {genres.map((genre, index) => (
-                      <li
+                      <div
                           key={index}
                           className={`text-neutral-900 hover:text-teal-800 cursor-pointer flex flex-col items-center transition-colors break-words lg:px-4 lg:pt-2 ${selectedGenre === genre ? 'text-teal-900' : ''}`}
                           onClick={() => handleGenreClick(genre)}
                       >
                           {genre}
-                      </li>
+                      </div>
                       ))}
-                  </ul>
               </div>
             )}
           </div>
