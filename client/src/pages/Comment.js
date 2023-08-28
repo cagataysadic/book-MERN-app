@@ -34,7 +34,7 @@ const Comment = ({ comment, postId, refreshComments, userId, api }) => {
     const currentUserId = userId;
 
   return (
-    <div className="bg-neutral-400 border-2 border-teal-900 p-2 rounded-lg lg:mb-5 mb-2 flex flex-col flex-grow">
+    <div className="bg-neutral-300 border-2 border-teal-900 p-2 rounded-lg lg:mb-5 mb-2 flex flex-col flex-grow">
         {isEditing ? (
             <>
                 <textarea 

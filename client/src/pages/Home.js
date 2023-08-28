@@ -101,7 +101,7 @@ const Home = () => {
     }      
 
     return (
-        <div className="bg-neutral-200 min-h-screen lg:pt-8 pt-3 flex flex-col">
+        <div className="bg-neutral-100 min-h-screen lg:pt-8 pt-3 flex flex-col">
             <div className="lg:my-4 py-12 flex justify-center">
                 <img src={backgroundImage} alt="background for the home page" />
             </div>
@@ -113,7 +113,7 @@ const Home = () => {
             <ul className="list-masonry mx-auto">
                 {sortedBooks.map((book) => (
                     <div key={book._id} className='list-item-wrapper'>
-                        <li className="bg-neutral-300 text-neutral-900 lg:rounded-xl rounded-2xl break-words lg:w-96 w-72 lg:p-3.5 p-2 transition-all duration-300 rotating-border"
+                        <li className="bg-neutral-200 text-neutral-900 lg:rounded-xl rounded-2xl break-words lg:w-96 w-72 lg:p-3.5 p-2 transition-all duration-300 rotating-border"
                             style={{animationName: genreAnimationName(book.genre)}}
                         >
                             <h3 className="lg:text-base text-center text-sm break-all">{book.title}</h3>

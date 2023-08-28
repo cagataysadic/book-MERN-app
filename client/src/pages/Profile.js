@@ -163,7 +163,7 @@ const Profile = () => {
     }
 
     return (
-        <div className="bg-neutral-200 min-h-screen lg:pt-8 pt-3 flex flex-col">
+        <div className="bg-neutral-100 min-h-screen lg:pt-8 pt-3 flex flex-col">
             <h1 className="text-neutral-900 text-center lg:text-4xl text-lg lg:mb-2 mb-1 mt-5 lg:mt-10">Welcome to Your Profile Page!</h1>
             <h2 className="text-neutral-900 text-center lg:text-2xl text-md lg:mb-5 mb-2 lg:mt-4 mt-2">Share a New Book</h2>
             <form className='flex flex-col items-center lg:mb-5 mb-2' onSubmit={handleSubmit}>

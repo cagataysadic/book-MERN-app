@@ -122,7 +122,7 @@ const AccountSettings = () => {
     };
 
     return (
-        <div className="bg-neutral-200 flex lg:flex-row flex-col gap-8 justify-around items-center min-h-screen p-8">
+        <div className="bg-neutral-100 flex lg:flex-row flex-col gap-8 justify-around items-center min-h-screen p-8">
             {errorMessage && (
                 <div className="bg-red-600 text-stone-100 fixed top-16 right-6 py-2 px-4 rounded-xl text-base z-40" ref={errorPopupRef}>
                     {errorMessage}

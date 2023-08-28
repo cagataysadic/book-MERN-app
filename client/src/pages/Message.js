@@ -39,7 +39,7 @@ const ChatList = () => {
   };
 
   return (
-    <div className="bg-neutral-200 relative flex justify-center items-center min-h-screen overflow-y-hidden">
+    <div className="bg-neutral-100 relative flex justify-center items-center min-h-screen overflow-y-hidden">
       <ul className={`${selectedChat ? 'ml-0 bg-neutral-300' : ''} transition-colors w-1/6 mx-auto py-12 flex flex-col items-center justify-center justify-items-center h-screen`}>
         <li>
           {conversations.length > 0 ? conversations.map((conversation, index) => (
@@ -196,7 +196,7 @@ const Chat = ({ otherUserId, api, token, userId }) => {
           className="outline-teal-500 bg-teal-100 focus:caret-teal-600 w-11/12 p-2 rounded text-teal-900 hover:shadow-lg"
           value={newMessage} 
           onChange={e => setNewMessage(e.target.value)} 
-          onKeyDown={handleKeydown} 
+          onKeyDown={handleKeydown}
           />
         <button className="message-button" onClick={sendMessage}>
           <span></span>

@@ -87,7 +87,7 @@ const Register = () => {
     };
 
     return (
-        <div className="bg-neutral-200 flex justify-center items-center min-h-screen">
+        <div className="bg-neutral-100 flex justify-center items-center min-h-screen">
             {errorMessage && (
                 <div className="bg-red-600 text-stone-100 fixed top-16 right-5 rounded-xl py-2 px-3 text-base z-40" ref={errorPopupRef}>
                     {errorMessage}

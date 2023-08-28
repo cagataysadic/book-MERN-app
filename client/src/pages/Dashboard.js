@@ -64,7 +64,7 @@ const Dashboard = () => {
 
   return (
     <div className="fixed w-full z-50">
-      <div className="bg-teal-300 lg:py-2.5 py-1">
+      <div className="bg-teal-200 lg:py-2.5 py-1">
         <div className="lg:w-1/3 flex justify-around items-center mx-auto">
           <Link to='/' className="text-neutral-900 hover:text-teal-800 lg:text-lg text-sm transition-colors">Home</Link>
           <Link to='/forum' className="text-neutral-900 hover:text-teal-800 lg:text-lg text-sm transition-colors">Forum</Link>
@@ -73,7 +73,7 @@ const Dashboard = () => {
             onMouseLeave={() => setIsGenresDropdownVisible(false)}>
             <Link to='/' className="text-neutral-900 hover:text-teal-800 lg:text-lg text-sm transition-colors">Genres</Link>
             {isGenresDropdownVisible && (
-              <div className="bg-teal-300 absolute left-1/2 transform -translate-x-1/2 lg:mt-64 mt-36 lg:text-lg text-sm whitespace-nowrap z-5 flex flex-col rounded-md items-center lg:pb-3 pb-1">
+              <div className="bg-teal-200 absolute left-1/2 transform -translate-x-1/2 lg:mt-64 mt-36 lg:text-lg text-sm whitespace-nowrap z-5 flex flex-col rounded-md items-center lg:pb-3 pb-1">
                 <ul>
                   {genres.map((genre, index) => (
                       <li
@@ -104,7 +104,7 @@ const Dashboard = () => {
               onMouseLeave={() => setIsProfileDropdownVisible(false)}>
               <Link to='/profile' className="text-neutral-900 hover:text-teal-800 lg:text-lg text-sm transition-colors">Profile</Link>
               {isProfileDropdownVisible && (
-                <div className="bg-teal-300 absolute left-1/2 transform -translate-x-1/2 lg:mt-60 mt-32 lg:text-lg text-sm whitespace-nowrap z-5 flex flex-col rounded-md items-center lg:pb-5 pb-1">
+                <div className="bg-teal-200 absolute left-1/2 transform -translate-x-1/2 lg:mt-60 mt-32 lg:text-lg text-sm whitespace-nowrap z-5 flex flex-col rounded-md items-center lg:pb-5 pb-1">
                   <Link onClick={handleDeleteAccount} className="text-neutral-900 hover:text-teal-800 lg:px-4 lg:pt-4 px-1 pt-1">Delete Account</Link>
                   <Link to='/chat' className="text-neutral-900 hover:text-teal-800 lg:px-4 lg:pt-6 px-1 pt-2">Chat</Link>
                   <Link onClick={handleLogout} className="text-neutral-900 hover:text-teal-800 lg:px-4 lg:pt-6 px-1 pt-2">Logout</Link>

@@ -133,7 +133,7 @@ const Forum = () => {
       });
 
     return (
-        <div className="bg-neutral-200  min-h-screen lg:pt-8 pt-3 flex flex-col">
+        <div className="bg-neutral-100  min-h-screen lg:pt-8 pt-3 flex flex-col">
             <div className="lg:my-4 py-12 flex justify-center">
                 <img src={forumBackgroundImage} alt="background for the forum page" />
             </div>
@@ -174,7 +174,7 @@ const Forum = () => {
                             .filter((post) => post.userId.userName.toLowerCase().includes(search.toLocaleLowerCase()))
                             .map((post) => (
                                 <div key={post._id} className='list-item-wrapper'>
-                                    <li className="bg-neutral-300 text-neutral-900 lg:rounded-xl rounded-2xl break-words lg:w-96 w-72 lg:p-3.5 p-2 transition-all duration-300 rotating-border" style={{animationName: 'rotateDefaultColor'}}>
+                                    <li className="bg-neutral-200 text-neutral-900 lg:rounded-xl rounded-2xl break-words lg:w-96 w-72 lg:p-3.5 p-2 transition-all duration-300 rotating-border" style={{animationName: 'rotateDefaultColor'}}>
                                         {post.userId._id === userId ? (
                                             <>
                                             <h3 className="lg:text-xl text-sm lg:mb-2.5 mb-1">{post.postText}</h3>
