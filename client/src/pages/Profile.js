@@ -191,7 +191,7 @@ const Profile = () => {
             <div className="flex flex-col justify-center items-center">
                 <ul className='books-ul list-none grid grid-cols-2 lg:w-1/2 w-full'>
                     {sortedBooks.map((book) => (
-                        <li key={book._id} className="profile-list-item-wrapper lg:mx-10 lg:my-5 mx-12 my-3 bg-neutral-300 text-neutral-900 lg:rounded-xl rounded-2xl break-words lg:w-96 w-72 lg:p-3.5 p-2 transition-all duration-300 rotating-border" style={{animationName: genreAnimationName(book.genre)}}>
+                        <li key={book._id} className="profile-list-item-wrapper lg:mx-10 lg:my-5 mx-12 my-3 bg-neutral-200 text-neutral-900 lg:rounded-xl rounded-2xl break-words lg:w-96 w-72 lg:p-3.5 p-2 transition-all duration-300 rotating-border" style={{animationName: genreAnimationName(book.genre)}}>
                             <h3 className="lg:text-base text-sm lg:mb-2.5 mb-1">{book.title}</h3>
                             <h3 className="lg:text-sm text-xs lg:mb-2 mb-1">{book.author}</h3>
                             <p className="lg:text-sm text-xs lg:mb-2 mb-1">{book.description}</p>
