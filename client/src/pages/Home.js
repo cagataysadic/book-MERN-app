@@ -106,7 +106,7 @@ const Home = () => {
                 <img src={backgroundImage} alt="background for the home page" />
             </div>
             <div className="flex justify-center mb-5">
-                <input type="text" onChange={(e) => setSearch(e.target.value)} className="focus:caret-teal-600 outline-teal-600 outline-8 bg-teal-200 text-teal-800' lg:w-full lg:max-w-xl w-64 p-1 lg:text-base text-sm lg:rounded-xl rounded-md hover:shadow-lg lg:hover:shadow-lg"/>
+                <input type="text" placeholder="Type for search..." onChange={(e) => setSearch(e.target.value)} className="focus:caret-teal-600 outline-teal-600 outline-8 bg-teal-200 text-teal-800 placeholder:text-teal-800 lg:w-full lg:max-w-xl w-64 p-1 lg:text-base text-sm lg:rounded-xl rounded-md hover:shadow-lg lg:hover:shadow-lg"/>
             </div>
             <h1 className="text-center lg:text-4xl text-md text-neutral-900 lg:mb-2 mb-1 lg:mt-5 mt-2">Welcome</h1>
             {sortedBooks && sortedBooks.length > 0 && (
