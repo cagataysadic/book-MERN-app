@@ -52,7 +52,7 @@ const ChatList = () => {
         </li>
       </ul>
 
-      <div className={`${selectedChat ? 'bg-neutral-200': ''} w-5/6 right-0 absolute`}>
+      <div className={`${selectedChat ? 'bg-neutral-100': ''} w-5/6 right-0 absolute`}>
         {selectedChat ?
         <Chat otherUserId={selectedChat} chatName={selectedChatName} api={api} token={token} userId={userId} /> :
         null

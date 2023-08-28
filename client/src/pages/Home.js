@@ -102,14 +102,16 @@ const Home = () => {
 
     return (
         <div className="bg-neutral-100 min-h-screen lg:pt-8 pt-3 flex flex-col">
-            <div className="lg:my-4 py-12 flex justify-center">
+            <div className="my-8 flex justify-center">
                 <img src={backgroundImage} alt="background for the home page" />
             </div>
             <div className="flex justify-center mb-5">
                 <input type="text" onChange={(e) => setSearch(e.target.value)} className="focus:caret-teal-600 outline-teal-600 outline-8 bg-teal-200 text-teal-800' lg:w-full lg:max-w-xl w-64 p-1 lg:text-base text-sm lg:rounded-xl rounded-md hover:shadow-lg lg:hover:shadow-lg"/>
             </div>
             <h1 className="text-center lg:text-4xl text-md text-neutral-900 lg:mb-2 mb-1 lg:mt-5 mt-2">Welcome</h1>
-            <h2 className="text-center lg:text-2xl text-sm text-neutral-900 lg:mb-7 mb-2">Our Books:</h2>
+            {sortedBooks && sortedBooks.length > 0 && (
+                <h2 className="text-center lg:text-2xl text-sm text-neutral-900 lg:mb-7 mb-2">Our Books:</h2>
+            )}
             <ul className="list-masonry mx-auto">
                 {sortedBooks.map((book) => (
                     <div key={book._id} className='list-item-wrapper'>

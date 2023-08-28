@@ -134,13 +134,13 @@ const Forum = () => {
 
     return (
         <div className="bg-neutral-100  min-h-screen lg:pt-8 pt-3 flex flex-col">
-            <div className="lg:my-4 py-12 flex justify-center">
+            <div className="my-8 flex justify-center">
                 <img src={forumBackgroundImage} alt="background for the forum page" />
             </div>
             <div className="flex justify-center mb-5">
                 <input type="text" className="outline-teal-500 focus:caret-teal-600 bg-teal-200 lg:w-96 w-64 lg:h-10 h-8 p-2 lg:text-base text-sm rounded-xl text-teal-800 placeholder:text-teal-800 hover:shadow-lg hover:shadow-teal-300" placeholder="looking for a specific user..." onChange={(e) => setSearch(e.target.value)} />
             </div>
-            <h1 className="text-neutral-900 text-center lg:text-4xl text-xl lg:mt-10 mt-5">Welcome</h1>
+            <h1 className="text-neutral-900 text-center lg:text-4xl text-xl">Welcome</h1>
             {((!loading && posts.length <= 8) || showCreateForum) && (
                 <div className='sticky lg:inset-y-12 inset-y-4 mx-auto w-fit lg:p-5 pt-6 rounded z-40'>
                     <h2 className="text-neutral-900 lg:text-2xl text-md items-center text-center lg:mb-6 mb-2 opacity-80">{updatePost ? "Update Post" : "Create a new post"}</h2>
@@ -167,49 +167,51 @@ const Forum = () => {
                     </form>
                 </div>
             )}
-            <h2 className="text-neutral-900 text-center lg:text-2xl text-lg mt-4 mb-8">Our Current Forum Posts:</h2>
-                <div className="list-masonry mx-auto">
-                    {sortedPosts &&
-                        sortedPosts
-                            .filter((post) => post.userId.userName.toLowerCase().includes(search.toLocaleLowerCase()))
-                            .map((post) => (
-                                <div key={post._id} className='list-item-wrapper'>
-                                    <li className="bg-neutral-200 text-neutral-900 lg:rounded-xl rounded-2xl break-words lg:w-96 w-72 lg:p-3.5 p-2 transition-all duration-300 rotating-border" style={{animationName: 'rotateDefaultColor'}}>
-                                        {post.userId._id === userId ? (
-                                            <>
-                                            <h3 className="lg:text-xl text-sm lg:mb-2.5 mb-1">{post.postText}</h3>
-                                            <button
-                                            className="update-button"
-                                            onClick={() => handlePostUpdate(post)}
-                                            >
-                                                <span></span>
-                                                <span></span>
-                                                <span></span>
-                                                <span></span>
-                                            Update
-                                            </button>
-                                            <button
-                                            className="delete-button"
-                                            onClick={() => handlePostDelete(post._id)}
-                                            >
-                                            <span></span>
-                                            <span></span>
-                                            <span></span>
-                                            <span></span>
-                                            Delete
-                                            </button>
-                                        </>
-                                        ) : (
+            {sortedPosts && sortedPosts.length > 0 && (
+                <h2 className="text-neutral-900 text-center lg:text-2xl text-lg mt-4 mb-8">Our Current Forum Posts:</h2>
+            )}
+            <div className="list-masonry mx-auto">
+                {sortedPosts &&
+                    sortedPosts
+                        .filter((post) => post.userId.userName.toLowerCase().includes(search.toLocaleLowerCase()))
+                        .map((post) => (
+                            <div key={post._id} className='list-item-wrapper'>
+                                <li className="bg-neutral-200 text-neutral-900 lg:rounded-xl rounded-2xl break-words lg:w-96 w-72 lg:p-3.5 p-2 transition-all duration-300 rotating-border" style={{animationName: 'rotateDefaultColor'}}>
+                                    {post.userId._id === userId ? (
+                                        <>
                                         <h3 className="lg:text-xl text-sm lg:mb-2.5 mb-1">{post.postText}</h3>
-                                        )}
-                                        <p className="lg:text-lg text-xs lg:mb-2.5 mb-1">{post.userId.userName}</p>
-                                        <p className="text-xs lg:mb-2.5 mb-1">Created At: {formatDate(post.createdAt)}</p>
-                                        {post.updatedAt && <p className="text-xs lg:mb-2.5 mb-1">Updated At: {formatDate(post.updatedAt)}</p>}
-                                        <CommentsSection postId={post._id} />
-                                    </li>
-                                </div>
-                            ))}
-                </div>
+                                        <button
+                                        className="update-button"
+                                        onClick={() => handlePostUpdate(post)}
+                                        >
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        Update
+                                        </button>
+                                        <button
+                                        className="delete-button"
+                                        onClick={() => handlePostDelete(post._id)}
+                                        >
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        Delete
+                                        </button>
+                                    </>
+                                    ) : (
+                                    <h3 className="lg:text-xl text-sm lg:mb-2.5 mb-1">{post.postText}</h3>
+                                    )}
+                                    <p className="lg:text-lg text-xs lg:mb-2.5 mb-1">{post.userId.userName}</p>
+                                    <p className="text-xs lg:mb-2.5 mb-1">Created At: {formatDate(post.createdAt)}</p>
+                                    {post.updatedAt && <p className="text-xs lg:mb-2.5 mb-1">Updated At: {formatDate(post.updatedAt)}</p>}
+                                    <CommentsSection postId={post._id} />
+                                </li>
+                            </div>
+                        ))}
+            </div>
         </div>
     );
 }
