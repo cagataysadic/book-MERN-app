@@ -26,30 +26,19 @@ const Profile = () => {
     
     useEffect(() => {
         const fetchBooks = async () => {
-            if (!api) {
-                console.log('API not initialized');
-                return;
-            }
-            try {
-                const response = await api.get('/book');
-                setBooks(response.data);
-            } catch (err) {
-                console.log('Error fetching books:', err);
-            }
+            const response = await api.get('/book');
+            setBooks(response.data); 
         };
-
-        if (api) {
-            fetchBooks();
-        };
-
-    }, [token, api]);
+        fetchBooks();
+    }, [api]);
 
     const initMasonry = (selector) => {
         const grid = document.querySelector(selector);
         imagesLoaded(grid, function () {
           new Masonry(grid, {
-            itemSelector: '.profile-list-item-wrapper',
-            columnWidth: '.profile-list-item-wrapper',
+            itemSelector: '.list-item-wrapper',
+            columnWidth: '.list-item-wrapper',
+            gutter: 20,
             percentPosition: true,
           });
         });
@@ -58,11 +47,11 @@ const Profile = () => {
     // For notices
     useEffect(() => {
         if (books.length > 0) {
-        initMasonry('.books-ul');
+        initMasonry('.list-masonry');
         }
     
-        const observer = new MutationObserver(() => initMasonry('.books-ul'));
-        observer.observe(document.querySelector('.books-ul'), {
+        const observer = new MutationObserver(() => initMasonry('.list-masonry'));
+        observer.observe(document.querySelector('.list-masonry'), {
         childList: true,
         subtree: true,
         });
@@ -188,25 +177,27 @@ const Profile = () => {
                 </div>
             </form>
             <h2 className="text-center lg:text-4xl text-lg text-neutral-900 lg:mb-10 mb-5">Your Previous Books</h2>
-            <div className="flex flex-col justify-center items-center">
-                <ul className='books-ul list-none grid grid-cols-2 lg:w-1/2 w-full'>
-                    {sortedBooks.map((book) => (
-                        <li key={book._id} className="profile-list-item-wrapper lg:mx-10 lg:my-5 mx-12 my-3 bg-neutral-200 text-neutral-900 lg:rounded-xl rounded-2xl break-words lg:w-96 w-72 lg:p-3.5 p-2 transition-all duration-300 rotating-border" style={{animationName: genreAnimationName(book.genre)}}>
-                            <h3 className="lg:text-base text-sm lg:mb-2.5 mb-1">{book.title}</h3>
+            <ul className="list-masonry mx-auto">
+                {sortedBooks.map((book) => (
+                    <div key={book._id} className='list-item-wrapper'>
+                        <li className="bg-neutral-200 text-neutral-900 lg:rounded-xl rounded-2xl break-words lg:w-96 w-72 lg:p-3.5 p-2 transition-all duration-300 rotating-border"
+                            style={{animationName: genreAnimationName(book.genre)}}
+                        >
+                            <h3 className="lg:text-base text-center text-sm break-all">{book.title}</h3>
                             <h3 className="lg:text-sm text-xs lg:mb-2 mb-1">{book.author}</h3>
                             <p className="lg:text-sm text-xs lg:mb-2 mb-1">{book.description}</p>
                             <h3 className="lg:text-sm text-xs lg:mb-2 mb-1">{book.genre}</h3>
                             <p className="lg:text-lg text-xs lg:mb-2 mb-1">{book.userId.userName}</p>
-                            <p className="text-xs lg:mb-2 mb-1">Created at: {formatDate(book.createdAt)}</p>
-                            {book.updatedAt && <p className="text-xs lg:mb-2.5 mb-1">Updated at: {formatDate(book.updatedAt)}</p>}
+                            <p className="text-xs lg:mb-2 mb-1">Created At: {formatDate(book.createdAt)}</p>
+                            {book.updatedAt && <p className="text-xs lg:mb-2 mb-1">updated At: {formatDate(book.updatedAt)}</p>}
                             <div className='flex justify-center'>
                                 <button className="delete-button" onClick={() => handleDelete(book._id)}>Delete</button>
                                 <button className="update-button" onClick={() => setUpdateBook(book)}>Update</button>
                             </div>
                         </li>
-                    ))}
-                </ul>
-            </div>
+                    </div>
+                ))}
+            </ul>
         </div>
     );
 };

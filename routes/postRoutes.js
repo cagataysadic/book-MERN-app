@@ -10,15 +10,6 @@ router.get('/every', async (req, res) => {
   res.status(200).json(posts);
 })
 
-router.get('/', authenticateToken, async (req, res) => {
-  try {
-    const posts = await Post.find({ userId: req.user.userId }).populate('userId', 'userName')
-    res.status(200).json(posts);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
 router.post('/', authenticateToken, async (req, res) => {
   const {postText } = req.body;
   const user = await User.findById(req.user.userId)

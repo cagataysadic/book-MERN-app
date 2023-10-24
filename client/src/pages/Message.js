@@ -37,6 +37,7 @@ const ChatList = () => {
       setSelectedChatName(chatName);
     }
   };
+  
 
   return (
     <div className="bg-neutral-100 relative flex justify-center items-center min-h-screen overflow-y-hidden">
@@ -151,6 +152,7 @@ const Chat = ({ otherUserId, api, token, userId }) => {
       sendMessage();
     }
   };
+  
 
 
   if (loading) {

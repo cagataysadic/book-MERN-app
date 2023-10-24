@@ -36,7 +36,7 @@ const CommentsSection = ({ postId }) => {
                 setNewComment('');
                 fetchComments();
         } else {
-            navigate('/giris');
+            navigate('/login');
         }
     };
 

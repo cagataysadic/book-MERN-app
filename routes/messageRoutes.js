@@ -6,7 +6,6 @@ const authenticateToken = require('../middlewares/authenticateToken');
 const socketManager = require('../socketManager');
 const router = express.Router();
 
-// Get all conversations for the logged-in user
 router.get('/conversations', authenticateToken, async (req, res) => {
     try {
         const conversations = await Message.find({
@@ -15,8 +14,7 @@ router.get('/conversations', authenticateToken, async (req, res) => {
                 { 'receiver': req.user.userId }
             ]
         })
-        .sort('-createdAt') // sort by creation time in descending order
-        // Simplify conversations to only include unique conversations
+        .sort('-createdAt')
         const uniqueConversations = [...new Set(conversations.map(c => {
             return c.sender.equals(req.user.userId) ? c.receiver.toString() : c.sender.toString()
         }))];
@@ -34,7 +32,6 @@ router.get('/conversations', authenticateToken, async (req, res) => {
     }
 });
 
-// Get messages in a conversation between the logged-in user and another specific user
 router.get('/conversations/:otherUserId', authenticateToken, async (req, res) => {
     console.log('Inside /conversations/:otherUserId route');
     console.log('Logged-in user ID:', req.user.userId);
@@ -47,7 +44,7 @@ router.get('/conversations/:otherUserId', authenticateToken, async (req, res) =>
             ]
         })
         .populate('sender receiver', 'userName')
-        .sort('createdAt') // sort by creation time in ascending order
+        .sort('createdAt')
 
         console.log('Messages:', messages);
         res.json(messages);
